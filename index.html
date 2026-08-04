@@ -920,7 +920,7 @@ const STORAGE_KEY='toner_kanban_state_v1';
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-07-29T10:28:22.000Z';
+const BUILD_VERSION='2026-08-04T16:10:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -1827,8 +1827,18 @@ function hasPendingLeadChanges(){
     return !b||!deepEqual(l,b.data);
   });
 }
+// Flag: verhindert dass scheduleSbPush() einen Upload startet bevor der initiale
+// Sync den aktuellen Server-Stand geladen hat. Ohne diesen Schutz koennte ein
+// veralteter localStorage-Stand in die DB geschrieben werden, bevor der frische
+// Server-Stand angekommen ist (genau das hat heute den Datenverlust verursacht).
+let sbInitialSyncDone=false;
 function scheduleSbPush(){
   markPendingPush();
+  if(!sbInitialSyncDone){
+    // Initialer Sync noch nicht abgeschlossen - Push wird ignoriert.
+    // syncMerge()/syncLeadsLayer() am Ende von sbInitialSync() uebernehmen das.
+    return;
+  }
   clearTimeout(sbPushTimer);
   // 3s statt vorher 1,5s Verzoegerung: mehrere schnelle Aenderungen (z.B. mehrere
   // Formularfelder direkt hintereinander) werden dadurch haeufiger zu EINEM einzigen
@@ -3947,26 +3957,64 @@ function renderActivityTrendChart(entries){
   const avgPerDay=(total/buckets.length).toFixed(1);
   const periodBtns=[['7','7 Tage'],['30','30 Tage'],['90','90 Tage'],['all','Alle']]
     .map(([v,l])=>`<span class="chip ${activityPeriod===v?'active':''}" onclick="setActivityFilter('period','${v}')">${l}</span>`).join('');
-  // Punkte je Tag: ein kleiner sichtbarer Punkt + eine groessere unsichtbare Trefferflaeche fuer den Hover-Tooltip
+  // Eindeutige ID pro Render fuer die CSS-Animation (damit bei Daten-Aenderung
+  // nur der neue Abschnitt animiert wird, nicht die ganze Linie neu aufbaut –
+  // wir erzeugen einfach eine neue SVG-ID, was den Dashoffset-Reset auslöst)
+  const chartId='actChart_'+Date.now();
+  // Gesamtlaenge der Linie schaetzen (Pythagoras ueber alle Segmente)
+  let lineLen=0;
+  for(let i=1;i<pts.length;i++){
+    const dx=pts[i][0]-pts[i-1][0], dy=pts[i][1]-pts[i-1][1];
+    lineLen+=Math.sqrt(dx*dx+dy*dy);
+  }
+  lineLen=Math.ceil(lineLen)+10;
+  // Daten im globalen Cache speichern statt als JSON-Attribut im HTML
+  // (JSON.stringify erzeugt doppelte Anführungszeichen die HTML-Attribute brechen)
+  if(!window.__actChartData)window.__actChartData={};
+  window.__actChartData[chartId]={
+    pts:pts,
+    buckets:buckets.map(b=>({d:fmtDate(b.key),c:b.count}))
+  };
+  // Transparentes Overlay-Rect fuer Mousemove-Crosshair (deckt den Plot ab)
+  const overlayRect=`<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" fill="transparent"
+    onmousemove="actChartMousemove(event,this,'${chartId}')"
+    onmouseleave="actChartMouseleave('${chartId}')"/>`;
+  // Punkte bleiben als kleine Kreise sichtbar, aber ohne Hover-Events (jetzt ueber Overlay)
   const dotsHtml=buckets.map((b,i)=>{
     const [x,y]=pts[i];
-    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8" fill="transparent" style="cursor:pointer" onmouseenter="showActivityTooltip(this,'${fmtDate(b.key)}',${b.count})" onmouseleave="hideActivityTooltip()"/>
-      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="var(--purple)" style="pointer-events:none"/>`;
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="var(--purple)" style="pointer-events:none"/>`;
   }).join('');
   return `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
       <div class="section-hdr" style="margin-top:0">Aktivitäten pro Tag <span style="font-weight:400;color:var(--text3);font-size:11px">Gesamt: ${total} · Ø ${avgPerDay}/Tag</span></div>
       <div style="display:flex;gap:8px">${periodBtns}</div>
     </div>
-    <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:180px;display:block;overflow:visible">
-      <defs><linearGradient id="actTrendGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.28"/>
-        <stop offset="100%" stop-color="var(--purple)" stop-opacity="0.02"/>
-      </linearGradient></defs>
+    <svg id="${chartId}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:180px;display:block;overflow:visible">
+      <defs>
+        <linearGradient id="actTrendGrad_${chartId}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="var(--purple)" stop-opacity="0.02"/>
+        </linearGradient>
+        <style>
+          #${chartId} .act-line-draw {
+            stroke-dasharray: ${lineLen};
+            stroke-dashoffset: ${lineLen};
+            animation: actLineDraw_${chartId} 1s ease-out forwards;
+          }
+          #${chartId} .act-area-fade {
+            opacity: 0;
+            animation: actAreaFade_${chartId} 0.5s ease-out 0.7s forwards;
+          }
+          @keyframes actLineDraw_${chartId} { to { stroke-dashoffset: 0; } }
+          @keyframes actAreaFade_${chartId} { to { opacity: 1; } }
+        </style>
+      </defs>
       <line x1="${padL}" y1="${padT+plotH}" x2="${padL+plotW}" y2="${padT+plotH}" stroke="var(--border)" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <path d="${areaPath}" fill="url(#actTrendGrad)"/>
-      <path d="${linePath}" fill="none" stroke="var(--purple)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <path class="act-area-fade" d="${areaPath}" fill="url(#actTrendGrad_${chartId})"/>
+      <path class="act-line-draw" d="${linePath}" fill="none" stroke="var(--purple)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      <line id="${chartId}_crosshair" x1="0" y1="${padT}" x2="0" y2="${padT+plotH}" stroke="var(--purple)" stroke-width="1" stroke-dasharray="4 3" opacity="0" vector-effect="non-scaling-stroke" style="pointer-events:none"/>
       ${dotsHtml}
+      ${overlayRect}
     </svg>
     <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:4px">
       <span>${fmtDate(buckets[0].key)}</span>
@@ -4752,7 +4800,7 @@ function onCardDrop(e,targetId){
   }
   if(dragged.status!==target.status){
     const oldName=colById(dragged.status).name,newName=colById(target.status).name;
-    dragged.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${oldName} → ${newName}`,date:nowISO()});
+    const _bact1={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${oldName} → ${newName}`,date:nowISO()};dragged.activity.unshift(_bact1);pushActivityToDb(dragged.id,_bact1);
     trackClosedStage(dragged,dragged.status,target.status);trackStatusSince(dragged,dragged.status,target.status);maybeSendListNotification(dragged,dragged.status,target.status);
   }
   dragged.status=target.status;
@@ -4795,7 +4843,7 @@ function onDrop(e,colId){
       return;
     }
     const oldName=colById(l.status).name,newName=colById(colId).name;
-    l.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${oldName} → ${newName}`,date:nowISO()});
+    const _bact2={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${oldName} → ${newName}`,date:nowISO()};l.activity.unshift(_bact2);pushActivityToDb(l.id,_bact2);
     trackClosedStage(l,l.status,colId);trackStatusSince(l,l.status,colId);maybeSendListNotification(l,l.status,colId);
     l.status=colId;
     l.order=Date.now();
@@ -4902,7 +4950,7 @@ function deleteColumn(id){
   if(!confirm(msg))return;
   leadsInCol.forEach(l=>{
     l.status=otherCol.id;
-    l.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${col.name} → ${otherCol.name} (Liste gelöscht)`,date:nowISO()});
+    const _bact3={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${col.name} → ${otherCol.name} (Liste gelöscht)`,date:nowISO()};l.activity.unshift(_bact3);pushActivityToDb(l.id,_bact3);
   });
   COLUMNS=COLUMNS.filter(c=>c.id!==id);
   colMenuOpenId=null;
@@ -4973,6 +5021,56 @@ function onColDragEnd(e){
 // direkt in den echten Lead-Datensatz + localStorage, unabhängig vom "Speichern"-Button.
 // Gilt nur für bereits existierende Leads - ein neuer, noch nicht gespeicherter Lead
 // bekommt erst beim ersten "Speichern" eine ID.
+// ── LEAD_ACTIVITIES: Aktivitäten direkt in eigene Tabelle schreiben ──
+// Ab sofort werden neue Aktivitäten und Kommentare ZUSÄTZLICH in die separate
+// lead_activities-Tabelle geschrieben. Der Lead-JSON enthält die Aktivitäten
+// weiterhin (für Rückwärtskompatibilität und Offline), aber der primäre
+// Datenspeicher ist jetzt lead_activities - damit kein Lead-Save mehr
+// Aktivitäten eines anderen Nutzers überschreiben kann.
+async function pushActivityToDb(leadId, activityObj){
+  if(!isSbSessionValid())return; // offline - kein Push möglich
+  try{
+    await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/lead_activities`,{
+      method:'POST',
+      headers:Object.assign({},getSbHeaders(),{'Prefer':'resolution=merge-duplicates,return=minimal'}),
+      body:JSON.stringify({
+        lead_id:String(leadId),
+        type:activityObj.type||'activity',
+        author:activityObj.author||currentUser,
+        text:activityObj.text||'',
+        date:activityObj.date||nowISO(),
+        backdated:!!activityObj.backdated,
+        extra:JSON.stringify({id:activityObj.id})
+      })
+    },8000);
+  }catch(e){
+    console.warn('pushActivityToDb fehlgeschlagen (wird beim nächsten Sync nachgeholt):',e);
+  }
+}
+// Lädt alle Aktivitäten aus lead_activities für einen Lead und merged sie mit
+// den im JSON gespeicherten (Rückwärtskompatibilität mit alten Einträgen).
+async function fetchActivitiesFromDb(leadId){
+  if(!isSbSessionValid())return null;
+  try{
+    const res=await fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=eq.${leadId}&order=date.desc&limit=500`,
+      {headers:getSbHeaders()},8000
+    );
+    if(!res.ok)return null;
+    const rows=await res.json();
+    return rows.map(r=>({
+      id:r.id,
+      type:r.type,
+      author:r.author,
+      text:r.text,
+      date:r.date,
+      backdated:r.backdated
+    }));
+  }catch(e){
+    console.warn('fetchActivitiesFromDb fehlgeschlagen:',e);
+    return null;
+  }
+}
 function autoPersistIfEditing(){
   if(!editingLeadId||modalReadOnly)return;
   const original=leads.find(x=>x.id===editingLeadId);
@@ -5032,6 +5130,23 @@ function openLeadModal(id){
   renderLeadModal();
   if(!id)checkDuplicateLead();
   openModal('leadModal');
+  // Aktivitaeten aus lead_activities laden und mit den im JSON gespeicherten mergen.
+  // Asynchron im Hintergrund - Modal erscheint sofort, Aktivitaeten werden nachgeladen.
+  if(id){
+    fetchActivitiesFromDb(id).then(dbActs=>{
+      if(!dbActs||!dbActs.length)return;
+      if(editingLeadId!==id)return; // Lead wurde zwischenzeitlich geschlossen
+      // DB-Aktivitaeten sind die Wahrheit, JSON-Eintraege nur als Fallback fuer
+      // alte Aktivitaeten die noch nicht in der DB sind (vor der Migration)
+      const dbIds=new Set(dbActs.map(a=>String(a.id)));
+      const jsonOnly=(draftLead.activity||[]).filter(a=>!dbIds.has(String(a.id)));
+      const merged=[...dbActs,...jsonOnly].sort((a,b)=>new Date(b.date)-new Date(a.date));
+      if(JSON.stringify(merged)!==JSON.stringify(draftLead.activity)){
+        draftLead.activity=merged;
+        renderLeadModal();
+      }
+    });
+  }
 }
 
 function renderLeadModal(){
@@ -5604,22 +5719,56 @@ function ensureActivityTooltipEl(){
     el.style.position='fixed';
     el.style.display='none';
     el.style.zIndex='2000';
-    el.style.background='var(--text)';
-    el.style.color='var(--bg)';
-    el.style.padding='5px 9px';
-    el.style.borderRadius='6px';
-    el.style.fontSize='12px';
-    el.style.fontWeight='600';
+    el.style.background='#fff';
+    el.style.border='1px solid var(--border2)';
+    el.style.color='var(--text)';
+    el.style.padding='7px 12px';
+    el.style.borderRadius='8px';
+    el.style.fontSize='13px';
+    el.style.fontFamily="'Inter',sans-serif";
+    el.style.textAlign='center';
     el.style.whiteSpace='nowrap';
     el.style.pointerEvents='none';
-    el.style.boxShadow='0 2px 8px rgba(0,0,0,.18)';
+    el.style.boxShadow='0 6px 20px rgba(15,61,66,.14)';
+    el.style.lineHeight='1.4';
     document.body.appendChild(el);
   }
   return el;
 }
+function actChartMousemove(evt,rectEl,chartId){
+  const svgEl=document.getElementById(chartId);
+  const data=window.__actChartData&&window.__actChartData[chartId];
+  if(!svgEl||!data)return;
+  const pts=data.pts, buckets=data.buckets;
+  const svgRect=svgEl.getBoundingClientRect();
+  const scaleX=svgEl.viewBox.baseVal.width/svgRect.width;
+  const mx=(evt.clientX-svgRect.left)*scaleX;
+  // Naechsten Datenpunkt finden
+  let best=0,bestDist=Infinity;
+  pts.forEach(([x],i)=>{const d=Math.abs(x-mx);if(d<bestDist){bestDist=d;best=i;}});
+  const [cx,cy]=pts[best];
+  // Crosshair positionieren
+  const line=document.getElementById(chartId+'_crosshair');
+  if(line){line.setAttribute('x1',cx);line.setAttribute('x2',cx);line.setAttribute('opacity','1');}
+  // Tooltip anzeigen
+  const tip=ensureActivityTooltipEl();
+  const b=buckets[best];
+  tip.innerHTML=`<span style="font-weight:700;color:var(--purple-dark)">${b.c}</span><span style="color:var(--text2);font-size:10.5px;display:block;margin-top:1px">${b.d}</span>`;
+  const dotScreenX=svgRect.left+cx/scaleX;
+  const dotScreenY=svgRect.top+cy*(svgRect.height/svgEl.viewBox.baseVal.height);
+  tip.style.display='block';
+  tip.style.left=dotScreenX+'px';
+  tip.style.top=dotScreenY+'px';
+  tip.style.transform='translate(-50%,-130%)';
+}
+function actChartMouseleave(chartId){
+  const line=document.getElementById(chartId+'_crosshair');
+  if(line)line.setAttribute('opacity','0');
+  hideActivityTooltip();
+}
 function showActivityTooltip(circleEl,dateLabel,count){
   const tip=ensureActivityTooltipEl();
-  tip.textContent=`${dateLabel}: ${count} Aktivität${count===1?'':'en'}`;
+  tip.innerHTML=`<span style="font-weight:700;color:var(--purple-dark)">${count}</span><span style="color:var(--text2);font-size:10.5px;display:block;margin-top:1px">${dateLabel}</span>`;
   const rect=circleEl.getBoundingClientRect();
   tip.style.display='block';
   tip.style.left=(rect.left+rect.width/2)+'px';
@@ -5811,7 +5960,7 @@ async function handleFileUpload(e){
     try{
       const storagePath=await uploadAttachmentToStorage(leadId,fileId,file);
       draftLead.files.push({id:fileId,name:file.name,size:file.size,storagePath,uploadedBy:currentUser,uploadedAt:nowISO()});
-      draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Datei hochgeladen: ${file.name}`,date:nowISO()});
+      const _act1={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Datei hochgeladen: ${file.name}`,date:nowISO()};draftLead.activity.unshift(_act1);pushActivityToDb(editingLeadId,_act1);
     }catch(err){
       alert(`Datei "${file.name}" konnte nicht hochgeladen werden: ${err.message}`);
     }
@@ -5824,7 +5973,7 @@ function removeFile(id){
   const f=(draftLead.files||[]).find(x=>x.id===id);
   draftLead.files=draftLead.files.filter(f=>f.id!==id);
   if(f){
-    draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Datei entfernt: ${f.name}`,date:nowISO()});
+    const _act2={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Datei entfernt: ${f.name}`,date:nowISO()};draftLead.activity.unshift(_act2);pushActivityToDb(editingLeadId,_act2);
     if(f.storagePath){
       fetch(`${SUPABASE_URL}/storage/v1/object/lead-attachments/${encodeStoragePath(f.storagePath)}`,{method:'DELETE',headers:getSbHeaders()}).catch(()=>{});
     }
@@ -6012,7 +6161,7 @@ function addTask(){
   }
   clearTaskFormError();
   draftLead.tasks.push({id:genId(),text,dueDate:dueEl.value,done:false,createdBy:currentUser,createdAt:nowISO(),assigneeId:pendingTaskAssigneeId||null});
-  draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe hinzugefügt: ${text}`,date:nowISO()});
+  const _act3={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe hinzugefügt: ${text}`,date:nowISO()};draftLead.activity.unshift(_act3);pushActivityToDb(editingLeadId,_act3);
   textEl.value='';
   dueEl.value='';
   pendingTaskAssigneeId=null;
@@ -6025,7 +6174,7 @@ function toggleTask(id){
   const t=draftLead.tasks.find(x=>x.id===id);
   if(t){
     t.done=!t.done;
-    draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe ${t.done?'erledigt':'wieder geöffnet'}: ${t.text}`,date:nowISO()});
+    const _act4={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe ${t.done?'erledigt':'wieder geöffnet'}: ${t.text}`,date:nowISO()};draftLead.activity.unshift(_act4);pushActivityToDb(editingLeadId,_act4);
   }
   autoPersistIfEditing();
   renderLeadModal();
@@ -6033,7 +6182,7 @@ function toggleTask(id){
 function deleteTask(id){
   const t=draftLead.tasks.find(x=>x.id===id);
   draftLead.tasks=draftLead.tasks.filter(x=>x.id!==id);
-  if(t)draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe entfernt: ${t.text}`,date:nowISO()});
+  if(t){const _act5={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe entfernt: ${t.text}`,date:nowISO()};draftLead.activity.unshift(_act5);pushActivityToDb(editingLeadId,_act5);}
   autoPersistIfEditing();
   renderLeadModal();
 }
@@ -6042,7 +6191,7 @@ function deleteTask(id){
 function deleteChecklist(){
   const count=(draftLead.checklist||[]).length;
   draftLead.checklist=[];
-  if(count>0)draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checkliste komplett gelöscht (${count} Punkte)`,date:nowISO()});
+  if(count>0){const _act6={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checkliste komplett gelöscht (${count} Punkte)`,date:nowISO()};draftLead.activity.unshift(_act6);pushActivityToDb(editingLeadId,_act6);}
   autoPersistIfEditing();
   renderLeadModal();
 }
@@ -6054,7 +6203,7 @@ function toggleDraftLabel(id){
   const lb=labelById(id);
   const added=i===-1;
   if(i>-1)draftLead.labelIds.splice(i,1);else draftLead.labelIds.push(id);
-  draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Label "${lb?lb.name:''}" ${added?'hinzugefügt':'entfernt'}`,date:nowISO()});
+  const _act7={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Label "${lb?lb.name:''}" ${added?'hinzugefügt':'entfernt'}`,date:nowISO()};draftLead.activity.unshift(_act7);pushActivityToDb(editingLeadId,_act7);
   autoPersistIfEditing();
   renderLeadModal();
 }
@@ -6115,7 +6264,7 @@ function toggleDraftMember(id){
   const ag=agentById(id);
   const added=i===-1;
   if(i>-1)draftLead.members.splice(i,1);else draftLead.members.push(id);
-  draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Mitglied "${ag?ag.name:''}" ${added?'hinzugefügt':'entfernt'}`,date:nowISO()});
+  const _act8={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Mitglied "${ag?ag.name:''}" ${added?'hinzugefügt':'entfernt'}`,date:nowISO()};draftLead.activity.unshift(_act8);pushActivityToDb(editingLeadId,_act8);
   autoPersistIfEditing();
   renderLeadModal();
 }
@@ -6126,7 +6275,7 @@ function addChecklistItem(){
   const text=inp.value.trim();
   if(!text)return;
   draftLead.checklist.push({id:Date.now(),text,done:false});
-  draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checklisten-Punkt hinzugefügt: ${text}`,date:nowISO()});
+  const _act9={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checklisten-Punkt hinzugefügt: ${text}`,date:nowISO()};draftLead.activity.unshift(_act9);pushActivityToDb(editingLeadId,_act9);
   autoPersistIfEditing();
   renderLeadModal();
 }
@@ -6134,7 +6283,7 @@ function toggleCheckItem(id){
   const item=draftLead.checklist.find(c=>c.id===id);
   if(item){
     item.done=!item.done;
-    draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checklisten-Punkt ${item.done?'erledigt':'wieder geöffnet'}: ${item.text}`,date:nowISO()});
+    const _act10={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checklisten-Punkt ${item.done?'erledigt':'wieder geöffnet'}: ${item.text}`,date:nowISO()};draftLead.activity.unshift(_act10);pushActivityToDb(editingLeadId,_act10);
   }
   autoPersistIfEditing();
   renderLeadModal();
@@ -6142,7 +6291,7 @@ function toggleCheckItem(id){
 function deleteCheckItem(id){
   const item=draftLead.checklist.find(c=>c.id===id);
   draftLead.checklist=draftLead.checklist.filter(c=>c.id!==id);
-  if(item)draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checklisten-Punkt entfernt: ${item.text}`,date:nowISO()});
+  if(item){const _act11={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Checklisten-Punkt entfernt: ${item.text}`,date:nowISO()};draftLead.activity.unshift(_act11);pushActivityToDb(editingLeadId,_act11);}
   autoPersistIfEditing();
   renderLeadModal();
 }
@@ -6156,7 +6305,9 @@ function addComment(){
   const dateInp=document.getElementById('commentDateInput');
   const customDate=dateInp&&dateInp.value?dateInp.value:null;
   const date=customDate?customDate+'T'+(new Date().toTimeString().slice(0,8)):nowISO();
-  draftLead.activity.unshift({id:Date.now(),type:'comment',author:currentUser,text,date,backdated:!!customDate});
+  const act={id:Date.now(),type:'comment',author:currentUser,text,date,backdated:!!customDate};
+  draftLead.activity.unshift(act);
+  pushActivityToDb(editingLeadId,act);
   draftCommentText='';
   autoPersistIfEditing();
   renderLeadModal();
@@ -6172,11 +6323,15 @@ function markNotReached(){
   d.setDate(d.getDate()+days);
   const newFollowup=d.toISOString().slice(0,10);
   const oldFollowup=draftLead.followup;
-  draftLead.activity.unshift({id:Date.now(),type:'comment',author:currentUser,text:'Nicht erreicht ... erneut probieren',date:nowISO()});
+  const act1={id:Date.now(),type:'comment',author:currentUser,text:'Nicht erreicht ... erneut probieren',date:nowISO()};
+  draftLead.activity.unshift(act1);
+  pushActivityToDb(editingLeadId,act1);
   if(oldFollowup!==newFollowup){
     draftLead.followup=newFollowup;
     draftLead.followupHistory=[...(draftLead.followupHistory||[]),{date:newFollowup,setAt:nowISO()}];
-    draftLead.activity.unshift({id:Date.now()+1,type:'activity',author:currentUser,text:`Follow-up-Datum geändert: "${fmtDate(oldFollowup)||'–'}" → "${fmtDate(newFollowup)}"`,date:nowISO()});
+    const act2={id:Date.now()+1,type:'activity',author:currentUser,text:`Follow-up-Datum geändert: "${fmtDate(oldFollowup)||'–'}" → "${fmtDate(newFollowup)}"`,date:nowISO()};
+    draftLead.activity.unshift(act2);
+    pushActivityToDb(editingLeadId,act2);
   }
   autoPersistIfEditing();
   renderLeadModal();
@@ -6334,7 +6489,7 @@ function saveLead(keepOpen){
       }
     }
     if(original.status!==draftLead.status){
-      draftLead.activity.unshift({id:Date.now()+1,type:'activity',author:currentUser,text:`Status geändert: ${colById(original.status).name} → ${colById(draftLead.status).name}`,date:nowISO()});
+      const _act12={id:Date.now()+1,type:'activity',author:currentUser,text:`Status geändert: ${colById(original.status).name} → ${colById(draftLead.status).name}`,date:nowISO()};draftLead.activity.unshift(_act12);pushActivityToDb(editingLeadId,_act12);
       trackClosedStage(draftLead,original.status,draftLead.status);trackStatusSince(draftLead,original.status,draftLead.status);maybeSendListNotification(draftLead,original.status,draftLead.status);
     }
     // Unabhaengig davon, ob der Status GENAU in diesem Speichervorgang wechselt: stellt
@@ -6344,24 +6499,33 @@ function saveLead(keepOpen){
     if(colById(draftLead.status)&&colById(draftLead.status).outcome==='lost'&&(draftLead.lossComment||'').trim()){
       const lossCommentText=`Verlust-Grund (${draftLead.lossReason}): ${draftLead.lossComment.trim()}`;
       if(!draftLead.activity.some(a=>a.type==='comment'&&a.text===lossCommentText)){
-        draftLead.activity.unshift({id:Date.now()+3,type:'comment',author:currentUser,text:lossCommentText,date:nowISO()});
+        const _act13={id:Date.now()+3,type:'comment',author:currentUser,text:lossCommentText,date:nowISO()};draftLead.activity.unshift(_act13);pushActivityToDb(editingLeadId,_act13);
       }
     }
     if(original.followup!==draftLead.followup&&draftLead.followup){
       draftLead.followupHistory=[...(draftLead.followupHistory||[]),{date:draftLead.followup,setAt:nowISO()}];
-      draftLead.activity.unshift({id:Date.now()+2,type:'activity',author:currentUser,text:`Follow-up-Datum geändert: "${fmtDate(original.followup)||'–'}" → "${fmtDate(draftLead.followup)}"`,date:nowISO()});
+      const _act14={id:Date.now()+2,type:'activity',author:currentUser,text:`Follow-up-Datum geändert: "${fmtDate(original.followup)||'–'}" → "${fmtDate(draftLead.followup)}"`,date:nowISO()};draftLead.activity.unshift(_act14);pushActivityToDb(editingLeadId,_act14);
     }
     logFieldChanges(original,draftLead).forEach((text,i)=>{
-      draftLead.activity.unshift({id:Date.now()+10+i,type:'activity',author:currentUser,text,date:nowISO()});
+      const _act15={id:Date.now()+10+i,type:'activity',author:currentUser,text,date:nowISO()};draftLead.activity.unshift(_act15);pushActivityToDb(editingLeadId,_act15);
     });
+    // Aktivitaeten werden ab jetzt NUR noch in lead_activities gespeichert (separate Tabelle).
+    // Im Lead-JSON werden sie nicht mehr persistiert - damit kein saveLead() mehr die
+    // Aktivitaeten eines anderen Nutzers ueberschreiben kann.
+    const activityBackup=draftLead.activity; // lokale Kopie fuer die laufende Sitzung behalten
+    draftLead.activity=[];
     Object.assign(original,draftLead);
+    original.activity=activityBackup; // im Arbeitsspeicher behalten (fuer Anzeige), nicht in DB
   }else{
     draftLead.id=genId();
     if(draftLead.followup){
       draftLead.followupHistory=[{date:draftLead.followup,setAt:nowISO()}];
     }
-    draftLead.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:'Lead erstellt',date:nowISO()});
+    const _act16={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:'Lead erstellt',date:nowISO()};draftLead.activity.unshift(_act16);pushActivityToDb(draftLead.id,_act16);
+    const activityBackupNew=draftLead.activity;
+    draftLead.activity=[];
     leads.push(draftLead);
+    draftLead.activity=activityBackupNew; // im Arbeitsspeicher behalten
     editingLeadId=draftLead.id; // wichtig: weitere Speichervorgaenge (bei "im Lead bleiben") aktualisieren jetzt diesen Lead statt neue anzulegen
   }
   saveState();
@@ -7241,8 +7405,10 @@ async function bootstrapApp(){
   // (Ursache eines echten Datenverlust-Vorfalls am 12.07.2026).
   try{
     await sbInitialSync();
+    sbInitialSyncDone=true; // ab jetzt darf scheduleSbPush() Uploads starten
   }catch(e){
     console.warn('Initialer Sync beim Start fehlgeschlagen (wird automatisch per Hintergrund-Abgleich erneut versucht):',e);
+    sbInitialSyncDone=true; // auch bei Fehler freigeben, sonst bleibt Push dauerhaft gesperrt
   }
   if(pendingLoginWizard){
     pendingLoginWizard=false;
@@ -7672,6 +7838,22 @@ function showApp(isFreshLogin){
     bootstrapApp();
   }else if(isFreshLogin){
     openLoginWizard();
+  }
+  if(isFreshLogin){
+    // Login-Protokoll: asynchron im Hintergrund, damit der Start nicht blockiert wird
+    setTimeout(()=>{
+      const me=agentById(currentUser);
+      fetchWithTimeout(`${SUPABASE_URL}/rest/v1/login_log`,{
+        method:'POST',
+        headers:Object.assign({},getSbHeaders(),{'Prefer':'return=minimal'}),
+        body:JSON.stringify({
+          agent_id:currentUser,
+          agent_name:me?me.name:'Unbekannt',
+          user_agent:navigator.userAgent.slice(0,200),
+          logged_in_at:nowISO()
+        })
+      },5000).catch(e=>console.warn('Login-Log fehlgeschlagen:',e));
+    },2000);
   }
 }
 function openLoginPanel(){
