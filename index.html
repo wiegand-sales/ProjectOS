@@ -815,6 +815,17 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
   </div>
 </div>
 
+<div class="modal-overlay hidden" id="backupModal">
+  <div class="modal-sm" style="max-width:620px;padding:0;overflow:hidden">
+    <div class="modal-header" style="background:linear-gradient(160deg,#0c3b40 0%,#164e54 45%,#1d6169 100%);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+      <span style="color:#fff;font-weight:700;font-size:15px"><i class="ti ti-history"></i> Verfügbare Backups</span>
+      <button onclick="closeModal('backupModal')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:20px;cursor:pointer;padding:0 4px">×</button>
+    </div>
+    <div style="padding:20px;max-height:70vh;overflow-y:auto">
+      <div id="backupModalContent" style="min-height:120px"></div>
+    </div>
+  </div>
+</div>
 <div class="modal-overlay hidden" id="leadModal">
   <div class="modal-lg" id="leadModalInner"></div>
 </div>
@@ -920,7 +931,7 @@ const STORAGE_KEY='toner_kanban_state_v1';
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-08-05T08:00:00.000Z';
+const BUILD_VERSION='2026-08-05T11:45:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -2089,21 +2100,50 @@ function findDuplicateCustomerNumbers(){
 // ── BACKUP-UEBERSICHT & WIEDERHERSTELLUNG (Admin) ──
 async function listAvailableBackups(){
   if(!requireAdmin('Backups verwalten'))return;
+  openModal('backupModal');
+  const content=document.getElementById('backupModalContent');
+  content.innerHTML=`<div style="text-align:center;padding:32px;color:var(--text3)"><i class="ti ti-refresh" style="font-size:20px;display:block;margin-bottom:8px"></i>Backups werden geladen…</div>`;
   try{
+    // Backups laden
     const res=await fetch(`${SUPABASE_URL}/rest/v1/app_state?id=like.backup_*&select=id,updated_at,data&order=id.desc`,{headers:getSbHeaders()});
-    if(!res.ok){alert('Backups konnten nicht geladen werden: HTTP '+res.status);return;}
+    if(!res.ok){content.innerHTML=`<p style="color:var(--red)">Backups konnten nicht geladen werden: HTTP ${res.status}</p>`;return;}
     const rows=await res.json();
-    if(!rows.length){alert('Es sind noch keine automatischen Backups vorhanden (das erste läuft beim naechsten taeglichen Login).');return;}
-    const list=rows.map(r=>{
+    if(!rows.length){content.innerHTML=`<p style="font-size:13px;color:var(--text2)">Noch keine automatischen Backups vorhanden.</p>`;return;}
+    // Aktivitätsanzahl aus lead_activities laden
+    const actRes=await fetch(`${SUPABASE_URL}/rest/v1/lead_activities?select=created_at`,{headers:getSbHeaders()});
+    const allActs=actRes.ok?(await actRes.json()):[];
+    // Für jedes Backup: Anzahl Aktivitäten die zum Backup-Zeitpunkt schon existierten
+    const rowsHtml=rows.map(r=>{
       const dateStr=r.id.replace('backup_','');
       const leadCount=(r.data&&r.data.leads)?r.data.leads.length:0;
-      return `${dateStr} — ${leadCount} Leads (gesichert um ${fmtDateTime(r.updated_at)})`;
-    }).join('\n');
-    const answer=prompt(`Verfügbare Backups (neuestes zuerst):\n\n${list}\n\nAktuell im System: ${leads.length} Leads.\n\nGib das Datum (JJJJ-MM-TT) ein, das du dir ansehen/wiederherstellen möchtest - oder auf Abbrechen klicken, um nichts zu tun:`);
-    if(!answer)return;
-    await previewAndRestoreBackup(answer.trim());
+      const backupTime=new Date(r.updated_at);
+      const actCount=allActs.filter(a=>new Date(a.created_at)<=backupTime).length;
+      const timeLabel=fmtDateTime(r.updated_at);
+      return `<div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;background:#f7f7f5;margin-bottom:8px;cursor:pointer;transition:background .15s" 
+        onmouseover="this.style.background='var(--purple-bg)'" 
+        onmouseout="this.style.background='#f7f7f5'"
+        onclick="closeModal('backupModal');previewAndRestoreBackup('${dateStr}')">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600;color:var(--text)">${timeLabel}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">${dateStr}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:12px;font-weight:700;color:var(--purple-dark)">${leadCount} Leads</div>
+          <div style="font-size:11px;color:var(--text3)">${actCount} Aktivitäten</div>
+        </div>
+        <i class="ti ti-chevron-right" style="color:var(--text3);font-size:16px"></i>
+      </div>`;
+    }).join('');
+    content.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-size:12px;color:var(--text2)">Aktuell: <strong>${leads.length} Leads</strong> · Klick auf ein Backup zum Wiederherstellen</div>
+      </div>
+      ${rowsHtml}
+      <div style="margin-top:12px;padding:10px 14px;border-radius:8px;background:rgba(209,130,10,.08);border:1px solid rgba(209,130,10,.2)">
+        <div style="font-size:11px;color:var(--amber)"><i class="ti ti-info-circle"></i> Aktivitäten und Kommentare werden beim Restore <strong>nicht</strong> zurückgesetzt – sie bleiben in lead_activities erhalten.</div>
+      </div>`;
   }catch(e){
-    alert('Fehler beim Laden der Backups: '+e.message);
+    content.innerHTML=`<p style="color:var(--red)">Fehler beim Laden: ${esc(e.message)}</p>`;
   }
 }
 async function previewAndRestoreBackup(dateStr){
@@ -2114,7 +2154,7 @@ async function previewAndRestoreBackup(dateStr){
     if(!rows.length){alert(`Kein Backup für "${dateStr}" gefunden. Bitte exaktes Format aus der Liste oben verwenden (z.B. 2026-07-09_14).`);return;}
     const backupData=rows[0].data;
     const leadCount=(backupData.leads||[]).length;
-    if(!confirm(`Backup vom ${dateStr} enthält ${leadCount} Lead(s).\nAktuell im System: ${leads.length} Lead(s).\n\nWirklich diesen Stand wiederherstellen?\n\nACHTUNG: Das überschreibt den aktuellen Stand für ALLE im Team. Alles, was seit diesem Backup neu eingetragen wurde, geht dabei verloren. Nicht rückgängig zu machen (außer über ein anderes Backup).`))return;
+    if(!confirm(`Backup vom ${dateStr} enthält ${leadCount} Lead(s).\nAktuell im System: ${leads.length} Lead(s).\n\nWirklich diesen Stand wiederherstellen?\n\nACHTUNG: Das überschreibt den aktuellen Stand für ALLE im Team. Alles, was seit diesem Backup neu eingetragen wurde, geht dabei verloren. Nicht rückgängig zu machen (außer über ein anderes Backup).\n\nHINWEIS: Kommentare und Aktivitäten (in lead_activities) bleiben beim Restore erhalten und werden NICHT zurückgesetzt.`))return;
     applyStateData(JSON.parse(JSON.stringify(backupData)));
     // WICHTIG: applyStateData() kuemmert sich seit dem Umbau bewusst NICHT mehr um
     // Leads (die leben jetzt in eigenen Datenbank-Zeilen). Die Leads aus dem Backup
@@ -2148,7 +2188,7 @@ function runDataIntegrityCheck(){
     foundAnything=true;
     msg+=`\n⚠ ${dupCustNos.length} Kundennummer(n) sind mehrfach vergeben – das muss manuell geprüft werden (nicht automatisch behebbar, da die Datensätze unterschiedliche Inhalte haben könnten):\n\n`;
     dupCustNos.slice(0,15).forEach(([cn,arr])=>{
-      msg+=`Kundennummer ${cn}: ${arr.map(l=>`"${l.company}"`).join(', ')}\n`;
+      msg+=`Kundennummer ${cn}: ${arr.map(l=>`"${l.company.replace(/"/g,'\'').replace(/[<>]/g,'?')}"`).join(', ')}\n`;
     });
     if(dupCustNos.length>15)msg+=`… und ${dupCustNos.length-15} weitere\n`;
     msg+='\nBitte die betroffenen Leads öffnen, den richtigen behalten und den überflüssigen über "Löschen" entfernen.';
@@ -3037,6 +3077,28 @@ function customerOriginMapHtml(dl){
   </div>`;
 }
 
+// Cache fuer Dashboard-Aktivitaets-Counts aus lead_activities DB
+// Wird beim App-Start und nach jeder neuen Aktivitaet aktualisiert
+let _dashActCountCache=null; // {date: count}
+async function refreshDashActCountCache(){
+  if(!isSbSessionValid())return;
+  try{
+    const since=new Date(TODAY);since.setDate(since.getDate()-29);
+    const res=await fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?date=gte.${since.toISOString().slice(0,10)}&select=date,lead_id`,
+      {headers:getSbHeaders()},8000
+    );
+    if(!res.ok)return;
+    const rows=await res.json();
+    const counts={};
+    rows.forEach(r=>{
+      const key=(r.date||'').slice(0,10);
+      if(key)counts[key]=(counts[key]||0)+1;
+    });
+    _dashActCountCache=counts;
+    if(currentView==='dashboard')renderDashboard();
+  }catch(e){console.warn('refreshDashActCountCache fehlgeschlagen:',e);}
+}
 function dashboardActivityChartHtml(dl){
   const days=30;
   const buckets=[];
@@ -3044,14 +3106,19 @@ function dashboardActivityChartHtml(dl){
     const d=new Date(TODAY);d.setDate(d.getDate()-i);
     buckets.push({date:d,key:d.toISOString().slice(0,10),count:0});
   }
-  const bucketMap={};
-  buckets.forEach(b=>bucketMap[b.key]=b);
-  dl.forEach(l=>{
-    (l.activity||[]).forEach(a=>{
-      const key=(a.date||'').slice(0,10);
-      if(bucketMap[key])bucketMap[key].count++;
+  // DB-Cache bevorzugen wenn vorhanden, sonst JSON-Fallback
+  if(_dashActCountCache){
+    buckets.forEach(b=>{b.count=_dashActCountCache[b.key]||0;});
+  }else{
+    const bucketMap={};
+    buckets.forEach(b=>bucketMap[b.key]=b);
+    dl.forEach(l=>{
+      (l.activity||[]).forEach(a=>{
+        const key=(a.date||'').slice(0,10);
+        if(bucketMap[key])bucketMap[key].count++;
+      });
     });
-  });
+  }
   const w=1400,h=200,padL=10,padR=10,padT=14,padB=10;
   const plotW=w-padL-padR,plotH=h-padT-padB;
   const maxVal=Math.max(1,...buckets.map(b=>b.count));
@@ -3978,26 +4045,52 @@ function renderActivityTrendChart(entries){
   const avgPerDay=(total/buckets.length).toFixed(1);
   const periodBtns=[['7','7 Tage'],['30','30 Tage'],['90','90 Tage'],['all','Alle']]
     .map(([v,l])=>`<span class="chip ${activityPeriod===v?'active':''}" onclick="setActivityFilter('period','${v}')">${l}</span>`).join('');
-  // Eindeutige ID pro Render fuer die CSS-Animation
+  // Eindeutige ID pro Render
   const chartId='actChart_'+Date.now();
-  const lineLen=999999; // Sehr großer Wert - muss auch nach SVG-Streckung (preserveAspectRatio=none) reichen
   const useAnimation = buckets.length <= 90;
   // Daten im globalen Cache speichern statt als JSON-Attribut im HTML
-  // (JSON.stringify erzeugt doppelte Anführungszeichen die HTML-Attribute brechen)
   if(!window.__actChartData)window.__actChartData={};
   window.__actChartData[chartId]={
     pts:pts,
     buckets:buckets.map(b=>({d:fmtDate(b.key),c:b.count}))
   };
-  // Transparentes Overlay-Rect fuer Mousemove-Crosshair (deckt den Plot ab)
+  // Transparentes Overlay-Rect fuer Mousemove-Crosshair
   const overlayRect=`<rect x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" fill="transparent"
     onmousemove="actChartMousemove(event,this,'${chartId}')"
     onmouseleave="actChartMouseleave('${chartId}')"/>`;
-  // Punkte bleiben als kleine Kreise sichtbar, aber ohne Hover-Events (jetzt ueber Overlay)
   const dotsHtml=buckets.map((b,i)=>{
     const [x,y]=pts[i];
     return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="var(--purple)" style="pointer-events:none"/>`;
   }).join('');
+  // Animation wird per JS nach dem Rendern gestartet (getTotalLength() gibt die echte
+  // Pixel-Länge zurück - unabhängig von preserveAspectRatio und SVG-Skalierung).
+  // setTimeout(0) statt requestAnimationFrame: der HTML-String wird erst NACH dem
+  // return in den DOM eingefügt, rAF läuft zu früh. setTimeout(0) wartet einen
+  // kompletten Render-Zyklus ab.
+  if(useAnimation){
+    setTimeout(()=>{
+      const svg=document.getElementById(chartId);
+      if(!svg)return;
+      const path=svg.querySelector('.act-line-draw');
+      const area=svg.querySelector('.act-area-fade');
+      if(!path)return;
+      const len=path.getTotalLength();
+      if(!len)return;
+      path.style.strokeDasharray=len;
+      path.style.strokeDashoffset=len;
+      // Transition erst NACH dem Setzen des Initialzustands aktivieren
+      requestAnimationFrame(()=>{
+        requestAnimationFrame(()=>{
+          path.style.transition='stroke-dashoffset 1s ease-out';
+          path.style.strokeDashoffset='0';
+          if(area){
+            area.style.transition='opacity 0.5s ease-out 0.7s';
+            area.style.opacity='1';
+          }
+        });
+      });
+    },0);
+  }
   return `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
       <div class="section-hdr" style="margin-top:0">Aktivitäten pro Tag <span style="font-weight:400;color:var(--text3);font-size:11px">Gesamt: ${total} · Ø ${avgPerDay}/Tag</span></div>
@@ -4009,20 +4102,9 @@ function renderActivityTrendChart(entries){
           <stop offset="0%" stop-color="var(--purple)" stop-opacity="0.28"/>
           <stop offset="100%" stop-color="var(--purple)" stop-opacity="0.02"/>
         </linearGradient>
-        <style>
-          #${chartId} .act-line-draw {
-            ${useAnimation?`stroke-dasharray: ${lineLen}; stroke-dashoffset: ${lineLen}; animation: actLineDraw_${chartId} 1s ease-out forwards;`:''}
-          }
-          #${chartId} .act-area-fade {
-            opacity: 0;
-            animation: actAreaFade_${chartId} 0.5s ease-out ${useAnimation?'0.7s':'0s'} forwards;
-          }
-          @keyframes actLineDraw_${chartId} { to { stroke-dashoffset: 0; } }
-          @keyframes actAreaFade_${chartId} { to { opacity: 1; } }
-        </style>
       </defs>
       <line x1="${padL}" y1="${padT+plotH}" x2="${padL+plotW}" y2="${padT+plotH}" stroke="var(--border)" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <path class="act-area-fade" d="${areaPath}" fill="url(#actTrendGrad_${chartId})"/>
+      <path class="act-area-fade" d="${areaPath}" fill="url(#actTrendGrad_${chartId})" style="${useAnimation?'opacity:0':''}"/>
       <path class="act-line-draw" d="${linePath}" fill="none" stroke="var(--purple)" stroke-width="2"/>
       <line id="${chartId}_crosshair" x1="0" y1="${padT}" x2="0" y2="${padT+plotH}" stroke="var(--purple)" stroke-width="1" stroke-dasharray="4 3" opacity="0" vector-effect="non-scaling-stroke" style="pointer-events:none"/>
       ${dotsHtml}
@@ -4042,7 +4124,26 @@ function renderActivities(){
   let leadCardsHtml='';
   if(q){
     if(matchingLeads.length){
-      leadCardsHtml=matchingLeads.map(l=>{
+      // Statuswechsel-Counts asynchron aus lead_activities laden
+      const leadIds=matchingLeads.map(l=>l.id);
+      fetchStatusChangeCountsFromDb(leadIds).then(statusCountMap=>{
+        if(currentView!=='activities')return;
+        const cards=matchingLeads.map(l=>{
+          const fuChanges=(l.followupHistory||[]).length;
+          const statusChanges=statusCountMap[String(l.id)]||0;
+          return `<div class="info-section" style="cursor:pointer" onclick="openLeadModal(${l.id})">
+            <div class="section-hdr" style="margin-top:0">${esc(l.company)} <span style="font-weight:400;color:var(--text3);font-size:11px">${esc(l.customerNumber||'')}</span></div>
+            <div class="impact-row"><span>Follow-up-Datum geändert</span><strong style="color:var(--purple)">${fuChanges}×</strong></div>
+            <div class="impact-row"><span>Statuswechsel</span><strong style="color:var(--teal-dark)">${statusChanges}×</strong></div>
+            <div class="impact-row"><span>Aktueller Status</span><strong>${colById(l.status)?colById(l.status).name:'–'}</strong></div>
+          </div>`;
+        }).join('');
+        // Karten-Bereich im aktuellen Content aktualisieren
+        const cardsEl=document.getElementById('activityLeadCards');
+        if(cardsEl)cardsEl.innerHTML=cards;
+      });
+      // Erstanzeige mit JSON-Fallback (wird durch async oben überschrieben sobald DB antwortet)
+      leadCardsHtml=`<div id="activityLeadCards">${matchingLeads.map(l=>{
         const fuChanges=(l.followupHistory||[]).length;
         const statusChanges=(l.activity||[]).filter(a=>a.type==='activity'&&a.text.indexOf('Status geändert:')===0).length;
         return `<div class="info-section" style="cursor:pointer" onclick="openLeadModal(${l.id})">
@@ -4051,20 +4152,24 @@ function renderActivities(){
           <div class="impact-row"><span>Statuswechsel</span><strong style="color:var(--teal-dark)">${statusChanges}×</strong></div>
           <div class="impact-row"><span>Aktueller Status</span><strong>${colById(l.status)?colById(l.status).name:'–'}</strong></div>
         </div>`;
-      }).join('');
+      }).join('')}</div>`;
     }else{
       leadCardsHtml='<div class="info-section"><p style="font-size:12px;color:var(--text3)">Kein Kunde mit diesem Namen oder dieser Kundennummer gefunden.</p></div>';
     }
   }
 
-  // Aktivitaeten aus lead_activities laden (alle Leads), dann filtern und rendern
-  // Wir laden asynchron - der View erscheint sofort mit einem Lade-Indikator
+  // Aktivitaeten aus lead_activities laden (alle Leads), dann filtern und rendern.
+  // Lade-Indikator nur wenn der Bereich noch komplett leer ist (erster Aufruf),
+  // beim Zeitraum-Wechsel alten Inhalt behalten damit kein Flackern entsteht.
   const contentEl=document.getElementById('activitiesContent');
-  contentEl.innerHTML=`
-    ${q?`<div class="${matchingLeads.length===1?'':'dash-grid'}" style="margin-bottom:16px">${leadCardsHtml}</div>`:''}
-    <div class="info-section" style="text-align:center;padding:32px;color:var(--text3);font-size:13px">
-      <i class="ti ti-refresh" style="font-size:20px;display:block;margin-bottom:8px"></i>Aktivitäten werden geladen…
-    </div>`;
+  const isFirstLoad=!contentEl.querySelector('.info-section');
+  if(isFirstLoad||q){
+    contentEl.innerHTML=`
+      ${q?`<div class="${matchingLeads.length===1?'':'dash-grid'}" style="margin-bottom:16px">${leadCardsHtml}</div>`:''}
+      <div class="info-section" style="text-align:center;padding:32px;color:var(--text3);font-size:13px">
+        <i class="ti ti-refresh" style="font-size:20px;display:block;margin-bottom:8px"></i>Aktivitäten werden geladen…
+      </div>`;
+  }
 
   fetchAllActivitiesForView(q,matchingLeads).then(entries=>{
     if(currentView!=='activities')return; // View zwischenzeitlich gewechselt
@@ -4115,13 +4220,34 @@ function renderActivities(){
   });
 }
 
+// Lädt Statuswechsel-Anzahl je Lead aus lead_activities für die Kundenkarte
+async function fetchStatusChangeCountsFromDb(leadIds){
+  const counts={};
+  if(!isSbSessionValid()||!leadIds.length)return counts;
+  try{
+    const ids=leadIds.map(id=>`"${id}"`).join(',');
+    const res=await fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=in.(${ids})&type=eq.activity&text=like.Status%20ge%C3%A4ndert%3A*&select=lead_id`,
+      {headers:getSbHeaders()},8000
+    );
+    if(!res.ok)return counts;
+    const rows=await res.json();
+    rows.forEach(r=>{
+      const k=String(r.lead_id);
+      counts[k]=(counts[k]||0)+1;
+    });
+  }catch(e){
+    console.warn('fetchStatusChangeCountsFromDb fehlgeschlagen:',e);
+  }
+  return counts;
+}
 // Lädt alle Aktivitäten aus lead_activities für die Aktivitäten-Ansicht.
 // Mit aktivem Filter wird paginiert geladen, ohne Filter alles auf einmal.
 async function fetchAllActivitiesForView(q, matchingLeads){
   let entries=[];
   try{
     // Zeitraum-Filter als DB-Query bauen
-    let urlParams='order=date.desc&limit=2000';
+    let urlParams='order=date.desc&limit=5000';
     if(activityPeriod!=='all'){
       const periodStart=new Date(TODAY);
       periodStart.setDate(periodStart.getDate()-(parseInt(activityPeriod)-1));
@@ -5117,7 +5243,8 @@ function onColDragEnd(e){
 // Aktivitäten eines anderen Nutzers überschreiben kann.
 async function pushActivityToDb(leadId, activityObj){
   if(!isSbSessionValid())return;
-  delete _actCache[leadId]; // Cache invalidieren damit beim nächsten Öffnen neu geladen wird
+  delete _actCache[leadId]; // Lead-Aktivitäten-Cache invalidieren
+  _dashActCountCache=null;  // Dashboard-Chart-Cache invalidieren
   try{
     await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/lead_activities`,{
       method:'POST',
@@ -5143,7 +5270,7 @@ async function fetchActivitiesFromDb(leadId){
   if(!isSbSessionValid())return null;
   try{
     const res=await fetchWithTimeout(
-      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=eq.${leadId}&order=date.desc&limit=500`,
+      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=eq.${leadId}&order=date.desc&limit=1000`,
       {headers:getSbHeaders()},8000
     );
     if(!res.ok)return null;
@@ -5226,19 +5353,15 @@ function openLeadModal(id){
   // Asynchron im Hintergrund - Modal erscheint sofort, Aktivitaeten werden nachgeladen.
   if(id){
     fetchActivitiesFromDb(id).then(dbActs=>{
-      if(!dbActs)return;
-      if(editingLeadId!==id)return;
-      if(!dbActs.length){
-        // DB leer (noch keine Migration für diesen Lead) - JSON-Stand behalten
-        return;
-      }
-      // DB ist die einzige Wahrheit für Aktivitäten seit der Migration (04.08.2026).
-      // JSON-Fallback nur für Einträge mit IDs die in der DB nicht vorkommen
-      // (sehr alte Einträge vor der Migration die eine andere ID-Struktur haben).
-      const dbIds=new Set(dbActs.map(a=>String(a.id)));
-      const jsonOnly=(draftLead.activity||[]).filter(a=>!dbIds.has(String(a.id)));
-      const merged=[...dbActs,...jsonOnly].sort((a,b)=>new Date(b.date)-new Date(a.date));
-      draftLead.activity=merged;
+      if(!dbActs)return; // DB-Fehler - JSON-Stand behalten
+      if(editingLeadId!==id)return; // Lead zwischenzeitlich geschlossen
+      // DB ist ab sofort die einzige Wahrheit.
+      // JSON-Einträge werden komplett ignoriert - die IDs sind grundsätzlich
+      // verschieden (DB: bigint, JSON: Date.now() float), ein ID-Vergleich
+      // funktioniert nicht und produziert Duplikate.
+      // Einzige Ausnahme: DB ist leer (Lead wurde noch nie geöffnet nach Migration)
+      if(dbActs.length===0)return; // JSON-Stand behalten als Fallback
+      draftLead.activity=dbActs;
       renderLeadModal();
     });
   }
@@ -6018,6 +6141,9 @@ function encodeStoragePath(path){
   return path.split('/').map(encodeURIComponent).join('/');
 }
 async function uploadAttachmentToStorage(leadId,fileId,file){
+  if(file.size>MAX_ATTACHMENT_SIZE){
+    throw new Error(`Datei zu groß (${formatBytes(file.size)}, max. ${formatBytes(MAX_ATTACHMENT_SIZE)})`);
+  }
   const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
   const path=`${leadId}/${fileId}_${safeName}`;
   const res=await fetch(`${SUPABASE_URL}/storage/v1/object/lead-attachments/${encodeStoragePath(path)}`,{
@@ -6452,15 +6578,45 @@ function saveEditComment(id){
   const item=draftLead.activity.find(a=>a.id===id&&a.type==='comment');
   if(item){item.text=newText;item.edited=true;}
   editingCommentId=null;
+  delete _actCache[editingLeadId]; // Cache invalidieren
   autoPersistIfEditing();
   renderLeadModal();
+  // In lead_activities aktualisieren (beide mögliche ID-Formen versuchen)
+  if(isSbSessionValid()){
+    const updateBody=JSON.stringify({text:newText});
+    // Direkt per DB-id
+    fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?id=eq.${id}&lead_id=eq.${editingLeadId}`,
+      {method:'PATCH',headers:Object.assign({},getSbHeaders(),{'Prefer':'return=minimal'}),body:updateBody},5000
+    ).catch(()=>{});
+    // Fallback via extra-Feld (Migration)
+    fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=eq.${editingLeadId}&extra=cs.${encodeURIComponent(JSON.stringify({id}))}`,
+      {method:'PATCH',headers:Object.assign({},getSbHeaders(),{'Prefer':'return=minimal'}),body:updateBody},5000
+    ).catch(()=>{});
+  }
 }
 function deleteComment(id){
   if(!requireAdmin('Kommentare löschen'))return;
   if(!confirm('Diesen Kommentar wirklich unwiderruflich löschen?'))return;
   draftLead.activity=draftLead.activity.filter(a=>!(a.id===id&&a.type==='comment'));
+  delete _actCache[editingLeadId]; // Cache invalidieren
   autoPersistIfEditing();
   renderLeadModal();
+  // Aus lead_activities löschen - DB-ID kann bigint sein, daher über extra-Feld suchen
+  // Da die Migration extra:{id:originalId} gespeichert hat, können wir nach beiden suchen
+  if(isSbSessionValid()){
+    // Versuche zuerst direkt per id (wenn DB-Eintrag)
+    fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=eq.${editingLeadId}&extra=cs.${encodeURIComponent(JSON.stringify({id}))}`,
+      {method:'DELETE',headers:getSbHeaders()},5000
+    ).catch(()=>{});
+    // Fallback: direkt per id wenn es eine bigint-ID ist
+    fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?id=eq.${id}&lead_id=eq.${editingLeadId}`,
+      {method:'DELETE',headers:getSbHeaders()},5000
+    ).catch(()=>{});
+  }
 }
 
 // Save / Delete
@@ -6611,6 +6767,7 @@ function saveLead(keepOpen){
     draftLead.activity=[];
     Object.assign(original,draftLead);
     original.activity=activityBackup; // im Arbeitsspeicher behalten (fuer Anzeige), nicht in DB
+    draftLead.activity=activityBackup; // draftLead ebenfalls wiederherstellen fuer renderLeadModal()
   }else{
     draftLead.id=genId();
     if(draftLead.followup){
@@ -6641,9 +6798,18 @@ function deleteLead(){
   if(!requireAdmin('einen Lead löschen'))return;
   const l=leads.find(x=>x.id===editingLeadId);
   if(!confirm(`Lead "${l?l.company:''}" wirklich unwiderruflich löschen?`))return;
+  const deletedId=editingLeadId;
   leads=leads.filter(x=>x.id!==editingLeadId);
+  delete _actCache[deletedId];
   saveState();
   closeModal('leadModal');refreshCurrentView();
+  // Aktivitäten aus lead_activities löschen (async im Hintergrund)
+  if(isSbSessionValid()){
+    fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?lead_id=eq.${deletedId}`,
+      {method:'DELETE',headers:getSbHeaders()},8000
+    ).catch(e=>console.warn('lead_activities cleanup nach deleteLead fehlgeschlagen:',e));
+  }
 }
 
 // ── CSV EXPORT ──
@@ -6730,24 +6896,49 @@ function createNotifyRule(){
   saveState();
   renderSettings();
 }
-function deleteAllLeads(){
+async function deleteAllLeads(){
   if(!requireAdmin('alle Leads löschen'))return;
   if(leads.length===0){alert('Es sind bereits keine Leads vorhanden.');return;}
   if(!confirm(`Wirklich ALLE ${leads.length} Leads unwiderruflich löschen?\n\nDie Listen/Spalten, Labels, Mitarbeiter und Projekt-Einstellungen bleiben erhalten - nur die Kundendaten selbst werden entfernt.\n\nTipp: Es wird automatisch vorher ein Backup heruntergeladen.`))return;
   const typed=prompt('Zur Sicherheit: Bitte tippe LÖSCHEN (in Großbuchstaben) ein, um zu bestätigen:');
   if(typed!=='LÖSCHEN'){alert('Abgebrochen - Eingabe stimmte nicht überein. Es wurde nichts gelöscht.');return;}
-  exportFullBackup();
+  await exportFullBackup(); // Vollständiges Backup inkl. Aktivitäten BEVOR gelöscht wird
   leads=[];
+  // _actCache vollständig leeren
+  Object.keys(_actCache).forEach(k=>delete _actCache[k]);
   saveState();
   renderBoard();
   renderSettings();
+  // Alle Aktivitäten aus lead_activities löschen (async im Hintergrund)
+  if(isSbSessionValid()){
+    fetchWithTimeout(
+      `${SUPABASE_URL}/rest/v1/lead_activities?id=gt.0`,
+      {method:'DELETE',headers:getSbHeaders()},15000
+    ).catch(e=>console.warn('lead_activities cleanup nach deleteAllLeads fehlgeschlagen:',e));
+  }
   alert('Alle Leads wurden gelöscht. Ein Backup der vorherigen Daten wurde als JSON-Datei heruntergeladen.');
 }
-function exportFullBackup(isAutomatic){
+async function exportFullBackup(isAutomatic){
+  // Aktivitäten aus lead_activities laden (vollständiges Backup)
+  let activities=[];
+  if(isSbSessionValid()){
+    try{
+      // Alle Aktivitäten paginiert laden (max. 10.000 pro Anfrage reicht für jetzt)
+      const res=await fetchWithTimeout(
+        `${SUPABASE_URL}/rest/v1/lead_activities?order=id.asc&limit=10000`,
+        {headers:getSbHeaders()},15000
+      );
+      if(res.ok) activities=await res.json();
+    }catch(e){
+      console.warn('lead_activities für Backup konnten nicht geladen werden:',e);
+    }
+  }
   const backup={
     exportedAt:nowISO(),
     leads,COLUMNS,LABELS,AGENTS,ARTICLES,PROJECT,
-    nextId,nextLabelId,nextPrinterId,nextColId,nextAgentId,nextArticleId,nextMilestoneId,nextRiskId,nextNotifyRuleId
+    nextId,nextLabelId,nextPrinterId,nextColId,nextAgentId,nextArticleId,nextMilestoneId,nextRiskId,nextNotifyRuleId,
+    lead_activities:activities,
+    _note:`Vollständiges Backup inkl. ${activities.length} Aktivitäten/Kommentare aus lead_activities. Stand: ${nowISO()}`
   };
   const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
@@ -6763,15 +6954,12 @@ function exportFullBackup(isAutomatic){
 function maybeRunClientAutoBackup(){
   const intervalMinutes=PROJECT.autoBackupIntervalMinutes;
   if(!intervalMinutes||intervalMinutes<=0)return;
-  // NEU: laeuft nur noch bei Mitarbeitern, die in der Mitarbeiter-Uebersicht dafuer
-  // markiert wurden (a.localBackupResponsible). Sonst wuerde JEDES Teammitglied mit
-  // offenem Tab die Datei parallel herunterladen, statt nur die zustaendige(n) Person(en).
   const me=currentAgent();
   if(!me||!me.localBackupResponsible)return;
   const last=PROJECT.lastAutoBackupAt?new Date(PROJECT.lastAutoBackupAt):null;
   const now=new Date();
   if(last&&(now-last)<intervalMinutes*60*1000)return;
-  exportFullBackup(true);
+  exportFullBackup(true); // async - läuft im Hintergrund
   PROJECT.lastAutoBackupAt=now.toISOString();
   saveState();
 }
@@ -7225,7 +7413,9 @@ function importCSVFile(file){
             });
             if(changedFields.length){
               existingMatch.activity=existingMatch.activity||[];
-              existingMatch.activity.unshift({id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Per CSV-Import aktualisiert: ${changedFields.join(', ')}`,date:nowISO()});
+              const _csvUpdAct={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Per CSV-Import aktualisiert: ${changedFields.join(', ')}`,date:nowISO()};
+              existingMatch.activity.unshift(_csvUpdAct);
+              pushActivityToDb(existingMatch.id,_csvUpdAct);
               updated++;
               return;
             }
@@ -7254,9 +7444,12 @@ function importCSVFile(file){
         });
         nl.status=firstColId;
         nl.statusSince=TODAY;
-        nl.activity=[{id:Date.now()+Math.random(),type:'activity',author:currentUser,text:'Lead per CSV-Import angelegt',date:nowISO()}];
+        const _csvAct={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:'Lead per CSV-Import angelegt',date:nowISO()};
+        nl.activity=[_csvAct];
         if(nl.followup)nl.followupHistory=[{date:nl.followup,setAt:nowISO()}];
         leads.push(nl);
+        // Aktivität in lead_activities schreiben (async, nach leads.push damit nl.id gesetzt ist)
+        pushActivityToDb(nl.id,_csvAct);
         added++;
       });
       saveState();
@@ -7397,6 +7590,7 @@ function closeModal(id){
 let leadModalMouseDownOnOverlay=false;
 document.getElementById('leadModal').addEventListener('mousedown',e=>{leadModalMouseDownOnOverlay=(e.target.id==='leadModal');});
 document.getElementById('leadModal').addEventListener('click',e=>{if(e.target.id==='leadModal'&&leadModalMouseDownOnOverlay)closeModal('leadModal');});
+document.getElementById('backupModal').addEventListener('click',e=>{if(e.target.id==='backupModal')closeModal('backupModal');});
 let agentModalMouseDownOnOverlay=false;
 document.getElementById('agentModal').addEventListener('mousedown',e=>{agentModalMouseDownOnOverlay=(e.target.id==='agentModal');});
 document.getElementById('agentModal').addEventListener('click',e=>{if(e.target.id==='agentModal'&&agentModalMouseDownOnOverlay)closeAgentModal();});
@@ -7505,6 +7699,8 @@ async function bootstrapApp(){
     // Login-Log fuer Aktivitaeten-Ansicht laden (letzte 90 Tage)
     fetchWithTimeout(`${SUPABASE_URL}/rest/v1/login_log?order=logged_in_at.desc&limit=500`,{headers:getSbHeaders()},8000)
       .then(r=>r.ok?r.json():null).then(rows=>{if(rows)window.__loginLogCache=rows;}).catch(()=>{});
+    // Dashboard-Aktivitaets-Counts aus lead_activities voraufladen
+    refreshDashActCountCache();
   }catch(e){
     console.warn('Initialer Sync beim Start fehlgeschlagen (wird automatisch per Hintergrund-Abgleich erneut versucht):',e);
     sbInitialSyncDone=true;
