@@ -48,6 +48,83 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .board-part-title{font-weight:700;font-size:13px;color:var(--purple-dark);white-space:nowrap;padding-right:12px;margin-right:4px;border-right:1px solid var(--border,#dfe7e6);}
 .card-handover{align-self:flex-start;margin-top:6px;font-size:11px;font-weight:700;color:var(--purple-dark);background:var(--purple-bg);border:1px solid var(--purple-dark);border-radius:6px;padding:3px 8px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
 .card-handover:hover{background:var(--purple-dark);color:#fff;}
+.cal-btn{height:34px;font-size:12px;font-weight:600;padding:0 12px;border:1px solid var(--border2,#dfe7e6);border-radius:var(--r-md,8px);background:var(--bg,#fff);color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.cal-btn.on{background:var(--purple-dark);border-color:var(--purple-dark);color:#fff}
+.cal-btn.sq{width:34px;padding:0;justify-content:center}
+.cal-box{background:var(--bg,#fff);border:1px solid var(--border2,#dfe7e6);border-radius:14px;padding:14px}
+.cal-wrap{border:1px solid var(--border2,#dfe7e6);border-radius:10px;overflow:hidden}
+.cal-mini{position:absolute;top:calc(100% + 6px);left:0;z-index:30;background:var(--bg,#fff);border:1px solid var(--border2,#dfe7e6);border-radius:12px;padding:12px;width:220px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.cal-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.cal-mini-grid button{height:32px;border:1px solid var(--border2,#dfe7e6);border-radius:8px;background:var(--bg,#fff);font-size:12px;font-weight:600;cursor:pointer}
+.cal-mini-grid button.on{background:var(--purple-dark);border-color:var(--purple-dark);color:#fff}
+.cal-closed{position:absolute;left:0;right:0;top:0;background:rgba(0,0,0,.035);pointer-events:none}
+.cal-head{display:grid;grid-template-columns:56px repeat(5,minmax(0,1fr));border-bottom:1px solid var(--border2,#dfe7e6);background:var(--bg2,#f4f6f6)}
+.cal-head div{padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase}
+.cal-head div b{display:block;font-size:13px;color:var(--text);text-transform:none}
+.cal-head .today b{color:var(--purple-dark)}
+.cal-body{display:grid;grid-template-columns:56px repeat(5,minmax(0,1fr));position:relative}
+.cal-gutter div{height:64px;font-size:11px;color:var(--text3);text-align:right;padding:4px 8px 0 0;box-sizing:border-box;border-top:1px solid transparent}
+.cal-day{position:relative;border-left:1px solid var(--border2,#dfe7e6);background-image:repeating-linear-gradient(to bottom,var(--border2,#e4ebea) 0,var(--border2,#e4ebea) 1px,transparent 1px,transparent 64px)}
+.cal-day.today{background-color:rgba(14,104,112,.05)}
+.cal-day.drop{background-color:rgba(14,104,112,.12)}
+.cal-ev{position:absolute;left:3px;right:3px;border-radius:6px;padding:2px 6px;font-size:11px;line-height:1.25;overflow:hidden;cursor:grab;white-space:nowrap;text-overflow:ellipsis;border-left:3px solid}
+.cal-ev.sql{background:#e3f0f0;color:#0b4f55;border-left-color:#0e6870}
+.cal-ev.pql{background:#fdf1dc;color:#7a4e07;border-left-color:#ba7517}
+.cal-ev.past{opacity:.55}
+.cal-ev b{font-weight:700}
+.cal-now{position:absolute;left:0;right:0;height:2px;background:#e24b4a;z-index:2}
+.cal-month{display:grid;grid-template-columns:44px repeat(5,minmax(0,1fr));gap:6px}
+.cal-month .wd{font-size:11px;font-weight:700;color:var(--text3);text-align:center;padding:4px 0}
+.cal-month .kw{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);background:var(--bg2,#f4f6f6);border-radius:8px}
+.cal-cell{min-height:96px;border:1px solid var(--border2,#dfe7e6);border-radius:8px;padding:6px;background:var(--bg,#fff)}
+.cal-cell.out{background:transparent;border-color:transparent}
+.cal-cell.today{border-color:var(--purple-dark);background:rgba(14,104,112,.05)}
+.cal-cell.drop{background:rgba(14,104,112,.12)}
+.cal-cell .dn{font-size:12px;font-weight:700;margin-bottom:4px}
+.cal-cell .cal-ev{position:static;display:block;margin-top:3px}
+.cal-more{font-size:11px;color:var(--text3);cursor:pointer;margin-top:3px}
+.fm-sec{display:flex;align-items:center;gap:8px;padding:8px 12px;margin:2px 4px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text)}
+.fm-sec:hover{background:var(--bg2,#f4f6f6)}
+.fm-sec.open{background:var(--purple-bg);color:var(--purple-dark)}
+.fm-sum{margin-left:auto;font-size:11px;font-weight:600;color:var(--text3);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fm-sec.active .fm-sum{color:var(--purple-dark)}
+.fm-sec.open .fm-chev{transform:rotate(90deg)}
+.fm-chev{transition:transform .15s;font-size:14px}
+.fm-body{display:none;padding:0 4px 4px 16px}
+.fm-body.open{display:block}
+.ap-head{background:#206A72;color:#fff;padding:14px 20px;font-size:16px;font-weight:700;display:flex;gap:8px;align-items:center}
+.ap-body{padding:4px 20px 8px;max-height:70vh;overflow-y:auto}
+.ap-sec{font-size:11px;font-weight:700;color:#206A72;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 6px;display:flex;gap:6px;align-items:center}
+.ap-blk{border-left:2px solid #206A72;padding-left:14px}
+.ap-lbl{font-size:12px;font-weight:600;color:var(--text2);margin:8px 0 4px}
+.ap-lbl small{font-weight:400;color:var(--text3)}
+.ap-blk input,.ap-blk select,.ap-blk textarea{width:100%;box-sizing:border-box}
+.ap-body input:focus,.ap-body select:focus,.ap-body textarea:focus{border-color:#206A72;box-shadow:0 0 0 3px rgba(32,106,114,.15);outline:none}
+.ap-g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ap-res{border:1px solid var(--border2,#dfe7e6);border-radius:8px;margin-top:6px;overflow:hidden}
+.ap-row{display:flex;align-items:center;gap:8px;padding:8px 10px;font-size:13px;cursor:pointer;border-top:1px solid var(--border2,#dfe7e6)}
+.ap-row:first-child{border-top:0}
+.ap-row:hover{background:#f0f6f6}
+.ap-row small{display:block;color:var(--text3);font-size:11px}
+.ap-row.on{background:#e3f0f0;color:#0b4f55;box-shadow:inset 3px 0 0 #206A72}
+.ap-badge{margin-left:auto;font-size:11px;font-weight:600;color:var(--text3);white-space:nowrap}
+.ap-note{border-radius:8px;padding:7px 10px;font-size:12px;margin-top:8px;display:flex;gap:6px;align-items:flex-start}
+.ap-warn{background:#faeeda;color:#633806}
+.ap-info{background:#e3f0f0;color:#0b4f55}
+.ap-err{background:#fcebeb;color:#a32d2d}
+.ap-primary{background:#206A72!important;border-color:#206A72!important;color:#fff!important}
+.cal-split{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:12px;align-items:start}
+.cal-split.nopanel{grid-template-columns:minmax(0,1fr)}
+.cal-plan{border:1px solid var(--border2,#dfe7e6);border-radius:10px;padding:10px;max-height:820px;overflow-y:auto}
+.cal-plan-h{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
+.cal-grp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#206A72;text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px;cursor:pointer}
+.cal-grp span{margin-left:auto;color:var(--text3)}
+.cal-it{display:flex;align-items:center;gap:6px;border:1px solid var(--border2,#dfe7e6);border-radius:8px;padding:6px 8px;font-size:12px;margin-bottom:5px;cursor:grab;background:var(--bg,#fff)}
+.cal-it:hover{border-color:#206A72}
+.cal-it small{display:block;color:var(--text3);font-size:11px}
+.cal-it.od{box-shadow:inset 3px 0 0 #e24b4a}
+.omnibar-btn.on{background:var(--purple-bg);color:var(--purple-dark);border-color:var(--purple-dark)}
+.cal-person{height:34px;border:1px solid var(--border2,#dfe7e6);border-radius:var(--r-md,8px);padding:0 30px 0 10px;font-size:13px;font-weight:600;font-family:inherit;background:var(--bg,#fff);color:var(--text);cursor:pointer}
 .board-part-hint{flex:0 0 260px;align-self:flex-start;border:1.5px dashed var(--purple-dark);border-radius:var(--r-md);padding:16px;background:var(--purple-bg);font-size:13px;color:var(--purple-dark);display:flex;flex-direction:column;gap:10px;}
 .board-part-hint button{align-self:flex-start;}
 .nav-icon-badge{width:36px;height:36px;border-radius:9px;background:linear-gradient(180deg,#27808a 0%,#206A72 100%);box-shadow:0 6px 16px rgba(32,106,114,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -650,6 +727,7 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
     </div>
     <div class="sidebar-nav-item" id="navDashboard" onclick="switchView('dashboard')"><span class="nav-icon-badge faded"><i class="ti ti-layout-dashboard"></i></span> Dashboard</div>
     <div class="sidebar-nav-item" id="navTasks" onclick="switchView('tasks')"><span class="nav-icon-badge"><i class="ti ti-list-check"></i></span> Meine Aufgaben</div>
+    <div class="sidebar-nav-item" id="navCalendar" onclick="switchView('calendar')"><span class="nav-icon-badge"><i class="ti ti-calendar"></i></span> Mein Kalender</div>
     <div class="sidebar-nav-item" id="navAkquise" onclick="switchBoardPart('akquise')"><span class="nav-icon-badge"><i class="ti ti-phone-call"></i></span> <span style="white-space:nowrap">Board: SQL</span> <span class="nav-count" id="navAkquiseCount"></span></div>
     <div class="sidebar-nav-item" id="navBoard" onclick="switchBoardPart('vertrieb')"><span class="nav-icon-badge"><i class="ti ti-layout-kanban"></i></span> <span style="white-space:nowrap">Board: PQL</span> <span class="nav-count" id="navBoardCount"></span></div>
     <div class="sidebar-nav-item" id="navCrrma" onclick="switchView('crrma')"><span class="nav-icon-badge faded"><i class="ti ti-report-money"></i></span> Artikel</div>
@@ -716,11 +794,12 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="filterMenu">
-              <h4>Mitarbeiter</h4>
-              <div id="filterMenuAgents"></div>
-              <hr>
-              <h4>Label</h4>
-              <div id="filterMenuLabels"></div>
+              <div class="fm-sec" id="fmSecAgents" onclick="toggleFilterSection('agents',event)"><i class="ti ti-user"></i><span>Mitarbeiter</span><span class="fm-sum" id="fmSumAgents"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="filterMenuAgents" class="fm-body"></div>
+              <div class="fm-sec" id="fmSecLabels" onclick="toggleFilterSection('labels',event)"><i class="ti ti-tag"></i><span>Label</span><span class="fm-sum" id="fmSumLabels"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="filterMenuLabels" class="fm-body"></div>
+              <div class="fm-sec" id="fmSecLoss" onclick="toggleFilterSection('loss',event)"><i class="ti ti-circle-x"></i><span>Verlustgrund</span><span class="fm-sum" id="fmSumLoss"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="filterMenuLoss" class="fm-body"></div>
             </div>
           </div>
           <div id="omniTokens" style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;overflow-x:auto;max-width:320px;flex-shrink:1;"></div>
@@ -793,6 +872,17 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
       <div class="view-scroll" id="tasksViewContent"></div>
     </div>
 
+    <div class="view" id="viewCalendar">
+      <div class="topbar-unified">
+        <div class="omnibar-flex">
+          <i class="ti ti-search omni-search-icon"></i>
+          <input type="text" class="omni-input" id="calendarSearch" placeholder="Suche" oninput="renderCalendar()">
+          <div class="omni-spacer"></div>
+          <div id="calTopActions" style="display:flex;gap:8px;align-items:center;flex-shrink:0"></div>
+        </div>
+      </div>
+      <div class="view-scroll" id="calendarContent"></div>
+    </div>
     <div class="view" id="viewActivities">
       <div class="topbar-unified">
         <div class="omnibar-flex">
@@ -840,8 +930,19 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
   <div class="modal-lg" id="leadModalInner"></div>
 </div>
 
+<div class="modal-overlay hidden" id="calApptModal">
+  <div class="modal-sm" id="calApptModalInner" style="max-width:560px;width:100%;padding:0;overflow:hidden"></div>
+</div>
+
 <div class="modal-overlay hidden" id="agentModal">
   <div class="modal-sm" id="agentModalInner"></div>
+</div>
+
+<div class="wizard-overlay hidden" id="apptReminderOverlay" style="z-index:300">
+  <div class="wizard-card" style="min-height:0">
+    <div class="wizard-body" id="apptReminderBody" style="padding:34px 30px 18px"></div>
+    <div class="wizard-footer"><div></div><button class="wizard-next-btn" onclick="closeApptReminder()">OK <i class="ti ti-check"></i></button></div>
+  </div>
 </div>
 
 <div class="wizard-overlay hidden" id="loginWizardOverlay">
@@ -962,7 +1063,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-20T23:00:00.000Z';
+const BUILD_VERSION='2026-10-21T17:00:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -2530,6 +2631,342 @@ function renderBoardSortMenu(){
   el.innerHTML=`<div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text3);padding:6px 12px 2px">Sortierung</div>`
     +opt('manual','Manuell')+opt('due_asc','Fälligkeit: bald zuerst')+opt('due_desc','Fälligkeit: spät zuerst');
 }
+// ── MEIN KALENDER ──
+// Zeigt Follow-ups MIT Uhrzeit als 25-Minuten-Termine. Klick oeffnet den Lead, Ziehen verschiebt
+// (Woche: Tag + Uhrzeit, Raster 30 Min.; Monat: nur der Tag, Uhrzeit bleibt). Jede Verschiebung
+// wird wie im Lead-Fenster protokolliert (Wiedervorlage-Verlauf + Aktivitaet).
+const CAL_HOUR_PX=64, CAL_DUR=25, CAL_SNAP=30;
+let calViewMode=(()=>{try{return localStorage.getItem('projectos_cal_view')==='month'?'month':'week';}catch(e){return 'week';}})();
+let calWeekStart=null, calYear=null, calMonth=null, calAgent=null, calDrag=null, calMiniOpen=false, calMiniYear=null;
+let calPlanPanel=(()=>{try{return localStorage.getItem('projectos_cal_plan')!=='0';}catch(e){return true;}})();
+let calPlanOpen={overdue:true,today:true,week:true,weekend:true};
+const CAL_DAY_START=8, CAL_DAY_END=20, CAL_BOOK_FROM=9; // Tag 08-20 Uhr, Termine ab 09:00
+function calYmd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function calMonday(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());const dow=x.getDay()||7;x.setDate(x.getDate()-(dow-1));return x;}
+function calIsoWeek(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil(((t-y)/86400000+1)/7);}
+function calInit(){
+  const t=new Date();
+  if(!calWeekStart)calWeekStart=calYmd(calMonday(t));
+  if(calYear===null){calYear=t.getFullYear();calMonth=t.getMonth();}
+  if(!calAgent)calAgent=currentUser;
+  if(!isAdmin())calAgent=currentUser;
+}
+function calParse(fu){
+  const m=/^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/.exec(fu||'');
+  if(!m)return null;
+  return{date:m[1],min:(+m[2])*60+(+m[3]),time:m[2]+':'+m[3]};
+}
+function calEvents(){
+  const q=((document.getElementById('calendarSearch')||{}).value||'').toLowerCase().trim();
+  const pk=phoneQueryKeys(q);
+  return leads.filter(l=>!isClosedLead(l)&&calParse(l.followup)&&(calAgent==='all'||(l.members||[]).includes(calAgent))&&leadMatchesSearch(l,q,pk))
+    .map(l=>Object.assign({lead:l},calParse(l.followup)));
+}
+function calFmt(min){return String(Math.floor(min/60)).padStart(2,'0')+':'+String(min%60).padStart(2,'0');}
+function calSnap(min){return Math.round(min/CAL_SNAP)*CAL_SNAP;}
+function setCalView(m){calViewMode=m==='month'?'month':'week';try{localStorage.setItem('projectos_cal_view',calViewMode);}catch(e){}renderCalendar();}
+function calNav(delta){
+  if(calViewMode==='week'){const d=new Date(calWeekStart+'T00:00:00');d.setDate(d.getDate()+delta*7);calWeekStart=calYmd(d);}
+  else{const d=new Date(calYear,calMonth+delta,1);calYear=d.getFullYear();calMonth=d.getMonth();}
+  renderCalendar();
+}
+function calToday(){const t=new Date();calWeekStart=calYmd(calMonday(t));calYear=t.getFullYear();calMonth=t.getMonth();renderCalendar();}
+function calOpenWeekOf(dateStr){calWeekStart=calYmd(calMonday(new Date(dateStr+'T00:00:00')));setCalView('week');}
+function calSetAgent(v){calAgent=v;renderCalendar();}
+// ── Seitenleiste "Zu planen": Wiedervorlagen ohne Uhrzeit (ueberfaellig, heute, diese Woche)
+// und Termine am Wochenende. Ziehen auf eine Uhrzeit = Termin; Klick oeffnet den Lead.
+function calTogglePlanPanel(){calPlanPanel=!calPlanPanel;try{localStorage.setItem('projectos_cal_plan',calPlanPanel?'1':'0');}catch(e){}renderCalendar();}
+function calTogglePlanGroup(k){calPlanOpen[k]=!calPlanOpen[k];renderCalendar();}
+function calPlanItems(){
+  calInit();
+  const q=((document.getElementById('calendarSearch')||{}).value||'').toLowerCase().trim();
+  const pk=phoneQueryKeys(q);
+  const today=calYmd(new Date());
+  const fri=(()=>{const m=calMonday(new Date());m.setDate(m.getDate()+4);return calYmd(m);})();
+  const out=[];
+  leads.forEach(l=>{
+    if(isClosedLead(l)||!l.followup)return;
+    if(!(calAgent==='all'||(l.members||[]).includes(calAgent)))return;
+    if(!leadMatchesSearch(l,q,pk))return;
+    const p=calParse(l.followup);
+    const date=(l.followup||'').slice(0,10);
+    if(p){const dow=new Date(p.date+'T00:00:00').getDay();if(dow===0||dow===6)out.push({lead:l,group:'weekend',date});return;}
+    if(date<today)out.push({lead:l,group:'overdue',date});
+    else if(date===today)out.push({lead:l,group:'today',date});
+    else if(date<=fri)out.push({lead:l,group:'week',date});
+  });
+  return out.sort((a,b)=>a.date.localeCompare(b.date)||String(a.lead.company).localeCompare(b.lead.company));
+}
+function calPlanPanelHtml(){
+  const items=calPlanItems();
+  const today=new Date(calYmd(new Date())+'T00:00:00');
+  const groups=[['overdue','Überfällig'],['today','Heute'],['week','Diese Woche'],['weekend','Wochenende']];
+  let h=`<div class="cal-plan"><div class="cal-plan-h"><i class="ti ti-list-check" style="color:#206A72"></i>Zu planen<span style="margin-left:auto;font-size:12px;color:var(--text3)">${items.length}</span></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:4px">Lead auf eine Uhrzeit ziehen = Termin.</div>`;
+  groups.forEach(([k,label])=>{
+    const list=items.filter(i=>i.group===k);
+    if(!list.length&&k==='weekend')return;
+    h+=`<div class="cal-grp" onclick="calTogglePlanGroup('${k}')"><i class="ti ti-chevron-${calPlanOpen[k]?'down':'right'}"></i>${label}<span>${list.length}</span></div>`;
+    if(!calPlanOpen[k])return;
+    if(!list.length){h+=`<div style="font-size:11px;color:var(--text3);padding:0 2px 4px">Nichts zu planen.</div>`;return;}
+    h+=list.map(i=>{
+      const l=i.lead;const col=colById(l.status);
+      const days=Math.round((today-new Date(i.date+'T00:00:00'))/86400000);
+      const sub=[k==='overdue'?`seit ${days} T`:(k==='week'||k==='weekend'?fmtDate(i.date)+(k==='weekend'&&calParse(l.followup)?' '+calParse(l.followup).time:''):''),col?col.name:'',leadBoardPart(l)==='akquise'?'SQL':'PQL'].filter(Boolean).join(' · ');
+      const idAttr=JSON.stringify(String(l.id)).replace(/"/g,'&quot;');
+      return `<div class="cal-it ${k==='overdue'?'od':''}" draggable="true" data-id="${esc(String(l.id))}" ondragstart="calDragStart(event,${idAttr});calDrag.grabY=0" onclick="openLeadModal(${typeof l.id==='number'?l.id:idAttr})"><i class="ti ti-grip-vertical" style="color:var(--text3)"></i><div style="min-width:0"><div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(l.company)}</div><small>${esc(sub)}</small></div></div>`;
+    }).join('');
+  });
+  return h+`</div>`;
+}
+function calToggleMini(e){
+  if(e)e.stopPropagation();
+  calMiniOpen=!calMiniOpen;
+  calMiniYear=calViewMode==='week'?new Date(calWeekStart+'T00:00:00').getFullYear():calYear;
+  renderCalendar();
+}
+document.addEventListener('click',()=>{if(calMiniOpen){calMiniOpen=false;if(currentView==='calendar')renderCalendar();}});
+function calMiniYearNav(d,e){if(e)e.stopPropagation();calMiniYear+=d;renderCalendar();}
+function calJumpMonth(y,m,e){
+  if(e)e.stopPropagation();
+  calMiniOpen=false;
+  if(calViewMode==='week')calWeekStart=calYmd(calMonday(new Date(y,m,1)));
+  else{calYear=y;calMonth=m;}
+  renderCalendar();
+}
+// Verschiebt den Follow-up-Termin eines Leads (gleiche Protokollierung wie im Lead-Fenster)
+function calMoveLead(id,dateStr,minutes){
+  const l=leads.find(x=>String(x.id)===String(id));
+  if(!l)return false;
+  const lock=getLeadLock(l.id);
+  if(lock&&lock.agentId!==currentUser){alert(`„${l.company}“ wird gerade von ${lock.agentName||'jemand anderem'} bearbeitet und kann nicht verschoben werden.`);return false;}
+  const nv=`${dateStr}T${calFmt(minutes)}`;
+  if(nv===l.followup)return false;
+  const old=calParse(l.followup);
+  const prevFu=l.followup||'';
+  l.followup=nv;
+  l.followupHistory=[...(l.followupHistory||[]),{date:nv,setAt:nowISO()}];
+  const act={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:old?`Follow-up verschoben: „${fmtDate(old.date)} ${old.time}“ → „${fmtDate(dateStr)} ${calFmt(minutes)}“`:`Follow-up-Uhrzeit festgelegt: „${prevFu?fmtDate(prevFu):'–'}“ → „${fmtDate(dateStr)} ${calFmt(minutes)}“`,date:nowISO()};
+  if(!Array.isArray(l.activity))l.activity=[];
+  l.activity.unshift(act);pushActivityToDb(l.id,act);
+  saveState();
+  renderCalendar();
+  return true;
+}
+function calDragStart(e,id){
+  const r=e.currentTarget.getBoundingClientRect();
+  calDrag={id,grabY:(e.clientY||0)-(r.top||0)};
+  try{e.dataTransfer.setData('text/plain',String(id));e.dataTransfer.effectAllowed='move';}catch(x){}
+}
+function calDragOver(e){e.preventDefault();e.currentTarget.classList.add('drop');}
+function calDragLeave(e){e.currentTarget.classList.remove('drop');}
+function calDropWeek(e,dateStr,startH,endH){
+  e.preventDefault();e.currentTarget.classList.remove('drop');
+  if(!calDrag)return;
+  const r=e.currentTarget.getBoundingClientRect();
+  const y=(e.clientY||0)-(r.top||0)-calDrag.grabY;
+  let min=calSnap(startH*60+y/CAL_HOUR_PX*60);
+  min=Math.max(CAL_BOOK_FROM*60,Math.min(CAL_DAY_END*60-CAL_SNAP,min)); // buchbar 09:00 bis 19:30
+  const id=calDrag.id;calDrag=null;
+  calMoveLead(id,dateStr,min);
+}
+function calDropMonth(e,dateStr){
+  e.preventDefault();e.currentTarget.classList.remove('drop');
+  if(!calDrag)return;
+  const l=leads.find(x=>String(x.id)===String(calDrag.id));calDrag=null;
+  const p=l&&calParse(l.followup);
+  if(p)calMoveLead(l.id,dateStr,p.min);
+}
+function calEventHtml(ev,style){
+  const part=leadBoardPart(ev.lead)==='akquise'?'sql':'pql';
+  const now=new Date();const past=new Date(ev.date+'T'+ev.time)<now;
+  return `<div class="cal-ev ${part} ${past?'past':''}" draggable="true" style="${style||''}" title="${esc(ev.time+' – '+ev.lead.company)}" ondragstart="calDragStart(event,${JSON.stringify(String(ev.lead.id)).replace(/"/g,'&quot;')})" onclick="openLeadModal(${typeof ev.lead.id==='number'?ev.lead.id:JSON.stringify(ev.lead.id).replace(/"/g,'&quot;')})"><b>${ev.time}</b> ${esc(ev.lead.company)}</div>`;
+}
+function renderCalendar(){
+  const el=document.getElementById('calendarContent');
+  if(!el)return;
+  calInit();
+  const mFull=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  const mShort=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+  const evs=calEvents();
+  let label;
+  if(calViewMode==='week'){
+    const ws=new Date(calWeekStart+'T00:00:00');const we=new Date(ws);we.setDate(we.getDate()+4);
+    label=`${ws.getDate()}. ${mShort[ws.getMonth()]} – ${we.getDate()}. ${mShort[we.getMonth()]} ${we.getFullYear()} (KW ${calIsoWeek(ws)})`;
+  } else label=`${mFull[calMonth]} ${calYear}`;
+  const agentSel=isAdmin()?`<select class="cal-person" onchange="calSetAgent(this.value)" title="Wessen Kalender">${activeAgents().map(a=>`<option value="${a.id}" ${calAgent===a.id?'selected':''}>${esc(a.name)}</option>`).join('')}<option value="all" ${calAgent==='all'?'selected':''}>Alle</option></select>`:'';
+  let h=`<div class="cal-box"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+    <button class="cal-btn ${calViewMode==='week'?'on':''}" onclick="setCalView('week')">Woche</button>
+    <button class="cal-btn ${calViewMode==='month'?'on':''}" onclick="setCalView('month')">Monat</button>
+    <button class="cal-btn" onclick="calToday()"><i class="ti ti-calendar-event"></i> Heute</button>
+    <button class="cal-btn sq" onclick="calNav(-1)" title="Zurück"><i class="ti ti-chevron-left"></i></button>
+    <button class="cal-btn sq" onclick="calNav(1)" title="Weiter"><i class="ti ti-chevron-right"></i></button>
+    <div style="position:relative"><div onclick="calToggleMini(event)" style="font-size:14px;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:5px" id="calLabel">${label} <i class="ti ti-chevron-down" style="font-size:13px;color:var(--text3)"></i></div>${calMiniOpen?(()=>{const curY=calViewMode==='week'?new Date(calWeekStart+'T00:00:00').getFullYear():calYear;const curM=calViewMode==='week'?new Date(calWeekStart+'T00:00:00').getMonth():calMonth;return `<div class="cal-mini" onclick="event.stopPropagation()"><div style="display:flex;align-items:center;justify-content:space-between"><button class="cal-btn sq" style="height:28px;width:28px" onclick="calMiniYearNav(-1,event)"><i class="ti ti-chevron-left"></i></button><b style="font-size:14px">${calMiniYear}</b><button class="cal-btn sq" style="height:28px;width:28px" onclick="calMiniYearNav(1,event)"><i class="ti ti-chevron-right"></i></button></div><div class="cal-mini-grid">${mShort.map((mn,i)=>`<button class="${calMiniYear===curY&&i===curM?'on':''}" onclick="calJumpMonth(${calMiniYear},${i},event)">${mn}</button>`).join('')}</div></div>`;})():''}</div>
+    <div style="flex:1"></div>
+    <div style="display:flex;gap:12px;font-size:11px;color:var(--text3);align-items:center">
+      <span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#0e6870"></span> Board: SQL</span>
+      <span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#ba7517"></span> Board: PQL</span>
+      <span>Termin = 25 Min.</span>
+    </div></div>`;
+  const todayStr=calYmd(new Date());
+  if(calViewMode==='week'){
+    const ws=new Date(calWeekStart+'T00:00:00');
+    const days=[...Array(5)].map((_,i)=>{const d=new Date(ws);d.setDate(d.getDate()+i);return calYmd(d);});
+    const inWeek=evs.filter(e=>days.includes(e.date));
+    let startH=CAL_DAY_START,endH=CAL_DAY_END;
+    inWeek.forEach(e=>{startH=Math.min(startH,Math.floor(e.min/60));endH=Math.max(endH,Math.ceil((e.min+CAL_DUR)/60));});
+    const wd=['Mo','Di','Mi','Do','Fr'];
+    h+=`<div class="cal-split ${calPlanPanel?'':'nopanel'}"><div class="cal-wrap"><div class="cal-head"><div></div>${days.map((d,i)=>`<div class="${d===todayStr?'today':''}">${wd[i]}<b>${d.slice(8,10)}.${d.slice(5,7)}.</b></div>`).join('')}</div>`;
+    h+=`<div class="cal-body"><div class="cal-gutter">${[...Array(endH-startH)].map((_,i)=>`<div>${String(startH+i).padStart(2,'0')}:00</div>`).join('')}</div>`;
+    days.forEach(d=>{
+      const list=inWeek.filter(e=>e.date===d).sort((a,b)=>a.min-b.min||String(a.lead.company).localeCompare(b.lead.company));
+      // Ueberschneidungen nebeneinander: Gruppen ueberlappender Termine auf Spuren verteilen
+      const lanes=[];list.forEach(e=>{let li=lanes.findIndex(end=>end<=e.min);if(li<0){li=lanes.length;lanes.push(0);}lanes[li]=e.min+CAL_DUR;e.lane=li;});
+      list.forEach(e=>{const grp=list.filter(o=>o.min<e.min+CAL_DUR&&e.min<o.min+CAL_DUR);e.lanes=Math.max(...grp.map(o=>o.lane))+1;});
+      let inner=list.map(e=>{const top=(e.min-startH*60)/60*CAL_HOUR_PX;const ht=CAL_DUR/60*CAL_HOUR_PX;const w=100/e.lanes;
+        return calEventHtml(e,`top:${top}px;height:${ht}px;left:calc(${w*e.lane}% + 2px);width:calc(${w}% - 4px);right:auto`);}).join('');
+      if(d===todayStr){const n=new Date();const nm=n.getHours()*60+n.getMinutes();if(nm>=startH*60&&nm<=endH*60)inner+=`<div class="cal-now" style="top:${(nm-startH*60)/60*CAL_HOUR_PX}px"></div>`;}
+      if(CAL_BOOK_FROM>startH)inner=`<div class="cal-closed" style="height:${(CAL_BOOK_FROM-startH)*CAL_HOUR_PX}px"></div>`+inner;
+      h+=`<div class="cal-day ${d===todayStr?'today':''}" style="height:${(endH-startH)*CAL_HOUR_PX}px" data-date="${d}" onclick="calSlotClick(event,'${d}',${startH})" ondragover="calDragOver(event)" ondragleave="calDragLeave(event)" ondrop="calDropWeek(event,'${d}',${startH},${endH})">${inner}</div>`;
+    });
+    h+=`</div></div>${calPlanPanel?calPlanPanelHtml():''}</div>`;
+  } else {
+    const first=new Date(calYear,calMonth,1);const start=calMonday(first);
+    const last=new Date(calYear,calMonth+1,0);
+    h+=`<div class="cal-month"><div></div>${['Mo','Di','Mi','Do','Fr'].map(x=>`<div class="wd">${x}</div>`).join('')}`;
+    for(let w=new Date(start);w<=last;w.setDate(w.getDate()+7)){
+      const anyWorkday=[0,1,2,3,4].some(i=>{const d=new Date(w);d.setDate(d.getDate()+i);return d.getMonth()===calMonth;});
+      if(!anyWorkday)continue;
+      h+=`<div class="kw">KW${calIsoWeek(w)}</div>`;
+      for(let i=0;i<5;i++){
+        const d=new Date(w);d.setDate(d.getDate()+i);const ds=calYmd(d);const inMonth=d.getMonth()===calMonth;
+        if(!inMonth){h+=`<div class="cal-cell out"></div>`;continue;}
+        const list=evs.filter(e=>e.date===ds).sort((a,b)=>a.min-b.min);
+        const shown=list.slice(0,4).map(e=>calEventHtml(e)).join('');
+        const more=list.length>4?`<div class="cal-more" onclick="calOpenWeekOf('${ds}')">+${list.length-4} weitere</div>`:'';
+        h+=`<div class="cal-cell ${ds===todayStr?'today':''}" data-date="${ds}" ondragover="calDragOver(event)" ondragleave="calDragLeave(event)" ondrop="calDropMonth(event,'${ds}')"><div class="dn">${d.getDate()}</div>${shown}${more}</div>`;
+      }
+    }
+    h+=`</div>`;
+  }
+  if(!evs.length)h+=`<div style="margin-top:12px;font-size:12px;color:var(--text3)">Keine Termine mit Uhrzeit. Termine erscheinen hier, sobald bei einem Follow-up eine Uhrzeit eingetragen ist.</div>`;
+  h+=`</div>`;
+  el.innerHTML=h;
+  // Personenauswahl, "Zu planen" und "+ Termin" sitzen rechts in der Suchleiste - wie im Board
+  const top=document.getElementById('calTopActions');
+  if(top)top.innerHTML=`${agentSel}
+    ${calViewMode==='week'?`<button class="omnibar-btn ${calPlanPanel?'on':''}" onclick="calTogglePlanPanel()" title="Seitenleiste ein-/ausblenden"><i class="ti ti-list-check"></i> Zu planen <b>${calPlanItems().length}</b></button>`:''}
+    <button class="omnibar-btn primary" onclick="openCalAppt()"><i class="ti ti-plus"></i> Termin</button>`;
+}
+// ── Termin planen (Fenster im Stil von Sales OS) ──
+// Setzt beim gewaehlten Lead das Follow-up auf Datum + Startzeit - dasselbe Feld wie im Lead-Fenster
+// und auf der Board-Karte. Eine bestehende Wiedervorlage wird ersetzt und protokolliert.
+let calAppt=null;
+function calApptPerson(){return calAgent&&calAgent!=='all'?calAgent:currentUser;}
+function calTimeOptions(){const o=[];for(let m=CAL_BOOK_FROM*60;m<=CAL_DAY_END*60-CAL_SNAP;m+=CAL_SNAP)o.push(calFmt(m));return o;}
+function calSlotClick(e,dateStr,startH){
+  if(e.target!==e.currentTarget&&!(e.target.classList&&e.target.classList.contains('cal-closed')))return; // Klick auf einen Termin oeffnet den Lead
+  const r=e.currentTarget.getBoundingClientRect();
+  let min=startH*60+Math.floor(((e.clientY||0)-(r.top||0))/CAL_HOUR_PX*60/CAL_SNAP)*CAL_SNAP;
+  min=Math.max(CAL_BOOK_FROM*60,Math.min(CAL_DAY_END*60-CAL_SNAP,min));
+  openCalAppt(dateStr,calFmt(min));
+}
+function openCalAppt(dateStr,time){
+  calInit();
+  const today=calYmd(new Date());
+  let d=dateStr;
+  if(!d){const ws=calWeekStart;const we=calYmd(new Date(new Date(ws+'T00:00:00').getTime()+6*86400000));d=(calViewMode==='week'&&(today<ws||today>we))?ws:today;}
+  calAppt={leadId:null,date:d,time:time||'09:00',note:'',q:'',err:''};
+  renderCalAppt();
+  openModal('calApptModal');
+  setTimeout(()=>{const i=document.getElementById('apSearch');if(i)i.focus();},30);
+}
+function calApptResults(){
+  const q=(calAppt.q||'').toLowerCase().trim();
+  if(q.length<2)return [];
+  const pk=phoneQueryKeys(q);
+  return leads.filter(l=>!isClosedLead(l)&&leadMatchesSearch(l,q,pk)).slice(0,6);
+}
+function renderCalApptResults(){
+  const el=document.getElementById('apResults');if(!el)return;
+  const res=calApptResults();
+  const sel=calAppt.leadId?leads.find(l=>String(l.id)===String(calAppt.leadId)):null;
+  const list=sel&&!res.some(l=>l.id===sel.id)?[sel,...res]:res;
+  if(!list.length){el.innerHTML=(calAppt.q||'').trim().length>=2?`<div style="font-size:12px;color:var(--text3);padding:8px 2px">Kein offener Lead gefunden.</div>`:'';return;}
+  el.innerHTML=`<div class="ap-res">${list.map(l=>{const on=sel&&l.id===sel.id;return `<div class="ap-row ${on?'on':''}" onclick="calApptPick(${JSON.stringify(String(l.id)).replace(/"/g,'&quot;')})"><i class="ti ${on?'ti-circle-check':'ti-building'}"></i><div>${esc(l.company)}<small>${esc([l.contact,l.customerNumber,l.phone].filter(Boolean).join(' · '))}</small></div><span class="ap-badge">${BOARD_PARTS[leadBoardPart(l)]}</span></div>`;}).join('')}</div>`;
+}
+function calApptSearch(v){calAppt.q=v;renderCalApptResults();}
+function calApptPick(id){calAppt.leadId=id;calAppt.err='';renderCalAppt();}
+function calApptSet(k,v){calAppt[k]=v;if(k==='time'){const e=document.getElementById('apEnd');if(e)e.value=calFmt(calParseTime(v)+CAL_DUR);}}
+function calParseTime(t){const m=/^(\d{2}):(\d{2})/.exec(t||'');return m?(+m[1])*60+(+m[2]):CAL_BOOK_FROM*60;}
+function renderCalAppt(){
+  const el=document.getElementById('calApptModalInner');if(!el||!calAppt)return;
+  const sel=calAppt.leadId?leads.find(l=>String(l.id)===String(calAppt.leadId)):null;
+  const opts=calTimeOptions();if(!opts.includes(calAppt.time))opts.unshift(calAppt.time);
+  const person=calApptPerson();const pa=agentById(person);
+  let notes='';
+  if(sel&&sel.followup){const p=calParse(sel.followup);notes+=`<div class="ap-note ap-warn"><i class="ti ti-alert-triangle"></i><span>Bestehende Wiedervorlage am ${fmtDate(sel.followup)}${p?' um '+p.time:''} wird durch diesen Termin ersetzt.</span></div>`;}
+  if(sel&&!(sel.members||[]).includes(person))notes+=`<div class="ap-note ap-info"><i class="ti ti-user-plus"></i><span>${esc(pa?pa.name:'Die Person')} wird als Person zum Lead hinzugefügt, damit der Termin im Kalender erscheint.</span></div>`;
+  el.innerHTML=`<div class="ap-head"><i class="ti ti-calendar-plus"></i> Termin planen</div>
+  <div class="ap-body">
+    <div class="ap-sec"><i class="ti ti-user-search"></i> Wer</div>
+    <div class="ap-blk">
+      <div class="ap-lbl">Lead <small>(Firma, Kd-Nr., Ansprechpartner, Telefon, E-Mail)</small></div>
+      <input type="text" id="apSearch" placeholder="Suche" value="${esc(calAppt.q||'')}" oninput="calApptSearch(this.value)">
+      <div id="apResults"></div>
+    </div>
+    <div class="ap-sec"><i class="ti ti-clock"></i> Wann</div>
+    <div class="ap-blk">
+      <div class="ap-g3">
+        <div><div class="ap-lbl">Datum</div><input type="date" id="apDate" value="${calAppt.date}" onchange="calApptSet('date',this.value)"></div>
+        <div><div class="ap-lbl">Start</div><select id="apTime" onchange="calApptSet('time',this.value)">${opts.map(t=>`<option ${t===calAppt.time?'selected':''}>${t}</option>`).join('')}</select></div>
+        <div><div class="ap-lbl">Ende <small>(25 Min.)</small></div><input type="text" id="apEnd" value="${calFmt(calParseTime(calAppt.time)+CAL_DUR)}" readonly style="background:var(--bg2,#f4f6f6);color:var(--text3)"></div>
+      </div>
+      ${notes}
+    </div>
+    <div class="ap-sec"><i class="ti ti-notes"></i> Kontext</div>
+    <div class="ap-blk">
+      <div class="ap-lbl">Notiz zum Termin <small>(optional, wird als Kommentar im Lead gespeichert)</small></div>
+      <textarea id="apNote" rows="3" placeholder="Worum geht es im Gespräch?" oninput="calAppt.note=this.value">${esc(calAppt.note||'')}</textarea>
+    </div>
+    ${calAppt.err?`<div class="ap-note ap-err"><i class="ti ti-alert-circle"></i><span>${esc(calAppt.err)}</span></div>`:''}
+  </div>
+  <div class="modal-actions" style="justify-content:flex-start"><button class="btn" onclick="closeModal('calApptModal')">Abbrechen</button><button class="btn ap-primary" onclick="saveCalAppt()"><i class="ti ti-check"></i> Termin planen</button></div>`;
+  renderCalApptResults();
+}
+function saveCalAppt(){
+  if(!calAppt)return false;
+  const l=calAppt.leadId?leads.find(x=>String(x.id)===String(calAppt.leadId)):null;
+  if(!l){calAppt.err='Bitte zuerst einen Lead auswählen.';renderCalAppt();return false;}
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(calAppt.date||'')){calAppt.err='Bitte ein gültiges Datum wählen.';renderCalAppt();return false;}
+  const lock=getLeadLock(l.id);
+  if(lock&&lock.agentId!==currentUser){calAppt.err=`„${l.company}“ wird gerade von ${lock.agentName||'jemand anderem'} bearbeitet. Bitte später erneut versuchen.`;renderCalAppt();return false;}
+  const nv=`${calAppt.date}T${calAppt.time}`;
+  const old=calParse(l.followup);
+  if(!Array.isArray(l.activity))l.activity=[];
+  const person=calApptPerson();
+  if(!(l.members||[]).includes(person)){
+    l.members=[...(l.members||[]),person];
+    const pa=agentById(person);
+    const a0={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Person hinzugefügt: ${pa?pa.name:person}`,date:nowISO()};l.activity.unshift(a0);pushActivityToDb(l.id,a0);
+  }
+  if(l.followup!==nv){
+    const prevFu=l.followup||'';
+    const oldTxt=old?`${fmtDate(old.date)} ${old.time}`:(prevFu?fmtDate(prevFu):'–');
+    l.followup=nv;
+    l.followupHistory=[...(l.followupHistory||[]),{date:nv,setAt:nowISO()}];
+    const a1={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Follow-up-Termin geplant: „${oldTxt}“ → „${fmtDate(calAppt.date)} ${calAppt.time}“`,date:nowISO()};
+    l.activity.unshift(a1);pushActivityToDb(l.id,a1);
+  }
+  if((calAppt.note||'').trim()){
+    const a2={id:Date.now()+Math.random(),type:'comment',author:currentUser,text:`Termin ${fmtDate(calAppt.date)} ${calAppt.time}: ${calAppt.note.trim()}`,date:nowISO()};l.activity.unshift(a2);pushActivityToDb(l.id,a2);
+  }
+  saveState();
+  closeModal('calApptModal');
+  calAppt=null;
+  renderCalendar();
+  return true;
+}
 function renderBoardNav(){
   const fl=leads;
   const a=fl.filter(l=>leadBoardPart(l)==='akquise').length;
@@ -2825,7 +3262,7 @@ function leadMatchesSearch(l,q,phoneKeys){
     ||(l.customerNumber||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)
     ||(keys.length>0&&keys.some(k=>normPhone(l.phone).includes(k)));
 }
-function getFilteredLeads(){
+function getFilteredLeads(skipLossFilter){
   const q=(document.getElementById('searchInput').value||'').toLowerCase().trim();
   const qPhoneKeys=phoneQueryKeys(q);
   return leads.filter(l=>{
@@ -2841,6 +3278,10 @@ function getFilteredLeads(){
       if(!(wantsNone&&hasNoLabel)&&!matchesOther)return false;
     }
     if(q&&!leadMatchesSearch(l,q,qPhoneKeys))return false;
+    if(activeLossFilter&&!skipLossFilter&&isLostStatus(l.status)){
+      const r=(l.lossReason||'').trim();
+      if(activeLossFilter==='__none__'?r!=='':r!==activeLossFilter)return false;
+    }
     return true;
   });
 }
@@ -2918,6 +3359,10 @@ function renderOmniTokens(){
   labelFilterLabels().forEach(t=>{
     html+=`<div class="omni-token"><i class="ti ti-tag" style="font-size:12px"></i>${esc(t.label)}<i class="ti ti-x" onclick="toggleLabelFilter('${t.id}')"></i></div>`;
   });
+  updateFilterSectionSummaries();
+  if(activeLossFilter){
+    html+=`<div class="omni-token"><i class="ti ti-circle-x" style="font-size:12px"></i>Verlustgrund: ${esc(activeLossFilter==='__none__'?'Ohne Grund':activeLossFilter)}<i class="ti ti-x" onclick="setLossFilter('')"></i></div>`;
+  }
   el.innerHTML=html;
 }
 let filterMenuOpen=false;
@@ -2927,6 +3372,51 @@ function toggleFilterMenu(e){
   if(filterMenuOpen)overflowMenuOpen=false;
   document.getElementById('filterMenu').classList.toggle('show',filterMenuOpen);
   document.getElementById('overflowMenu').classList.remove('show');
+}
+// ── Filter nach Verlustgrund (wirkt NUR auf Verloren-Listen; alle anderen Listen bleiben vollstaendig) ──
+let activeLossFilter='';
+function isLostStatus(statusId){const c=colById(statusId);return !!(c&&c.outcome==='lost');}
+function setLossFilter(v){
+  activeLossFilter=v||'';
+  renderLossFilterMenu();renderOmniTokens();renderBoard();
+}
+function renderLossFilterMenu(){
+  const el=document.getElementById('filterMenuLoss');
+  if(!el)return;
+  const base=getFilteredLeads(true).filter(l=>isLostStatus(l.status)&&leadBoardPart(l)===currentBoardPart);
+  const counts={};let none=0;
+  base.forEach(l=>{const r=(l.lossReason||'').trim();if(r)counts[r]=(counts[r]||0)+1;else none++;});
+  if(!('Keine Rückmeldung' in counts))counts['Keine Rückmeldung']=0;
+  const reasons=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
+  const item=(val,label,n)=>`<div class="filtermenu-item ${activeLossFilter===val?'active':''}" onclick="event.stopPropagation();setLossFilter('${val.replace(/'/g,"\\'")}')"${n===0&&val?' style="opacity:.55"':''}><span>${esc(label)}</span><span style="margin-left:auto;display:flex;align-items:center;gap:6px;color:var(--text3);font-size:12px">${n}${activeLossFilter===val?'<i class="ti ti-check"></i>':''}</span></div>`;
+  let html=item('','Alle Gründe',base.length);
+  reasons.forEach(r=>{html+=item(r,r,counts[r]);});
+  if(none)html+=item('__none__','Ohne Grund',none);
+  el.innerHTML=html;
+}
+// Filter-Menue: drei einklappbare Bereiche, immer nur einer offen. Neben jedem Bereich steht
+// die aktuelle Auswahl, damit aktive Filter auch zugeklappt sichtbar sind.
+let filterSectionOpen='';
+function toggleFilterSection(key,e){
+  if(e)e.stopPropagation();
+  filterSectionOpen=filterSectionOpen===key?'':key;
+  applyFilterSections();
+}
+function applyFilterSections(){
+  [['agents','Agents'],['labels','Labels'],['loss','Loss']].forEach(([k,id])=>{
+    const sec=document.getElementById('fmSec'+id),body=document.getElementById('filterMenu'+id);
+    if(sec)sec.classList.toggle('open',filterSectionOpen===k);
+    if(body)body.classList.toggle('open',filterSectionOpen===k);
+  });
+}
+function updateFilterSectionSummaries(){
+  const set=(id,txt,active)=>{const el=document.getElementById('fmSum'+id);if(el)el.textContent=txt;const sec=document.getElementById('fmSec'+id);if(sec)sec.classList.toggle('active',!!active);};
+  const ag=activeAgentFilters.map(f=>f==='unassigned'?'Nicht zugeordnet':((agentById(f)||{}).name||'')).filter(Boolean);
+  set('Agents',ag.length?(ag.length===1?ag[0]:ag.length+' gewählt'):'Alle',ag.length);
+  const lb=activeLabelFilters.map(f=>f==='__none__'?'Ohne Label':((labelById(f)||{}).name||'')).filter(Boolean);
+  set('Labels',lb.length?(lb.length===1?lb[0]:lb.length+' gewählt'):'Alle',lb.length);
+  set('Loss',activeLossFilter?(activeLossFilter==='__none__'?'Ohne Grund':activeLossFilter):'Alle',activeLossFilter);
+  applyFilterSections();
 }
 function renderLabelChips(){
   const el=document.getElementById('filterMenuLabels');
@@ -3015,7 +3505,7 @@ function switchView(view){
     view='board';
   }
   currentView=view;
-  ['dashboard','board','crrma','tasks','activities','settings'].forEach(v=>{
+  ['dashboard','board','crrma','tasks','calendar','activities','settings'].forEach(v=>{
     document.getElementById('view'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('active',v===view);
     document.getElementById('nav'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('active',v===view);
   });
@@ -3026,6 +3516,7 @@ function switchView(view){
   if(view==='board'){renderLabelChips();renderBoard();}
   if(view==='crrma')setTimeout(()=>renderCrRma(),0);
   if(view==='tasks'){renderTasksAgentChips();renderTasksView();}
+  if(view==='calendar')renderCalendar();
   if(view==='activities'){renderActivityFilterChips();renderActivities();}
   if(view==='settings'){renderSettings();equalizeRowHeights();}
 }
@@ -3108,6 +3599,7 @@ function renderBoard(){
   }
   board.innerHTML = partHintHtml + colsHtml + addTileHtml;
   renderBoardSortMenu();
+  renderLossFilterMenu();
   {const t=document.getElementById('boardPartTitle');if(t)t.textContent=BOARD_PARTS[currentBoardPart];}
   renderBoardNav();
 
@@ -4915,7 +5407,6 @@ function renderSettings(){
         <div class="btn-row">
           <button class="btn" onclick="exportFullBackup()"><i class="ti ti-database-export"></i> Alle Daten als Backup exportieren (JSON)</button>
           <button class="btn" onclick="runDataIntegrityCheck()"><i class="ti ti-stethoscope"></i> Datenintegrität jetzt prüfen</button>
-          <button class="btn" onclick="runBoardRestructure()"><i class="ti ti-layout-columns"></i> Board-Umbau: SQL &amp; PQL</button>
           <button class="btn" onclick="listAvailableBackups()"><i class="ti ti-history"></i> Backups anzeigen / wiederherstellen</button>
           <button class="btn" onclick="migrateLegacyAttachmentsToStorage()"><i class="ti ti-file-upload"></i> Alte Anhänge in den Dateispeicher übertragen</button>
         </div>
@@ -5192,7 +5683,8 @@ function cardHtml(l,isFirst,isLast){
     const d=daysUntil(l.followup);
     isOverdueFollowup=d<0;
     const cls=d<0?'due-overdue':(d<=2?'due-soon':'due-ok');
-    const dlabel=d<0?`${Math.abs(d)}T überfällig`:(d===0?'heute':fmtDate(l.followup));
+    const ftime=((l.followup||'').split('T')[1]||'').slice(0,5);
+    const dlabel=d<0?`${Math.abs(d)}T überfällig`:((d===0?'heute':fmtDate(l.followup))+(ftime?` · ${ftime}`:''));
     dueHtml=`<span class="due-badge ${cls}"><i class="ti ti-clock" style="font-size:11px"></i>${dlabel}</span>`;
   }
   const metaBadges=[];
@@ -5218,7 +5710,7 @@ function cardHtml(l,isFirst,isLast){
     </div>`}
     <div class="card-company">${esc(l.company)} ${agingHtml}</div>
     <div class="card-contact">${esc(l.contact)}${l.customerNumber?` · ${esc(l.customerNumber)}`:''}</div>
-    <div class="card-labels-slot">${labelsHtml}</div>
+    <div class="card-labels-slot">${labelsHtml}${(isLostStatus(l.status)&&l.lossReason)?`<span class="label-chip" style="background:#fcebeb;color:#a32d2d">${esc(l.lossReason)}</span>`:''}</div>
     <div class="card-badges-row">${metaBadges.join('')}</div>
     ${(!bulkMode&&l.status==='am_order'&&colById('fu_feedback'))?`<button class="card-handover" onclick="event.stopPropagation();handOverToPql(${l.id})" title="Nach „${esc(colById('fu_feedback').name)}“ im Board: PQL schieben"><i class="ti ti-arrow-right"></i> An PQL übergeben</button>`:''}
     <div class="card-spacer"></div>
@@ -5340,14 +5832,17 @@ function blocksLeavingFirstColumn(lead,newStatus){
 // "AM: Auftrag", "Verloren: Kein Interesse" (Board: SQL) oder in irgendeine Liste von Board: PQL.
 // NICHT bei Offen, Rueckruf, NE 1-4 und "Verloren: Nicht erreicht" - dort gab es kein Gespraech.
 // Fehlt das Datum, setzt das Board heute ein; im Lead jederzeit korrigierbar.
-function requiresFirstContact(statusId){
+function requiresFirstContact(statusId,lead){
   const c=colById(statusId);
   if(!c)return false;
   if(colBoard(c)==='vertrieb')return true;
-  return c.id==='am_order'||c.id==='lost_akq_interest';
+  if(c.id==='am_order')return true;
+  // Verloren im Board: SQL: Erstkontakt nur, wenn wirklich gesprochen wurde - also nicht bei "Nicht Erreichbar".
+  if(c.outcome==='lost')return !!(lead&&lead.lossReason&&lead.lossReason!=='Nicht Erreichbar');
+  return false;
 }
 function ensureFirstContactFor(lead,newStatus){
-  if(lead&&!lead.firstContact&&requiresFirstContact(newStatus)){lead.firstContact=TODAY;return true;}
+  if(lead&&!lead.firstContact&&requiresFirstContact(newStatus,lead)){lead.firstContact=TODAY;return true;}
   return false;
 }
 function warnMissingFirstContact(company){
@@ -6980,7 +7475,8 @@ function nextNotReachedStatus(statusId){
   if(cur.neLevel){
     const nxt=ne.find(c=>c.neLevel===cur.neLevel+1);
     if(nxt)return nxt.id;
-    const lost=COLUMNS.find(c=>c.outcome==='lost'&&colBoard(c)==='akquise'&&/nicht erreicht/i.test(c.name||''));
+    const lostCols=COLUMNS.filter(c=>c.outcome==='lost'&&colBoard(c)==='akquise');
+    const lost=lostCols.find(c=>/nicht erreicht/i.test(c.name||''))||lostCols[0];
     return lost?lost.id:null;
   }
   return null;
@@ -8481,12 +8977,13 @@ function wizardTeamTopForecastList(){
 let wizardPage=0;
 function wizardPageCount(){
   const me=agentById(currentUser);
-  return(me&&me.role==='am')?7:6;
+  return(me&&me.role==='am')?amWizardPages().length:6;
 }
 function openLoginWizard(){
   const me=agentById(currentUser);
   if(!me)return;
   wizardPage=0;
+  if(me.role==='am')loadWizardYesterday();
   renderWizardPage();
   document.getElementById('loginWizardOverlay').classList.remove('hidden');
 }
@@ -8512,48 +9009,128 @@ function renderWizardPage(){
   if(me&&me.role==='am'){renderAmWizardPage(body);}
   else{renderAdminWizardPage(body);}
 }
+// ── Assistent fuer Account Manager (5 Seiten, Okt. 2026) ──
+// 1 Ueberfaellig (3 aelteste + Jetzt planen) · 2 Heute geplant · 3 Gestern (eigene Zahlen + Team)
+// 4 Offene Angebote (5 aelteste) · 5 Dir zugewiesen + Spruch des Tages
+let wizardYesterday=null;
+function wizardLastWorkday(){const d=new Date(TODAY+'T00:00:00');do{d.setDate(d.getDate()-1);}while(d.getDay()===0||d.getDay()===6);return d;}
+async function loadWizardYesterday(){
+  wizardYesterday={loading:true};
+  try{
+    const d=wizardLastWorkday();const from=calYmd(d);const nx=new Date(d);nx.setDate(nx.getDate()+1);const to=calYmd(nx);
+    const rows=await fetchAllRows(`lead_activities?select=lead_id,author,type,text,date&date=gte.${from}&date=lt.${to}&order=id.asc`,{timeoutMs:15000});
+    const amOrder=colById('am_order');const wonNames=COLUMNS.filter(c=>c.outcome==='won').map(c=>c.name);
+    const toAmOrder=r=>r.type==='activity'&&amOrder&&/^Status geändert:/.test(r.text||'')&&(r.text||'').endsWith('→ '+amOrder.name);
+    const toWon=r=>r.type==='activity'&&/^Status geändert:/.test(r.text||'')&&wonNames.some(n=>(r.text||'').endsWith('→ '+n));
+    const mine=new Set(wizardLeadScope().map(l=>String(l.id)));
+    wizardYesterday={date:from,
+      toner:rows.filter(r=>toAmOrder(r)&&r.author===currentUser).length,
+      tonerTeam:rows.filter(toAmOrder).length,
+      talks:rows.filter(r=>r.type==='comment'&&r.author===currentUser).length,
+      wins:[...new Set(rows.filter(r=>toWon(r)&&mine.has(String(r.lead_id))).map(r=>String(r.lead_id)))].map(id=>leads.find(l=>String(l.id)===id)).filter(Boolean)};
+  }catch(e){wizardYesterday={error:true};}
+  if(amWizardPages()[wizardPage]==='yesterday'&&!document.getElementById('loginWizardOverlay').classList.contains('hidden'))renderWizardPage();
+}
+// ── Erinnerung 5 Minuten vor einem eigenen Termin (Follow-up mit Uhrzeit) ──
+// Prueft alle 30 s. Jeder Termin erinnert genau einmal (Merker im Browser, je Lead + Terminzeit).
+const APPT_REMIND_MIN=5;
+function apptRemindedLoad(){try{return JSON.parse(localStorage.getItem('projectos_appt_reminded')||'{}');}catch(e){return {};}}
+function apptRemindedSave(m){try{const cut=Date.now()-2*86400000;Object.keys(m).forEach(k=>{if(m[k]<cut)delete m[k];});localStorage.setItem('projectos_appt_reminded',JSON.stringify(m));}catch(e){}}
+function dueApptReminders(nowDate){
+  const now=nowDate||new Date();const today=calYmd(now);const nowMin=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
+  const done=apptRemindedLoad();
+  return leads.filter(l=>!isClosedLead(l)&&(l.members||[]).includes(currentUser)).map(l=>({l,p:calParse(l.followup)}))
+    .filter(x=>x.p&&x.p.date===today&&x.p.min-nowMin>0&&x.p.min-nowMin<=APPT_REMIND_MIN&&!done[String(x.l.id)+'|'+x.l.followup])
+    .sort((a,b)=>a.p.min-b.p.min);
+}
+function checkApptReminders(nowDate){
+  if(!currentUser||!leads.length)return;
+  const due=dueApptReminders(nowDate);
+  if(!due.length)return;
+  const m=apptRemindedLoad();due.forEach(x=>{m[String(x.l.id)+'|'+x.l.followup]=Date.now();});apptRemindedSave(m);
+  const body=document.getElementById('apptReminderBody');if(!body)return;
+  const now=nowDate||new Date();const nowMin=now.getHours()*60+now.getMinutes();
+  const idArg=l=>typeof l.id==='number'?l.id:JSON.stringify(String(l.id)).replace(/"/g,'&quot;');
+  body.innerHTML=`<div class="wizard-icon"><i class="ti ti-bell-ringing"></i></div>
+    <div class="wizard-title">${due.length===1?`Termin in ${Math.max(1,Math.round(due[0].p.min-nowMin))} Minuten`:`${due.length} Termine in Kürze`}</div>
+    ${due.map(x=>{const c=colById(x.l.status);return wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc([x.l.contact,x.l.phone,c?c.name:''].filter(Boolean).join(' · ')),'<i class="ti ti-arrow-right"></i>',`closeApptReminder();openLeadModal(${idArg(x.l)})`);}).join('')}
+    <div class="wizard-sub">Klick öffnet den Lead.</div>`;
+  document.getElementById('apptReminderOverlay').classList.remove('hidden');
+}
+function closeApptReminder(){document.getElementById('apptReminderOverlay').classList.add('hidden');}
+setInterval(()=>{try{checkApptReminders();}catch(e){}},30000);
+function wizardJumpToPlanning(){
+  closeLoginWizard();
+  calViewMode='week';calPlanPanel=true;calWeekStart=null;
+  try{localStorage.setItem('projectos_cal_view','week');localStorage.setItem('projectos_cal_plan','1');}catch(e){}
+  switchView('calendar');
+}
+function wizardRow(main,sub,right,onclick){
+  return `<div class="wizard-taskrow" ${onclick?`style="cursor:pointer" onclick="${onclick}"`:''}><div style="flex:1;min-width:0;text-align:left"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${main}</div>${sub?`<div style="font-size:11px;opacity:.7">${sub}</div>`:''}</div>${right?`<div style="font-weight:700;white-space:nowrap">${right}</div>`:''}</div>`;
+}
+function wizardOpenLead(id){closeLoginWizard();openLeadModal(id);}
+// Seitenfolge fuer Account Manager: "Dir zugewiesen" nur, wenn es Aufgaben gibt; Spruch immer als letzte Seite.
+function amWizardPages(){
+  const p=['overdue','today','yesterday','offers'];
+  if(wizardAssignedTasks().length)p.push('tasks');
+  p.push('quote');
+  return p;
+}
 function renderAmWizardPage(body){
-  if(wizardPage===0){
-    const n=wizardOverdueCount();
+  const scope=wizardLeadScope().filter(l=>!isClosedLead(l));
+  const colName=l=>{const c=colById(l.status);return c?c.name:'';};
+  const idArg=l=>typeof l.id==='number'?l.id:JSON.stringify(String(l.id)).replace(/"/g,'&quot;');
+  const pageKey=amWizardPages()[wizardPage]||'quote';
+  if(pageKey==='overdue'){
+    const od=scope.filter(l=>l.followup&&daysUntil(l.followup)<0).sort((a,b)=>daysUntil(a.followup)-daysUntil(b.followup));
+    const n=od.length;
     body.innerHTML=`
       <div class="wizard-icon"><i class="ti ti-alert-triangle"></i></div>
       <div class="wizard-stat" style="color:#ffb4a8">${n}</div>
-      <div class="wizard-title">${n===1?'Überfällige Aufgabe':'Überfällige Aufgaben'}</div>
-      <div class="wizard-sub">${n?`Du hast ${n} Follow-up${n===1?'':'s'}, deren Frist bereits verstrichen ${n===1?'ist':'sind'}. Am besten zuerst erledigen.`:'Alles im grünen Bereich – aktuell keine überfälligen Follow-ups.'}</div>`;
-  }else if(wizardPage===1){
-    const c=wizardStageCounts();
+      <div class="wizard-title">${n===1?'Überfälliges Follow-up':'Überfällige Follow-ups'}</div>
+      ${n?od.slice(0,3).map(l=>wizardRow(esc(l.company),`${esc(colName(l))} · seit ${Math.abs(daysUntil(l.followup))} Tagen`,'',`wizardOpenLead(${idArg(l)})`)).join('')
+        +`<button class="wizard-next-btn" style="margin-top:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)" onclick="wizardJumpToPlanning()">Jetzt planen <i class="ti ti-arrow-right"></i></button>`
+        :'<div class="wizard-sub">Alles im grünen Bereich – aktuell keine überfälligen Follow-ups.</div>'}`;
+  }else if(pageKey==='today'){
+    const today=TODAY;
+    const timed=scope.map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p&&x.p.date===today).sort((a,b)=>a.p.min-b.p.min);
+    const untimed=scope.filter(l=>l.followup&&!calParse(l.followup)&&(l.followup||'').slice(0,10)===today).length;
     body.innerHTML=`
-      <div class="wizard-title" style="margin-bottom:4px">Deine Follow-up-Pipeline</div>
-      <div class="wizard-sub" style="margin-bottom:6px">Leads, die gerade auf eine Rückmeldung warten</div>
+      <div class="wizard-icon"><i class="ti ti-calendar-time"></i></div>
+      <div class="wizard-title" style="margin-bottom:8px">Heute geplant${timed.length?` · ${timed.length} ${timed.length===1?'Termin':'Termine'}`:''}</div>
+      ${timed.length?timed.slice(0,6).map(x=>wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc(colName(x.l)),'',`wizardOpenLead(${idArg(x.l)})`)).join('')+(timed.length>6?`<div class="wizard-sub">+${timed.length-6} weitere im Kalender</div>`:'')
+        :'<div class="wizard-sub">Für heute sind noch keine Termine mit Uhrzeit geplant.</div>'}
+      ${untimed?`<button class="wizard-next-btn" style="margin-top:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)" onclick="wizardJumpToPlanning()">${untimed} ${untimed===1?'Wiedervorlage':'Wiedervorlagen'} noch ohne Uhrzeit <i class="ti ti-arrow-right"></i></button>`:''}`;
+  }else if(pageKey==='yesterday'){
+    const y=wizardYesterday;const d=wizardLastWorkday();
+    const label=`${['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()]} ${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.`;
+    const v=k=>(!y||y.loading)?'…':(y.error?'–':y[k]);
+    body.innerHTML=`
+      <div class="wizard-icon"><i class="ti ti-chart-arrows"></i></div>
+      <div class="wizard-title" style="margin-bottom:8px">${new Date(TODAY+'T00:00:00').getDay()===1?'Letzter Freitag':'Gestern'} · ${label}</div>
       <div class="wizard-stagerow">
-        <div class="wizard-stagebox"><strong>${c.qual}</strong><span>Qualifizierung</span></div>
-        <div class="wizard-stagebox"><strong>${c.feedback}</strong><span>Feedback</span></div>
-        <div class="wizard-stagebox"><strong>${c.offer}</strong><span>Angebot</span></div>
-      </div>`;
-  }else if(wizardPage===2){
+        <div class="wizard-stagebox"><strong>${v('toner')}</strong><span>Free Toner zugesagt</span></div>
+        <div class="wizard-stagebox"><strong>${v('talks')}</strong><span>Gespräche</span></div>
+        <div class="wizard-stagebox"><strong>${y&&y.wins?y.wins.length:v('wins')}</strong><span>gewonnen</span></div>
+      </div>
+      ${y&&y.wins&&y.wins.length?y.wins.slice(0,3).map(l=>wizardRow(`<i class="ti ti-confetti" style="color:#fac775;margin-right:6px"></i>${esc(l.company)}`,'gewonnen',l.forecast?fmtEur(l.forecast):'',`wizardOpenLead(${idArg(l)})`)).join(''):''}
+      ${y&&!y.loading&&!y.error?`<div class="wizard-sub">Team gesamt: ${y.tonerTeam} Free-Toner-${y.tonerTeam===1?'Zusage':'Zusagen'}</div>`:''}`;
+  }else if(pageKey==='offers'){
+    const offers=scope.filter(l=>l.status==='am_offer'||isStage(l.status,'offer')).sort((a,b)=>String(a.statusSince||'9999').localeCompare(String(b.statusSince||'9999')));
+    const sum=offers.reduce((s,l)=>s+(parseFloat(l.forecast)||0),0);
+    const age=l=>l.statusSince?Math.max(0,Math.round((new Date(TODAY+'T00:00:00')-new Date(String(l.statusSince).slice(0,10)+'T00:00:00'))/86400000)):null;
+    body.innerHTML=`
+      <div class="wizard-icon"><i class="ti ti-file-invoice"></i></div>
+      <div class="wizard-title" style="margin-bottom:8px">Offene Angebote${offers.length>5?' · die 5 ältesten':''}</div>
+      ${offers.length?offers.slice(0,5).map(l=>wizardRow(esc(l.company),`${esc(colName(l))}${age(l)!==null?` · seit ${age(l)} Tagen`:''}`,l.forecast?fmtEur(l.forecast):'',`wizardOpenLead(${idArg(l)})`)).join('')
+        +`<div class="wizard-sub">${offers.length} offene ${offers.length===1?'Angebot':'Angebote'} · ${fmtEur(sum)||'0 €'}</div>`
+        :'<div class="wizard-sub">Aktuell keine offenen Angebote.</div>'}`;
+  }else if(pageKey==='tasks'){
     const items=wizardAssignedTasks();
     body.innerHTML=`
-      <div class="wizard-title" style="margin-bottom:10px">Dir zugewiesene Aufgaben</div>
-      ${items.length?items.map(x=>`<div class="wizard-taskrow"><i class="ti ti-checkbox"></i><div style="flex:1;min-width:0;text-align:left"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(x.task.text)}</div><div style="font-size:10.5px;color:rgba(255,255,255,.6)">${esc(x.lead.company)}${x.task.dueDate?' · '+fmtDate(x.task.dueDate):''}</div></div></div>`).join(''):'<div class="wizard-sub">Aktuell sind dir keine offenen Aufgaben zugewiesen.</div>'}`;
-  }else if(wizardPage===3){
-    const wins=wizardRecentWins();
-    body.innerHTML=`
-      <div class="wizard-icon"><i class="ti ti-trophy"></i></div>
-      <div class="wizard-title" style="margin-bottom:${wins.length?'10px':'0'}">Kürzlich gewonnene Leads</div>
-      ${wins.length?wins.map(l=>`<div class="wizard-taskrow"><i class="ti ti-confetti"></i><div style="flex:1;min-width:0;text-align:left"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(l.company)}</div><div style="font-size:10.5px;color:rgba(255,255,255,.6)">${l.forecast?fmtEur(l.forecast)+' · ':''}${fmtDate(l.closedAt)}</div></div></div>`).join(''):'<div class="wizard-sub">Diese Woche noch kein Abschluss verbucht – die nächste Chance wartet schon.</div>'}`;
-  }else if(wizardPage===4){
-    const sum=wizardOpenForecastSum();
-    body.innerHTML=`
-      <div class="wizard-icon"><i class="ti ti-coin"></i></div>
-      <div class="wizard-stat">${fmtEur(sum)||'0 €'}</div>
-      <div class="wizard-title">Offener Forecast-Wert</div>
-      <div class="wizard-sub">So viel potenzieller Umsatz steckt gerade in deiner aktiven Pipeline.</div>`;
-  }else if(wizardPage===5){
-    const top=wizardTopPriorityLead();
-    body.innerHTML=`
-      <div class="wizard-icon"><i class="ti ti-flag-3"></i></div>
-      <div class="wizard-title" style="margin-bottom:${top?'6px':'0'}">Top-Priorität heute</div>
-      ${top?`<div class="wizard-taskrow" style="cursor:pointer" onclick="closeLoginWizard();openLeadModal(${top.lead.id})"><i class="ti ti-arrow-right"></i><div style="flex:1;min-width:0;text-align:left"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(top.lead.company)}</div><div style="font-size:10.5px;color:rgba(255,255,255,.6)">${top.reason==='overdue'?`Follow-up seit ${Math.abs(daysUntil(top.lead.followup))} Tag${Math.abs(daysUntil(top.lead.followup))===1?'':'en'} überfällig`:`Höchster offener Forecast: ${fmtEur(top.lead.forecast)}`}</div></div></div><div class="wizard-sub" style="margin-top:10px">Klicke darauf, um direkt hineinzuspringen.</div>`:'<div class="wizard-sub">Aktuell nichts Dringendes – ein guter Moment für neue Kontakte.</div>'}`;
+      <div class="wizard-icon"><i class="ti ti-checkbox"></i></div>
+      <div class="wizard-title" style="margin-bottom:8px">Dir zugewiesene Aufgaben</div>
+      ${items.map(x=>wizardRow(esc(x.task.text||x.task.title||'Aufgabe'),`${esc(x.lead.company)}${x.task.dueDate?' · '+fmtDate(x.task.dueDate):''}`,'',`wizardOpenLead(${idArg(x.lead)})`)).join('')}`;
   }else{
     const quote=pickNextMotivationQuote();
     body.innerHTML=`
