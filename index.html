@@ -44,6 +44,12 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .sidebar-user-row label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:block;}
 .sidebar-nav-item{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:var(--r-md);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;margin-bottom:2px;transition:background .15s,color .15s;}
 .sidebar-nav-item i{font-size:17px;flex-shrink:0;}
+.nav-count{margin-left:auto;font-size:11px;font-weight:700;color:var(--text3);background:var(--bg2);border-radius:10px;padding:1px 7px;}
+.board-part-title{font-weight:700;font-size:13px;color:var(--purple-dark);white-space:nowrap;padding-right:12px;margin-right:4px;border-right:1px solid var(--border,#dfe7e6);}
+.card-handover{align-self:flex-start;margin-top:6px;font-size:11px;font-weight:700;color:var(--purple-dark);background:var(--purple-bg);border:1px solid var(--purple-dark);border-radius:6px;padding:3px 8px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;}
+.card-handover:hover{background:var(--purple-dark);color:#fff;}
+.board-part-hint{flex:0 0 260px;align-self:flex-start;border:1.5px dashed var(--purple-dark);border-radius:var(--r-md);padding:16px;background:var(--purple-bg);font-size:13px;color:var(--purple-dark);display:flex;flex-direction:column;gap:10px;}
+.board-part-hint button{align-self:flex-start;}
 .nav-icon-badge{width:36px;height:36px;border-radius:9px;background:linear-gradient(180deg,#27808a 0%,#206A72 100%);box-shadow:0 6px 16px rgba(32,106,114,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .nav-icon-badge i{color:#fff;font-size:19px;}
 .nav-icon-badge.faded{background:var(--purple-bg);box-shadow:none;}
@@ -644,7 +650,8 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
     </div>
     <div class="sidebar-nav-item" id="navDashboard" onclick="switchView('dashboard')"><span class="nav-icon-badge faded"><i class="ti ti-layout-dashboard"></i></span> Dashboard</div>
     <div class="sidebar-nav-item" id="navTasks" onclick="switchView('tasks')"><span class="nav-icon-badge"><i class="ti ti-list-check"></i></span> Meine Aufgaben</div>
-    <div class="sidebar-nav-item" id="navBoard" onclick="switchView('board')"><span class="nav-icon-badge"><i class="ti ti-layout-kanban"></i></span> Mein Board</div>
+    <div class="sidebar-nav-item" id="navAkquise" onclick="switchBoardPart('akquise')"><span class="nav-icon-badge"><i class="ti ti-phone-call"></i></span> <span style="white-space:nowrap">Board: SQL</span> <span class="nav-count" id="navAkquiseCount"></span></div>
+    <div class="sidebar-nav-item" id="navBoard" onclick="switchBoardPart('vertrieb')"><span class="nav-icon-badge"><i class="ti ti-layout-kanban"></i></span> <span style="white-space:nowrap">Board: PQL</span> <span class="nav-count" id="navBoardCount"></span></div>
     <div class="sidebar-nav-item" id="navCrrma" onclick="switchView('crrma')"><span class="nav-icon-badge faded"><i class="ti ti-report-money"></i></span> Artikel</div>
     <div class="sidebar-nav-item" id="navActivities" onclick="switchView('activities')"><span class="nav-icon-badge faded"><i class="ti ti-history"></i></span> Aktivitäten</div>
     <div class="sidebar-nav-item" id="navSettings" onclick="toggleSettingsNav()"><span class="nav-icon-badge faded"><i class="ti ti-settings"></i></span> Einstellungen <i class="ti ti-chevron-down" id="settingsNavChevron" style="margin-left:auto;font-size:13px;color:var(--text3)"></i></div>
@@ -703,8 +710,9 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
     <div class="view" id="viewBoard">
       <div class="topbar-unified">
         <div class="omnibar-flex">
+          <span class="board-part-title" id="boardPartTitle">Board: PQL</span>
           <i class="ti ti-search omni-search-icon"></i>
-          <input type="text" class="omni-input" id="searchInput" placeholder="Firma, Kontakt, Kd-Nr." oninput="renderBoard()">
+          <input type="text" class="omni-input" id="searchInput" placeholder="Suche" oninput="renderBoard()">
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="filterMenu">
@@ -725,6 +733,8 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
             <div class="infopop" id="overflowMenu">
               <div class="filtermenu-item" onclick="triggerCSVImport()"><i class="ti ti-upload"></i> Import CSV</div>
               <div class="filtermenu-item" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</div>
+              <hr>
+              <div id="boardSortMenu"></div>
               <hr>
               <div id="statsPopover"></div>
             </div>
@@ -768,7 +778,7 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
       <div class="topbar-unified">
         <div class="omnibar-flex">
           <i class="ti ti-search omni-search-icon"></i>
-          <input type="text" class="omni-input" id="tasksSearch" placeholder="Firma, Kd-Nr. suchen…" oninput="renderTasksView()">
+          <input type="text" class="omni-input" id="tasksSearch" placeholder="Suche" oninput="renderTasksView()">
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleTasksFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="tasksFilterMenu">
@@ -787,7 +797,7 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
       <div class="topbar-unified">
         <div class="omnibar-flex">
           <i class="ti ti-search omni-search-icon"></i>
-          <input type="text" class="omni-input" id="activitySearch" placeholder="Firma oder Kundennummer suchen…" oninput="renderActivities()">
+          <input type="text" class="omni-input" id="activitySearch" placeholder="Suche" oninput="renderActivities()">
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleActivityFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="activityFilterMenu">
@@ -952,7 +962,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-20T12:00:00.000Z';
+const BUILD_VERSION='2026-10-20T23:00:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -2403,6 +2413,130 @@ function setActivityFeedFilter(f){
 function ini(n){return n.split(' ').map(x=>x[0]).join('').toUpperCase().slice(0,2);}
 function agentById(id){return AGENTS.find(a=>a.id===id);}
 function colById(id){return COLUMNS.find(c=>c.id===id);}
+// ── Akquise / Vertrieb (Prototyp) ──
+// Zwei Ansichten auf DIESELBEN Leads: Jede Spalte gehoert zu genau einem Board. Es gibt
+// keine zweite Datenhaltung - ein Lead wechselt das Board einfach mit seiner Phase.
+// Ohne ausdrueckliche Zuordnung entscheidet der Spaltenname (Offene Leads, Qualifizierung,
+// Nicht erreicht = Akquise). Eine Aenderung im Spaltenmenue speichert die Zuordnung.
+const BOARD_PARTS={akquise:'Board: SQL',vertrieb:'Board: PQL'};
+function defaultBoardPartForColumn(c){
+  if(!c)return 'vertrieb';
+  if(c.id==='open'||c.id==='fu_qual'||c.id==='am_order'||c.neLevel)return 'akquise';
+  const n=(c.name||'').trim().toLowerCase();
+  if(n.includes('nicht erreicht')||n.startsWith('followup: ne'))return 'akquise';
+  return 'vertrieb';
+}
+// Phase einer Spalte fuer Auswertungen (Dashboard, Anmelde-Assistent, Follow-up-Grafiken).
+// Bisher hingen diese an festen Spalten-IDs - neue Listen (z.B. NE 1-4, Ausprobiert,
+// Eindruck, Bedarf) tragen ihre Phase deshalb als Eigenschaft "stage".
+function colStage(c){
+  if(!c)return '';
+  if(c.stage)return c.stage;
+  return({open:'open',fu_qual:'qual',fu_feedback:'feedback',fu_offer:'offer'})[c.id]||'';
+}
+function isStage(statusId,stage){return colStage(colById(statusId))===stage;}
+function colBoard(c){return(c&&(c.board==='akquise'||c.board==='vertrieb'))?c.board:defaultBoardPartForColumn(c);}
+function leadBoardPart(l){return colBoard(colById(l&&l.status));}
+let currentBoardPart=(()=>{try{return localStorage.getItem('projectos_board_part')==='akquise'?'akquise':'vertrieb';}catch(e){return 'vertrieb';}})();
+function setBoardPart(part){currentBoardPart=part==='akquise'?'akquise':'vertrieb';try{localStorage.setItem('projectos_board_part',currentBoardPart);}catch(e){}}
+function switchBoardPart(part){setBoardPart(part);switchView('board');}
+function setColumnBoard(colId,part){
+  const c=colById(colId);if(!c)return;
+  c.board=part==='akquise'?'akquise':'vertrieb';
+  colMenuOpenId=null;
+  saveState();
+  renderBoard();
+}
+// ── Einmaliger Board-Umbau (idempotent) ──
+// Benennt bestehende Listen um (IDs bleiben -> alle Leads bleiben in ihren Listen), legt die
+// neuen Listen an und ordnet jede Liste einem Board zu. Leads werden NICHT verschoben.
+function buildRestructuredColumns(){
+  const cols=COLUMNS.map(c=>Object.assign({},c));
+  const log=[];
+  const get=id=>cols.find(c=>c.id===id);
+  const upd=(c,props)=>{
+    if(!c)return;
+    if(props.name&&c.name!==props.name)log.push(`umbenennen: „${c.name}“ → „${props.name}“`);
+    if(props.board&&colBoard(c)!==props.board||props.board&&c.board!==props.board){if(colBoard(c)!==props.board)log.push(`„${props.name||c.name}“ → ${BOARD_PARTS[props.board]}`);}
+    Object.assign(c,props);
+  };
+  const ensure=(id,props)=>{let c=get(id);if(!c){c=Object.assign({id,color:'gray'},props);cols.push(c);log.push(`neu: „${props.name}“ (${BOARD_PARTS[props.board]})`);}else upd(c,props);return c;};
+  const A='akquise',T='vertrieb';
+  upd(get('open'),{name:'Leads: Offen',board:A});
+  upd(get('fu_qual'),{name:'FollowUp: Rückruf',board:A});
+  for(let n=1;n<=4;n++)ensure('fu_ne'+n,{name:'FollowUp: NE '+n,board:A,stage:'qual',neLevel:n,color:'amber'});
+  upd(get('am_order'),{board:A});
+  ensure('lost_akq_interest',{name:'Verloren: Kein Interesse',board:A,outcome:'lost',color:'red'});
+  let unreached=cols.find(c=>c.outcome==='lost'&&/nicht erreicht/i.test(c.name||''));
+  if(unreached)upd(unreached,{name:'Verloren: Nicht erreicht',board:A});
+  else unreached=ensure('lost_akq_unreached',{name:'Verloren: Nicht erreicht',board:A,outcome:'lost',color:'red'});
+  upd(get('fu_feedback'),{name:'TP1',board:T,stage:'feedback'});
+  ensure('fu_tried',{name:'TP2',board:T,stage:'feedback',color:'teal'});
+  ensure('fu_impression',{name:'TP3',board:T,stage:'feedback',color:'teal'});
+  ensure('fu_need',{name:'TP4',board:T,stage:'feedback',color:'teal'});
+  upd(get('am_offer'),{board:T});
+  upd(get('fu_offer'),{board:T});
+  upd(get('won'),{name:'Leads: Gewonnen',board:T});
+  upd(get('lost'),{name:'Leads: Verloren',board:T});
+  cols.forEach(c=>{if(c.board!=='akquise'&&c.board!=='vertrieb'){const b=defaultBoardPartForColumn(c);if(colBoard(c)!==b)log.push(`„${c.name}“ → ${BOARD_PARTS[b]}`);c.board=b;}});
+  const orderA=['open','fu_qual','fu_ne1','fu_ne2','fu_ne3','fu_ne4','am_order','lost_akq_interest',unreached&&unreached.id];
+  const orderT=['fu_feedback','fu_tried','fu_impression','fu_need','am_offer','fu_offer','won','lost'];
+  const rank=c=>{const ia=orderA.indexOf(c.id),it=orderT.indexOf(c.id);
+    if(c.board==='akquise')return ia>=0?ia:50;
+    return 100+(it>=0?it:50);};
+  const before=COLUMNS.map(c=>c.id).join(',');
+  cols.sort((a,b)=>rank(a)-rank(b));
+  if(cols.map(c=>c.id).join(',')!==before&&!log.some(x=>x.startsWith('Reihenfolge')))log.push('Reihenfolge der Listen angepasst');
+  return{cols,log};
+}
+function runBoardRestructure(){
+  if(!requireAdmin('Board umbauen'))return;
+  const{cols,log}=buildRestructuredColumns();
+  if(!log.length){alert('Das Board ist bereits umgebaut – es gibt nichts zu ändern.');return;}
+  const msg='Board-Umbau: SQL & PQL\n\n'+log.join('\n')+'\n\nAlle Leads bleiben in ihren Listen. Jetzt umbauen?';
+  if(!confirm(msg))return;
+  COLUMNS.length=0;cols.forEach(c=>COLUMNS.push(c));
+  saveState();
+  renderBoard();
+  if(currentView==='settings')renderSettings();
+  alert('Umbau abgeschlossen. Die Listen sind jetzt auf „Board: SQL“ und „Board: PQL“ verteilt.');
+}
+// ── Sortierung der Listen (pro Person im Browser gespeichert) ──
+// manual = eigene Reihenfolge (Pfeile auf den Karten), due_asc / due_desc = nach Wiedervorlage.
+// Leads ohne Wiedervorlage stehen bei der Faelligkeits-Sortierung immer unten.
+let boardSortMode=(()=>{try{const v=localStorage.getItem('projectos_board_sort');return['manual','due_asc','due_desc'].includes(v)?v:'manual';}catch(e){return 'manual';}})();
+function setBoardSort(mode){
+  boardSortMode=['manual','due_asc','due_desc'].includes(mode)?mode:'manual';
+  try{localStorage.setItem('projectos_board_sort',boardSortMode);}catch(e){}
+  renderBoard();
+}
+function sortColumnItems(items){
+  const byOrder=(a,b)=>(a.order||0)-(b.order||0);
+  if(boardSortMode==='manual')return items.sort(byOrder);
+  const dir=boardSortMode==='due_desc'?-1:1;
+  return items.sort((a,b)=>{
+    const fa=a.followup||'',fb=b.followup||'';
+    if(!fa&&!fb)return byOrder(a,b);
+    if(!fa)return 1;
+    if(!fb)return -1;
+    if(fa!==fb)return fa<fb?-dir:dir;
+    return byOrder(a,b);
+  });
+}
+function renderBoardSortMenu(){
+  const el=document.getElementById('boardSortMenu');
+  if(!el)return;
+  const opt=(mode,label)=>`<div class="filtermenu-item" onclick="event.stopPropagation();setBoardSort('${mode}')"><i class="ti ti-check" style="visibility:${boardSortMode===mode?'visible':'hidden'}"></i> ${label}</div>`;
+  el.innerHTML=`<div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text3);padding:6px 12px 2px">Sortierung</div>`
+    +opt('manual','Manuell')+opt('due_asc','Fälligkeit: bald zuerst')+opt('due_desc','Fälligkeit: spät zuerst');
+}
+function renderBoardNav(){
+  const fl=leads;
+  const a=fl.filter(l=>leadBoardPart(l)==='akquise').length;
+  const elA=document.getElementById('navAkquiseCount'),elV=document.getElementById('navBoardCount');
+  if(elA)elA.textContent=a;
+  if(elV)elV.textContent=fl.length-a;
+}
 function isWon(l){const c=colById(l.status);return !!c&&c.outcome==='won';}
 function isLost(l){const c=colById(l.status);return !!c&&c.outcome==='lost';}
 function isClosedLead(l){return isWon(l)||isLost(l);}
@@ -2663,8 +2797,37 @@ function svgDonut(segments,size,thickness,centerLabel,centerSub){
 }
 function formatBytes(b){if(b<1024)return b+' B';if(b<1024*1024)return(b/1024).toFixed(1)+' KB';return(b/1024/1024).toFixed(1)+' MB';}
 
+// Telefonnummern einheitlich vergleichen: +00491746384073, +491746384073 und 01746384073
+// werden alle zu 491746384073 (Leerzeichen, Bindestriche, +, 00 entfallen; fuehrende 0 = Deutschland).
+function normPhone(v){
+  const s=String(v||'').trim();
+  const d=s.replace(/\D/g,'');
+  if(!d)return '';
+  if(d.startsWith('00'))return d.slice(2);
+  if(s.startsWith('+'))return d;
+  if(d.startsWith('0'))return '49'+d.slice(1);
+  return d;
+}
+// Suchschluessel fuer Telefonnummern - erst ab 5 Ziffern, damit kurze Eingaben nicht alles treffen.
+// Zusaetzlich ohne fuehrende Nullen, damit auch Auslandsnummern (z.B. +43) gefunden werden.
+function phoneQueryKeys(q){
+  const d=String(q||'').replace(/\D/g,'');
+  if(d.length<5)return [];
+  return [...new Set([normPhone(q),d.replace(/^0+/,'')])].filter(k=>k.length>=5);
+}
+// Gemeinsame Suche fuer Board und "Meine Aufgaben": Firma, Ansprechpartner, Kundennummer,
+// E-Mail und Telefon (formatunabhaengig). q muss bereits klein geschrieben und getrimmt sein.
+function leadMatchesSearch(l,q,phoneKeys){
+  if(!q)return true;
+  if(!l)return false;
+  const keys=phoneKeys||phoneQueryKeys(q);
+  return (l.company||'').toLowerCase().includes(q)||(l.contact||'').toLowerCase().includes(q)
+    ||(l.customerNumber||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)
+    ||(keys.length>0&&keys.some(k=>normPhone(l.phone).includes(k)));
+}
 function getFilteredLeads(){
   const q=(document.getElementById('searchInput').value||'').toLowerCase().trim();
+  const qPhoneKeys=phoneQueryKeys(q);
   return leads.filter(l=>{
     if(activeAgentFilters.length){
       const okAgent=activeAgentFilters.some(f=>f==='unassigned'?l.members.length===0:l.members.includes(f));
@@ -2677,7 +2840,7 @@ function getFilteredLeads(){
       const matchesOther=otherFilters.length&&(l.labelIds||[]).some(id=>otherFilters.includes(id));
       if(!(wantsNone&&hasNoLabel)&&!matchesOther)return false;
     }
-    if(q&&!(l.company.toLowerCase().includes(q)||l.contact.toLowerCase().includes(q)||(l.customerNumber||'').toLowerCase().includes(q)))return false;
+    if(q&&!leadMatchesSearch(l,q,qPhoneKeys))return false;
     return true;
   });
 }
@@ -2856,6 +3019,9 @@ function switchView(view){
     document.getElementById('view'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('active',v===view);
     document.getElementById('nav'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('active',v===view);
   });
+  {const na=document.getElementById('navAkquise'),nb=document.getElementById('navBoard');
+   if(na)na.classList.toggle('active',view==='board'&&currentBoardPart==='akquise');
+   if(nb)nb.classList.toggle('active',view==='board'&&currentBoardPart==='vertrieb');}
   if(view==='dashboard'){renderDashboardAgentChips();renderDashboardPeriodChips();renderDashboard();}
   if(view==='board'){renderLabelChips();renderBoard();}
   if(view==='crrma')setTimeout(()=>renderCrRma(),0);
@@ -2875,9 +3041,10 @@ function renderBoard(){
   });
   const fl=getFilteredLeads();
   const board=document.getElementById('board');
-  const colsHtml=COLUMNS.map(col=>{
-    const items=fl.filter(l=>l.status===col.id).sort((a,b)=>(a.order||0)-(b.order||0));
-    const cardsHtml=items.length?items.map((l,idx)=>cardHtml(l,idx===0,idx===items.length-1)).join(''):`<div class="col-empty">Keine Leads</div>`;
+  const colsHtml=COLUMNS.filter(col=>colBoard(col)===currentBoardPart).map(col=>{
+    const items=sortColumnItems(fl.filter(l=>l.status===col.id));
+    const manualSort=boardSortMode==='manual';
+    const cardsHtml=items.length?items.map((l,idx)=>manualSort?cardHtml(l,idx===0,idx===items.length-1):cardHtml(l,true,true)).join(''):`<div class="col-empty">Keine Leads</div>`;
     const isEditing=editingColId===col.id;
     const isMenuOpen=colMenuOpenId===col.id;
     const menuHtml=isMenuOpen?`<div class="col-menu-popover" onclick="event.stopPropagation()">
@@ -2891,6 +3058,12 @@ function renderBoard(){
         <option value="" ${!col.outcome?'selected':''}>Normal</option>
         <option value="won" ${col.outcome==='won'?'selected':''}>Gewonnen</option>
         <option value="lost" ${col.outcome==='lost'?'selected':''}>Verloren</option>
+      </select>
+      <div class="popover-divider"></div>
+      <span class="small-label">Gehört zu Board</span>
+      <select class="col-type-select" onchange="setColumnBoard('${col.id}',this.value)" onclick="event.stopPropagation()">
+        <option value="akquise" ${colBoard(col)==='akquise'?'selected':''}>Board: SQL</option>
+        <option value="vertrieb" ${colBoard(col)==='vertrieb'?'selected':''}>Board: PQL</option>
       </select>
       <div class="popover-divider"></div>
       <div class="col-menu-item" onclick="sortColumnByFollowup('${col.id}','asc')"><i class="ti ti-sort-ascending"></i> Nach Fälligkeit sortieren (bald zuerst)</div>
@@ -2925,7 +3098,18 @@ function renderBoard(){
       </div></div>`
     : `<div class="col-add-tile"><button class="col-add-btn" onclick="openAddColumnForm()"><i class="ti ti-plus"></i> Liste hinzufügen</button></div>`;
 
-  board.innerHTML = colsHtml + addTileHtml;
+  // Hinweis: Treffer der Suche, die im ANDEREN Board liegen
+  let partHintHtml='';
+  const qHint=(document.getElementById('searchInput').value||'').trim();
+  if(qHint){
+    const otherPart=currentBoardPart==='akquise'?'vertrieb':'akquise';
+    const otherHits=fl.filter(l=>leadBoardPart(l)===otherPart).length;
+    if(otherHits)partHintHtml=`<div class="board-part-hint"><div><b>${otherHits} Treffer in „${BOARD_PARTS[otherPart]}“</b></div><button class="btn" onclick="switchBoardPart('${otherPart}')"><i class="ti ti-arrows-exchange"></i> Zu ${BOARD_PARTS[otherPart]} wechseln</button></div>`;
+  }
+  board.innerHTML = partHintHtml + colsHtml + addTileHtml;
+  renderBoardSortMenu();
+  {const t=document.getElementById('boardPartTitle');if(t)t.textContent=BOARD_PARTS[currentBoardPart];}
+  renderBoardNav();
 
   // Gemerkte Scrollpositionen wiederherstellen
   document.querySelectorAll('#board .col').forEach(colEl=>{
@@ -3072,7 +3256,7 @@ function computeDashboardKpiMetrics(arr){
   const cycleDays=arr.filter(l=>isClosedLead(l)&&l.firstContact&&l.closedAt)
     .map(l=>Math.round((new Date(l.closedAt)-new Date(l.firstContact))/86400000)).filter(d=>d>=0);
   const avgCycle=cycleDays.length?Math.round(cycleDays.reduce((a,b)=>a+b,0)/cycleDays.length):0;
-  const fuFeedback=arr.filter(l=>l.status==='fu_feedback').length;
+  const fuFeedback=arr.filter(l=>isStage(l.status,'feedback')).length;
   return {overdue,forecastSum:Math.round(forecastSum),investTotal:Math.round(investTotal),winRate,avgCycle,fuFeedback};
 }
 // Legt/aktualisiert den heutigen Eintrag in der (max. 7 Tage) Historie; gibt true zurueck,
@@ -3378,8 +3562,8 @@ function followupDayChartHtml(dl){
   const bars=Array.from({length:14},(_,i)=>i-2).map(offset=>{
     const d=new Date(TODAY);d.setDate(d.getDate()+offset);
     const ds=d.toISOString().slice(0,10);
-    const feedback=withFU.filter(l=>l.followup===ds&&l.status==='fu_feedback').length;
-    const offer=withFU.filter(l=>l.followup===ds&&l.status==='fu_offer').length;
+    const feedback=withFU.filter(l=>l.followup===ds&&isStage(l.status,'feedback')).length;
+    const offer=withFU.filter(l=>l.followup===ds&&isStage(l.status,'offer')).length;
     const overdue=offset<0?withFU.filter(l=>l.followup===ds).length:0;
     return{offset,date:d,ds,feedback,offer,overdue,total:feedback+offer+overdue};
   });
@@ -3418,7 +3602,7 @@ function followupDayChartHtml(dl){
 // Gantt-Streifen: Leads in FollowUp: Feedback und Angebot nach Wartezeit (statusSince),
 // begrenzt auf max. 10 Eintraege, sortiert laengste Wartezeit zuerst.
 function followupGanttHtml(dl){
-  const scope=dl.filter(l=>!isClosedLead(l)&&(l.status==='fu_feedback'||l.status==='fu_offer')&&l.statusSince);
+  const scope=dl.filter(l=>!isClosedLead(l)&&(isStage(l.status,'feedback')||isStage(l.status,'offer'))&&l.statusSince);
   const sorted=[...scope].sort((a,b)=>a.statusSince.localeCompare(b.statusSince)).slice(0,10);
   if(!sorted.length)return`<div class="section-hdr" style="margin-top:0">Toner draußen – warte auf Rückmeldung</div><p style="font-size:12px;color:var(--text3)">Aktuell keine Leads in FollowUp: Feedback oder Angebot.</p>`;
   const MAX_DAYS_SCALE=90;
@@ -3426,7 +3610,7 @@ function followupGanttHtml(dl){
   const rows=sorted.map(l=>{
     const days=Math.max(0,Math.round((new Date(TODAY)-new Date(l.statusSince))/86400000));
     const pct=Math.max(8,Math.round(days/maxDays*100));
-    const isFeedback=l.status==='fu_feedback';
+    const isFeedback=isStage(l.status,'feedback');
     const barColor=days>=21?'var(--purple-dark)':days>=10?'var(--purple)':'#5FBAC4';
     const stageBg=isFeedback?'var(--purple-bg)':'rgba(23,76,82,.12)';
     const stageColor=isFeedback?'var(--purple)':'var(--purple-dark)';
@@ -3459,7 +3643,7 @@ function renderDashboard(){
   }
   const movementDays=activeDashboardPeriod==='week'?7:activeDashboardPeriod==='month'?30:activeDashboardPeriod==='quarter'?90:3650;
   const total=dl.length;
-  const contacted=dl.filter(l=>l.status!=='open').length;
+  const contacted=dl.filter(l=>!isStage(l.status,'open')).length;
   const overdue=dl.filter(l=>l.followup&&daysUntil(l.followup)<0).length;
   const won=dl.filter(l=>isWon(l)).length;
   const lost=dl.filter(l=>isLost(l)).length;
@@ -3915,7 +4099,7 @@ function assignedTasksHtml(q){
     });
   });
   if(activeTasksAgentFilter!=='all')items=items.filter(t=>t.assigneeId===activeTasksAgentFilter);
-  if(q)items=items.filter(t=>t.lead.company.toLowerCase().includes(q)||(t.lead.customerNumber||'').toLowerCase().includes(q));
+  if(q){const pk=phoneQueryKeys(q);items=items.filter(t=>leadMatchesSearch(t.lead,q,pk));}
   items.sort((a,b)=>{
     if(a.done!==b.done)return a.done?1:-1;
     return (a.dueDate||'9999-99-99').localeCompare(b.dueDate||'9999-99-99');
@@ -3957,7 +4141,7 @@ function renderTasksView(){
   const q=(document.getElementById('tasksSearch').value||'').toLowerCase().trim();
   let withFollowup=leads.filter(l=>l.followup);
   if(activeTasksAgentFilter!=='all')withFollowup=withFollowup.filter(l=>(l.members||[]).includes(activeTasksAgentFilter));
-  if(q)withFollowup=withFollowup.filter(l=>l.company.toLowerCase().includes(q)||(l.customerNumber||'').toLowerCase().includes(q));
+  if(q){const pk=phoneQueryKeys(q);withFollowup=withFollowup.filter(l=>leadMatchesSearch(l,q,pk));}
   const buckets={overdue:[],today:[],week:[],nextweek:[]};
   withFollowup.forEach(l=>{const b=followupBucket(l);if(b)buckets[b].push(l);});
   ['overdue','today','week','nextweek'].forEach(k=>buckets[k].sort((a,b)=>a.followup.localeCompare(b.followup)));
@@ -4290,7 +4474,7 @@ function renderActivityTrendChart(entries){
 }
 function renderActivities(){
   const q=(document.getElementById('activitySearch').value||'').toLowerCase().trim();
-  const matchingLeads=q?leads.filter(l=>l.company.toLowerCase().includes(q)||(l.customerNumber||'').toLowerCase().includes(q)):[];
+  const matchingLeads=q?(()=>{const pk=phoneQueryKeys(q);return leads.filter(l=>leadMatchesSearch(l,q,pk));})():[];
 
   // Kunden-Übersichtskarten bei Treffer
   let leadCardsHtml='';
@@ -4427,22 +4611,28 @@ async function fetchAllActivitiesForView(q, matchingLeads){
     if(activityAgentFilter!=='all') urlParams+=`&author=eq.${activityAgentFilter}`;
     if(activityTypeFilter!=='all'&&activityTypeFilter!=='login') urlParams+=`&type=eq.${activityTypeFilter}`;
     // Bei Suche: nur Leads aus der Suchergebnis-Liste
-    if(q&&matchingLeads.length){
-      const ids=matchingLeads.map(l=>`"${l.id}"`).join(',');
-      urlParams+=`&lead_id=in.(${ids})`;
-    } else if(q&&!matchingLeads.length){
+    if(q&&!matchingLeads.length){
       return []; // Suche ohne Treffer
     }
+    // Bei Suche nur die Aktivitaeten der Treffer laden - in Paketen zu 100 Leads, sonst wird die
+    // Adresse bei allgemeinen Suchbegriffen (z.B. Teil einer E-Mail-Domain) zu lang.
+    const leadChunks=q?chunkList(matchingLeads.map(l=>`"${l.id}"`),100):[null];
 
     if(activityTypeFilter!=='login'){
-      {
-        const rows=await fetchAllRows(`lead_activities?${urlParams}`,{maxRows:5000,timeoutMs:15000});
+      for(const part of leadChunks){
+        const up=part?`${urlParams}&lead_id=in.(${part.join(',')})`:urlParams;
+        const rows=await fetchAllRows(`lead_activities?${up}`,{maxRows:5000,timeoutMs:15000});
         rows.forEach(r=>{
           const lead=leads.find(l=>String(l.id)===String(r.lead_id));
           if(!lead)return; // Lead gelöscht
           if(activityStatusFilter!=='all'&&lead.status!==activityStatusFilter)return;
           entries.push({lead,text:r.text,date:r.date,type:r.type,author:r.author});
         });
+        if(entries.length>=5000)break;
+      }
+      if(leadChunks.length>1){
+        entries.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+        if(entries.length>5000)entries.length=5000;
       }
     }
   }catch(e){
@@ -4725,6 +4915,7 @@ function renderSettings(){
         <div class="btn-row">
           <button class="btn" onclick="exportFullBackup()"><i class="ti ti-database-export"></i> Alle Daten als Backup exportieren (JSON)</button>
           <button class="btn" onclick="runDataIntegrityCheck()"><i class="ti ti-stethoscope"></i> Datenintegrität jetzt prüfen</button>
+          <button class="btn" onclick="runBoardRestructure()"><i class="ti ti-layout-columns"></i> Board-Umbau: SQL &amp; PQL</button>
           <button class="btn" onclick="listAvailableBackups()"><i class="ti ti-history"></i> Backups anzeigen / wiederherstellen</button>
           <button class="btn" onclick="migrateLegacyAttachmentsToStorage()"><i class="ti ti-file-upload"></i> Alte Anhänge in den Dateispeicher übertragen</button>
         </div>
@@ -5029,6 +5220,7 @@ function cardHtml(l,isFirst,isLast){
     <div class="card-contact">${esc(l.contact)}${l.customerNumber?` · ${esc(l.customerNumber)}`:''}</div>
     <div class="card-labels-slot">${labelsHtml}</div>
     <div class="card-badges-row">${metaBadges.join('')}</div>
+    ${(!bulkMode&&l.status==='am_order'&&colById('fu_feedback'))?`<button class="card-handover" onclick="event.stopPropagation();handOverToPql(${l.id})" title="Nach „${esc(colById('fu_feedback').name)}“ im Board: PQL schieben"><i class="ti ti-arrow-right"></i> An PQL übergeben</button>`:''}
     <div class="card-spacer"></div>
     <div class="card-divider"></div>
     <div class="card-foot">
@@ -5141,7 +5333,22 @@ function trackStatusSince(lead,oldStatus,newStatus){
 }
 // Erzwingt ein Erstkontakt-Datum, sobald ein Lead die erste Liste verlaesst
 function blocksLeavingFirstColumn(lead,newStatus){
-  return lead.status===COLUMNS[0].id&&newStatus!==COLUMNS[0].id&&!lead.firstContact;
+  // Seit Okt. 2026 wird nicht mehr blockiert - das Datum wird automatisch gesetzt (siehe unten).
+  return false;
+}
+// Erstkontakt = echtes Gespraech mit dem Entscheider. Noetig erst beim Wechsel nach
+// "AM: Auftrag", "Verloren: Kein Interesse" (Board: SQL) oder in irgendeine Liste von Board: PQL.
+// NICHT bei Offen, Rueckruf, NE 1-4 und "Verloren: Nicht erreicht" - dort gab es kein Gespraech.
+// Fehlt das Datum, setzt das Board heute ein; im Lead jederzeit korrigierbar.
+function requiresFirstContact(statusId){
+  const c=colById(statusId);
+  if(!c)return false;
+  if(colBoard(c)==='vertrieb')return true;
+  return c.id==='am_order'||c.id==='lost_akq_interest';
+}
+function ensureFirstContactFor(lead,newStatus){
+  if(lead&&!lead.firstContact&&requiresFirstContact(newStatus)){lead.firstContact=TODAY;return true;}
+  return false;
 }
 function warnMissingFirstContact(company){
   alert(`"${company}" kann "${COLUMNS[0].name}" erst verlassen, wenn ein Erstkontakt-Datum eingetragen ist.\n\nDas Fenster öffnet sich jetzt, bitte trage das Datum im Feld "Datum Erstkontakt" ein und speichere erneut.`);
@@ -5183,6 +5390,7 @@ function onCardDrop(e,targetId){
     const oldName=colById(dragged.status).name,newName=colById(target.status).name;
     const _bact1={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${oldName} → ${newName}`,date:nowISO()};dragged.activity.unshift(_bact1);pushActivityToDb(dragged.id,_bact1);
     trackClosedStage(dragged,dragged.status,target.status);trackStatusSince(dragged,dragged.status,target.status);maybeSendListNotification(dragged,dragged.status,target.status);
+    ensureFirstContactFor(dragged,target.status);
   }
   dragged.status=target.status;
   let colCards=leads.filter(x=>x.status===target.status&&x.id!==dragged.id).sort((a,b)=>(a.order||0)-(b.order||0));
@@ -5226,6 +5434,7 @@ function onDrop(e,colId){
     const oldName=colById(l.status).name,newName=colById(colId).name;
     const _bact2={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${oldName} → ${newName}`,date:nowISO()};l.activity.unshift(_bact2);pushActivityToDb(l.id,_bact2);
     trackClosedStage(l,l.status,colId);trackStatusSince(l,l.status,colId);maybeSendListNotification(l,l.status,colId);
+    ensureFirstContactFor(l,colId);
     l.status=colId;
     l.order=Date.now();
     saveState();
@@ -5234,6 +5443,31 @@ function onDrop(e,colId){
   dragCardId=null;
 }
 
+// Uebergabe SQL -> PQL: "AM: Auftrag" (Free-Toner-Zusage, Auftrag in SAP) -> erste Touchpoint-Liste.
+// Wie beim Ziehen: Statuswechsel im Verlauf, Phasenbeginn, Benachrichtigungen, Erstkontakt.
+// Zusaetzlich "Free Toner verschickt" = Ja, damit Versand in Investition und "Toner draussen" zaehlt.
+function handOverToPql(id){
+  const l=leads.find(x=>x.id===id);
+  const target=colById('fu_feedback');
+  if(!l||l.status!=='am_order'||!target)return;
+  const oldSt=l.status;
+  const act={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Status geändert: ${colById(oldSt).name} → ${target.name}`,date:nowISO()};
+  if(!Array.isArray(l.activity))l.activity=[];
+  l.activity.unshift(act);pushActivityToDb(l.id,act);
+  trackClosedStage(l,oldSt,target.id);trackStatusSince(l,oldSt,target.id);maybeSendListNotification(l,oldSt,target.id);
+  ensureFirstContactFor(l,target.id);
+  if(l.tonerSent!=='Ja')l.tonerSent='Ja';
+  l.status=target.id;
+  l.order=Date.now();
+  saveState();
+  renderBoard();
+}
+function handOverDraftToPql(){
+  if(!draftLead||draftLead.status!=='am_order'||!colById('fu_feedback'))return;
+  draftLead.status='fu_feedback';
+  if(draftLead.tonerSent!=='Ja')draftLead.tonerSent='Ja';
+  saveLead(false);
+}
 // Karten innerhalb derselben Liste nach oben/unten verschieben
 function moveLeadUp(id){
   const l=leads.find(x=>x.id===id);
@@ -5354,7 +5588,7 @@ function confirmAddColumn(){
   if(!name){cancelAddColumn();return;}
   const palette=['gray','teal','amber','purple','green','red'];
   const color=palette[COLUMNS.length%palette.length];
-  COLUMNS.push({id:'col_'+genId(),name,color});
+  COLUMNS.push({id:'col_'+genId(),name,color,board:currentBoardPart});
   addColumnFormOpen=false;
   saveState();
   renderBoard();
@@ -5958,7 +6192,7 @@ function renderLeadModal(){
           <div class="field-row-2">
             <div><label>Status</label>
               <select id="fStatus" style="width:100%" onchange="draftLead.status=this.value;renderLeadModal()">
-                ${COLUMNS.map(c=>`<option value="${c.id}" ${draftLead.status===c.id?'selected':''}>${c.name}</option>`).join('')}
+                ${['akquise','vertrieb'].map(p=>`<optgroup label="${BOARD_PARTS[p]}">${COLUMNS.filter(c=>colBoard(c)===p).map(c=>`<option value="${c.id}" ${draftLead.status===c.id?'selected':''}>${c.name}</option>`).join('')}</optgroup>`).join('')}
               </select>
             </div>
             <div><label>Free Toner verschickt</label>
@@ -5980,6 +6214,7 @@ function renderLeadModal(){
               <option value="Schlechte Qualität" ${draftLead.lossReason==='Schlechte Qualität'?'selected':''}>Schlechte Qualität</option>
               <option value="Preis zu Hoch" ${draftLead.lossReason==='Preis zu Hoch'?'selected':''}>Preis zu Hoch</option>
               <option value="Wettbewerber" ${draftLead.lossReason==='Wettbewerber'?'selected':''}>Wettbewerber</option>
+              <option value="Keine Rückmeldung" ${draftLead.lossReason==='Keine Rückmeldung'?'selected':''}>Keine Rückmeldung</option>
               <option value="Sonstiges" ${draftLead.lossReason==='Sonstiges'?'selected':''}>Sonstiges</option>
             </select>
             <label style="color:var(--red-dark);margin-top:8px">Kommentar zum Verlust <span style="font-weight:400">(Pflichtfeld, erscheint im Verlauf)</span></label>
@@ -6058,6 +6293,7 @@ function renderLeadModal(){
       ${isEdit?`<button class="btn btn-danger" onclick="deleteLead()"><i class="ti ti-trash"></i> Löschen</button>`:'<div></div>'}
       <div style="display:flex;gap:8px;align-items:center">
         <span id="saveFlashMsg" style="display:none;font-size:12px;color:var(--green-dark);font-weight:600"><i class="ti ti-check"></i> Gespeichert</span>
+        ${(isEdit&&draftLead.status==='am_order'&&colById('fu_feedback'))?`<button class="btn" onclick="handOverDraftToPql()"><i class="ti ti-arrow-right"></i> An PQL übergeben</button>`:''}
         <button class="btn" onclick="closeModal('leadModal')">Abbrechen</button>
         <button class="btn" onclick="saveLead(true)"><i class="ti ti-check"></i> Speichern</button>
         <button class="btn btn-primary" onclick="saveLead(false)"><i class="ti ti-check"></i> Speichern &amp; schließen</button>
@@ -6721,8 +6957,33 @@ function markNotReached(){
     draftLead.activity.unshift(act2);
     pushActivityToDb(editingLeadId||draftLead.id,act2);
   }
+  // Akquise: Offen/Qualifizierung -> NE 1 -> NE 2 -> NE 3 -> NE 4 -> Verloren: Nicht erreicht
+  const nextSt=editingLeadId?nextNotReachedStatus(draftLead.status):null;
+  if(nextSt){
+    const oldSt=draftLead.status;
+    if(colById(nextSt).outcome==='lost')draftLead.lossReason='Nicht Erreichbar';
+    draftLead.status=nextSt;
+    const act3={id:Date.now()+2,type:'activity',author:currentUser,text:`Status geändert: ${colById(oldSt).name} → ${colById(nextSt).name}`,date:nowISO()};
+    draftLead.activity.unshift(act3);
+    pushActivityToDb(editingLeadId,act3);
+    trackClosedStage(draftLead,oldSt,nextSt);trackStatusSince(draftLead,oldSt,nextSt);maybeSendListNotification(draftLead,oldSt,nextSt);
+  }
   autoPersistIfEditing();
   renderLeadModal();
+}
+function nextNotReachedStatus(statusId){
+  const cur=colById(statusId);
+  if(!cur||colBoard(cur)!=='akquise')return null;
+  const ne=COLUMNS.filter(c=>c.neLevel).sort((a,b)=>a.neLevel-b.neLevel);
+  if(!ne.length)return null; // vor dem Umbau: Verhalten wie bisher
+  if(!cur.neLevel&&(isStage(statusId,'open')||isStage(statusId,'qual')))return ne[0].id;
+  if(cur.neLevel){
+    const nxt=ne.find(c=>c.neLevel===cur.neLevel+1);
+    if(nxt)return nxt.id;
+    const lost=COLUMNS.find(c=>c.outcome==='lost'&&colBoard(c)==='akquise'&&/nicht erreicht/i.test(c.name||''));
+    return lost?lost.id:null;
+  }
+  return null;
 }
 let editingCommentId=null;
 function startEditComment(id){
@@ -6892,6 +7153,10 @@ function saveLead(keepOpen){
     showModalError('Dieser Lead ist im Board gerade nicht geladen. Bitte Fenster schließen, Seite neu laden und den Lead über die Suche öffnen – er ist bereits gespeichert.');
     return;
   }
+  {
+    const orig=editingLeadId?leads.find(x=>x.id===editingLeadId):null;
+    if(!orig||orig.status!==draftLead.status)ensureFirstContactFor(draftLead,draftLead.status);
+  }
   if(editingLeadId){
     const original=leads.find(x=>x.id===editingLeadId);
     if(original.status!==draftLead.status&&blocksLeavingFirstColumn(original,draftLead.status)){
@@ -6950,6 +7215,7 @@ function saveLead(keepOpen){
     const activityBackupNew=draftLead.activity;
     draftLead.activity=[];
     leads.push(draftLead);
+    if(leadBoardPart(draftLead)!==currentBoardPart)setBoardPart(leadBoardPart(draftLead)); // neuer Lead bleibt sichtbar
     draftLead.activity=activityBackupNew; // im Arbeitsspeicher behalten
     editingLeadId=draftLead.id; // wichtig: weitere Speichervorgaenge (bei "im Lead bleiben") aktualisieren jetzt diesen Lead statt neue anzulegen
   }
@@ -8137,9 +8403,9 @@ function wizardOverdueCount(){
 function wizardStageCounts(){
   const scope=wizardLeadScope();
   return{
-    qual:scope.filter(l=>l.status==='fu_qual').length,
-    feedback:scope.filter(l=>l.status==='fu_feedback').length,
-    offer:scope.filter(l=>l.status==='fu_offer').length
+    qual:scope.filter(l=>isStage(l.status,'qual')).length,
+    feedback:scope.filter(l=>isStage(l.status,'feedback')).length,
+    offer:scope.filter(l=>isStage(l.status,'offer')).length
   };
 }
 function wizardAssignedTasks(){
@@ -8180,7 +8446,7 @@ function wizardTeamActivityCount(){
   return count;
 }
 function wizardFuFeedbackNow(){
-  return leads.filter(l=>l.status==='fu_feedback').length;
+  return leads.filter(l=>isStage(l.status,'feedback')).length;
 }
 // Sucht in der bestehenden Dashboard-KPI-Historie den Eintrag, der am naechsten an
 // "vor 30 Tagen" liegt, um die Veraenderung anzuzeigen. Ist die Historie noch nicht so
