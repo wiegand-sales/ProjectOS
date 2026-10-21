@@ -234,6 +234,18 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .wk2-ft .btn{justify-content:center;width:100%;font-size:13px;padding:10px 0}
 .wk2-ft .btn.skip{background:#fdecec;border-color:#f0a0a0;color:#a32d2d}
 .wk2-ft .btn.skip:hover{background:#fbdcdc}
+.cal-ev.task{background:#eeedfe;color:#3c3489;border-left-color:#534ab7;white-space:normal}
+.cal-ev.task .rs{position:absolute;left:0;right:0;bottom:0;height:7px;cursor:ns-resize}
+.cal-ev.task .rs:hover{background:rgba(83,74,183,.25)}
+.ap-seg{display:flex;background:var(--bg2,#f4f6f6);border-radius:9px;padding:3px;gap:3px;margin:14px 0 2px}
+.ap-seg button{flex:1;border:0;background:transparent;border-radius:7px;padding:7px 0;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;font-family:inherit}
+.ap-seg button.on{background:var(--bg,#fff);color:#206A72;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.ap-seg button.on.task{color:#3c3489}
+.cal-head .hol{background:#ececec}
+.cal-head .hol small{display:block;font-size:10px;font-weight:600;color:var(--text3);text-transform:none;margin-top:1px}
+.cal-day.hol{background-color:rgba(0,0,0,.055)}
+.cal-cell.hol{background:#f1f1f1}
+.cal-cell .hn{font-size:10px;font-weight:600;color:var(--text3);margin:-2px 0 3px}
 .board-part-hint{flex:0 0 260px;align-self:flex-start;border:1.5px dashed var(--purple-dark);border-radius:var(--r-md);padding:16px;background:var(--purple-bg);font-size:13px;color:var(--purple-dark);display:flex;flex-direction:column;gap:10px;}
 .board-part-hint button{align-self:flex-start;}
 .nav-icon-badge{width:36px;height:36px;border-radius:9px;background:linear-gradient(180deg,#27808a 0%,#206A72 100%);box-shadow:0 6px 16px rgba(32,106,114,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -880,11 +892,12 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleDashboardFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="dashboardFilterMenu">
-              <h4>Mitarbeiter</h4>
-              <div id="dashboardFilterMenuAgents"></div>
-              <hr>
-              <h4>Zeitraum</h4>
-              <div id="dashboardFilterMenuPeriod"></div>
+              <div class="fm-sec" id="dfmSecAgents" onclick="dfmToggleSec('agents',event)"><i class="ti ti-user"></i><span>Mitarbeiter</span><span class="fm-sum" id="dfmSumAgents"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="dashboardFilterMenuAgents" class="fm-body"></div>
+              <div class="fm-sec" id="dfmSecBoard" onclick="dfmToggleSec('board',event)"><i class="ti ti-layout-kanban"></i><span>Board</span><span class="fm-sum" id="dfmSumBoard"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="dashboardFilterMenuBoard" class="fm-body"></div>
+              <div class="fm-sec" id="dfmSecPeriod" onclick="dfmToggleSec('period',event)"><i class="ti ti-calendar-stats"></i><span>Zeitraum</span><span class="fm-sum" id="dfmSumPeriod"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="dashboardFilterMenuPeriod" class="fm-body"></div>
             </div>
           </div>
           <div id="dashboardOmniTokens" style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;overflow-x:auto;max-width:320px;flex-shrink:1;"></div>
@@ -989,6 +1002,18 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
         <div class="omnibar-flex">
           <i class="ti ti-search omni-search-icon"></i>
           <input type="text" class="omni-input" id="calendarSearch" placeholder="Suche" oninput="renderCalendar()">
+          <div class="omni-addfilter-wrap">
+            <button class="omnibar-btn" onclick="toggleCalFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
+            <div class="filtermenu" id="calFilterMenu">
+              <div class="fm-sec" id="cfmSecAgents" onclick="toggleCalFilterSection('agents',event)"><i class="ti ti-user"></i><span>Mitarbeiter</span><span class="fm-sum" id="cfmSumAgents"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="calFilterMenuAgents" class="fm-body"></div>
+              <div class="fm-sec" id="cfmSecBoard" onclick="toggleCalFilterSection('board',event)"><i class="ti ti-layout-kanban"></i><span>Board</span><span class="fm-sum" id="cfmSumBoard"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="calFilterMenuBoard" class="fm-body"></div>
+              <div class="fm-sec" id="cfmSecKind" onclick="toggleCalFilterSection('kind',event)"><i class="ti ti-category"></i><span>Art</span><span class="fm-sum" id="cfmSumKind"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="calFilterMenuKind" class="fm-body"></div>
+            </div>
+          </div>
+          <div id="calOmniTokens" style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;overflow-x:auto;max-width:360px;flex-shrink:1;"></div>
           <div class="omni-spacer"></div>
           <div id="calTopActions" style="display:flex;gap:8px;align-items:center;flex-shrink:0"></div>
         </div>
@@ -1003,14 +1028,14 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleActivityFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="activityFilterMenu">
-              <h4>Mitarbeiter</h4>
-              <div id="activityFilterMenuAgents"></div>
-              <hr>
-              <h4>Typ</h4>
-              <div id="activityFilterMenuTypes"></div>
-              <hr>
-              <h4>Status</h4>
-              <div id="activityFilterMenuStatus"></div>
+              <div class="fm-sec" id="afmSecAgents" onclick="afmToggleSec('agents',event)"><i class="ti ti-user"></i><span>Mitarbeiter</span><span class="fm-sum" id="afmSumAgents"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="activityFilterMenuAgents" class="fm-body"></div>
+              <div class="fm-sec" id="afmSecBoard" onclick="afmToggleSec('board',event)"><i class="ti ti-layout-kanban"></i><span>Board</span><span class="fm-sum" id="afmSumBoard"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="activityFilterMenuBoard" class="fm-body"></div>
+              <div class="fm-sec" id="afmSecTypes" onclick="afmToggleSec('types',event)"><i class="ti ti-category"></i><span>Typ</span><span class="fm-sum" id="afmSumTypes"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="activityFilterMenuTypes" class="fm-body"></div>
+              <div class="fm-sec" id="afmSecStatus" onclick="afmToggleSec('status',event)"><i class="ti ti-flag"></i><span>Status</span><span class="fm-sum" id="afmSumStatus"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="activityFilterMenuStatus" class="fm-body"></div>
             </div>
           </div>
           <div id="activityOmniTokens" style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;overflow-x:auto;max-width:320px;flex-shrink:1;"></div>
@@ -1045,7 +1070,7 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
   <div class="modal-lg" id="leadModalInner"></div>
 </div>
 
-<div class="modal-overlay hidden" id="calApptModal">
+<div class="modal-overlay hidden" id="calApptModal" style="align-items:flex-start;padding-top:10vh">
   <div class="modal-sm" id="calApptModalInner" style="max-width:560px;width:100%;padding:0;overflow:hidden"></div>
 </div>
 
@@ -1178,7 +1203,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-22T08:00:00.000Z';
+const BUILD_VERSION='2026-10-22T14:00:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -2557,7 +2582,9 @@ async function previewAndRestoreBackup(dateStr){
     if(!rows.length){alert(`Kein Backup für "${dateStr}" gefunden. Bitte exaktes Format aus der Liste oben verwenden (z.B. 2026-07-09_14).`);return;}
     const backupData=rows[0].data;
     const leadCount=(backupData.leads||[]).length;
-    if(!confirm(`Backup vom ${dateStr} enthält ${leadCount} Lead(s).\nAktuell im System: ${leads.length} Lead(s).\n\nWirklich diesen Stand wiederherstellen?\n\nACHTUNG: Das überschreibt den aktuellen Stand für ALLE im Team. Alles, was seit diesem Backup neu eingetragen wurde, geht dabei verloren. Nicht rückgängig zu machen (außer über ein anderes Backup).\n\nHINWEIS: Kommentare und Aktivitäten (in lead_activities) bleiben beim Restore erhalten und werden NICHT zurückgesetzt.`))return;
+    const hasCal=Array.isArray(backupData.calendar_events);
+    const calCount=hasCal?backupData.calendar_events.filter(e=>!e.deleted).length:0;
+    if(!confirm(`Backup vom ${dateStr} enthält ${leadCount} Lead(s)${hasCal?` und ${calCount} Kalender-Aufgaben`:''}.\nAktuell im System: ${leads.length} Lead(s).\n\nWirklich diesen Stand wiederherstellen?\n\nACHTUNG: Das überschreibt den aktuellen Stand für ALLE im Team. Alles, was seit diesem Backup neu eingetragen wurde, geht dabei verloren. Nicht rückgängig zu machen (außer über ein anderes Backup).\n\nHINWEIS: Kommentare und Aktivitäten (in lead_activities) bleiben beim Restore erhalten und werden NICHT zurückgesetzt.`))return;
     applyStateData(JSON.parse(JSON.stringify(backupData)));
     // WICHTIG: applyStateData() kuemmert sich seit dem Umbau bewusst NICHT mehr um
     // Leads (die leben jetzt in eigenen Datenbank-Zeilen). Die Leads aus dem Backup
@@ -2568,8 +2595,24 @@ async function previewAndRestoreBackup(dateStr){
     saveState();
     await syncMerge();
     await syncLeadsLayer();
+    // Kalender-Aufgaben: Stand des Backups wiederherstellen; spaeter angelegte werden ausgeblendet (deleted), nie endgueltig geloescht
+    let calMsg='';
+    if(hasCal){
+      try{
+        const bk=backupData.calendar_events;const ids=new Set(bk.map(e=>String(e.id)));
+        const cur=await fetchAllRows('calendar_events?select=id,deleted&order=id.asc',{timeoutMs:30000});
+        const hide=cur.filter(e=>!ids.has(String(e.id))&&!e.deleted).map(e=>({id:e.id,deleted:true,updated_at:nowISO()}));
+        const rows=bk.map(e=>{const r=Object.assign({},e);r.updated_at=nowISO();return r;}).concat(hide.map(h=>Object.assign({},h)));
+        for(const part of chunkList(rows,200)){
+          const res2=await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/calendar_events?on_conflict=id`,{method:'POST',headers:Object.assign({},getSbHeaders(),{'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify(part)},30000);
+          if(!res2.ok)throw new Error('HTTP '+res2.status);
+        }
+        calMsg=`, ${calCount} Kalender-Aufgaben`;
+        calTasksLoadedAt=0;loadCalTasks(true);
+      }catch(e){calMsg=`. ACHTUNG: Kalender-Aufgaben konnten nicht wiederhergestellt werden (${e.message})`;}
+    }
     renderBoard();
-    alert(`Backup vom ${dateStr} wurde wiederherstellt und in die Cloud hochgeladen (${leads.length} Leads).`);
+    alert(`Backup vom ${dateStr} wurde wiederherstellt und in die Cloud hochgeladen (${leads.length} Leads${calMsg}).`);
   }catch(e){
     alert('Fehler bei der Wiederherstellung: '+e.message);
   }
@@ -2776,7 +2819,8 @@ function calParse(fu){
 function calEvents(){
   const q=((document.getElementById('calendarSearch')||{}).value||'').toLowerCase().trim();
   const pk=phoneQueryKeys(q);
-  return leads.filter(l=>!isClosedLead(l)&&calParse(l.followup)&&(calAgent==='all'||(l.members||[]).includes(calAgent))&&leadMatchesSearch(l,q,pk))
+  if(calKindFilter==='task')return [];
+  return leads.filter(l=>!isClosedLead(l)&&calParse(l.followup)&&(calAgent==='all'||(l.members||[]).includes(calAgent))&&calFilterLeadOk(l)&&leadMatchesSearch(l,q,pk))
     .map(l=>Object.assign({lead:l},calParse(l.followup)));
 }
 function calFmt(min){return String(Math.floor(min/60)).padStart(2,'0')+':'+String(min%60).padStart(2,'0');}
@@ -2790,6 +2834,41 @@ function calNav(delta){
 function calToday(){const t=new Date();calWeekStart=calYmd(calMonday(t));calYear=t.getFullYear();calMonth=t.getMonth();renderCalendar();}
 function calOpenWeekOf(dateStr){calWeekStart=calYmd(calMonday(new Date(dateStr+'T00:00:00')));setCalView('week');}
 function calSetAgent(v){calAgent=v;renderCalendar();}
+// ── Filter im Kalender: Mitarbeiter (nur Admins), Board (SQL/PQL), Art (Kundentermin/Aufgabe) ──
+let calBoardFilter='all',calKindFilter='all',calFilterMenuOpen=false,calFilterSectionOpen='';
+function toggleCalFilterMenu(e){if(e)e.stopPropagation();calFilterMenuOpen=!calFilterMenuOpen;renderCalFilterMenu();document.getElementById('calFilterMenu').classList.toggle('show',calFilterMenuOpen);}
+function toggleCalFilterSection(k,e){if(e)e.stopPropagation();calFilterSectionOpen=calFilterSectionOpen===k?'':k;renderCalFilterMenu();}
+function setCalBoardFilter(v){calBoardFilter=v;renderCalendar();}
+function setCalKindFilter(v){calKindFilter=v;renderCalendar();}
+function calFilterLeadOk(l){return calBoardFilter==='all'||!l||leadBoardPart(l)===calBoardFilter;}
+function renderCalFilterMenu(){
+  const item=(on,label,fn)=>`<div class="filtermenu-item ${on?'active':''}" onclick="event.stopPropagation();${fn}"><span>${esc(label)}</span>${on?'<i class="ti ti-check"></i>':''}</div>`;
+  const admin=isAdmin();
+  const secA=document.getElementById('cfmSecAgents'),bodyA=document.getElementById('calFilterMenuAgents');
+  if(secA){secA.style.display=admin?'':'none';}
+  if(bodyA)bodyA.innerHTML=admin?(item(calAgent==='all','Alle','calSetAgent(\'all\')')+activeAgents().map(a=>item(calAgent===a.id,a.name,`calSetAgent('${a.id}')`)).join('')):'';
+  const bodyB=document.getElementById('calFilterMenuBoard');
+  if(bodyB)bodyB.innerHTML=[['all','Alle Boards'],['akquise',BOARD_PARTS.akquise],['vertrieb',BOARD_PARTS.vertrieb]].map(([v,l])=>item(calBoardFilter===v,l,`setCalBoardFilter('${v}')`)).join('');
+  const bodyK=document.getElementById('calFilterMenuKind');
+  if(bodyK)bodyK.innerHTML=[['all','Alle'],['lead','Kundentermine'],['task','Aufgaben']].map(([v,l])=>item(calKindFilter===v,l,`setCalKindFilter('${v}')`)).join('');
+  [['agents','Agents'],['board','Board'],['kind','Kind']].forEach(([k,id])=>{
+    const sec=document.getElementById('cfmSec'+id),body=document.getElementById('calFilterMenu'+id);
+    if(sec)sec.classList.toggle('open',calFilterSectionOpen===k);if(body)body.classList.toggle('open',calFilterSectionOpen===k);
+  });
+  const ag=calAgent==='all'?'Alle':((agentById(calAgent)||{}).name||'');
+  const set=(id,txt,act)=>{const el=document.getElementById('cfmSum'+id);if(el)el.textContent=txt;const sec=document.getElementById('cfmSec'+id);if(sec)sec.classList.toggle('active',!!act);};
+  set('Agents',ag,admin&&calAgent!==currentUser);
+  set('Board',calBoardFilter==='all'?'Alle':BOARD_PARTS[calBoardFilter],calBoardFilter!=='all');
+  set('Kind',calKindFilter==='all'?'Alle':(calKindFilter==='lead'?'Kundentermine':'Aufgaben'),calKindFilter!=='all');
+  const tok=document.getElementById('calOmniTokens');
+  if(tok){
+    let h='';
+    if(admin&&calAgent!==currentUser)h+=`<div class="omni-token"><i class="ti ti-user" style="font-size:12px"></i>${esc(ag)}<i class="ti ti-x" onclick="calSetAgent(currentUser)"></i></div>`;
+    if(calBoardFilter!=='all')h+=`<div class="omni-token"><i class="ti ti-layout-kanban" style="font-size:12px"></i>${esc(BOARD_PARTS[calBoardFilter])}<i class="ti ti-x" onclick="setCalBoardFilter('all')"></i></div>`;
+    if(calKindFilter!=='all')h+=`<div class="omni-token"><i class="ti ti-category" style="font-size:12px"></i>${calKindFilter==='lead'?'Kundentermine':'Aufgaben'}<i class="ti ti-x" onclick="setCalKindFilter('all')"></i></div>`;
+    tok.innerHTML=h;
+  }
+}
 // ── Seitenleiste "Zu planen": FollowUps ohne Uhrzeit (ueberfaellig, heute, diese Woche)
 // und Termine am Wochenende. Ziehen auf eine Uhrzeit = Termin; Klick oeffnet den Lead.
 function calTogglePlanPanel(){calPlanPanel=!calPlanPanel;try{localStorage.setItem('projectos_cal_plan',calPlanPanel?'1':'0');}catch(e){}renderCalendar();}
@@ -2804,6 +2883,7 @@ function calPlanItems(){
   leads.forEach(l=>{
     if(isClosedLead(l)||!l.followup)return;
     if(!(calAgent==='all'||(l.members||[]).includes(calAgent)))return;
+    if(!calFilterLeadOk(l))return;
     if(!leadMatchesSearch(l,q,pk))return;
     const p=calParse(l.followup);
     const date=(l.followup||'').slice(0,10);
@@ -2852,6 +2932,32 @@ function calJumpMonth(y,m,e){
   renderCalendar();
 }
 // Verschiebt den Follow-up-Termin eines Leads (gleiche Protokollierung wie im Lead-Fenster)
+// ── Doppelbuchungen: Ueberschneidungen im Kalender einer Person ──
+// Kundentermine belegen 25 Min., Aufgaben ihre Dauer (inkl. Serien). exclude: {leadId} oder {taskId}.
+function calConflicts(owner,dateStr,startMin,endMin,exclude){
+  exclude=exclude||{};const out=[];
+  if(!owner||owner==='all')return out;
+  leads.forEach(l=>{
+    if(isClosedLead(l)||!(l.members||[]).includes(owner))return;
+    if(exclude.leadId!==undefined&&String(l.id)===String(exclude.leadId))return;
+    const p=calParse(l.followup);if(!p||p.date!==dateStr)return;
+    if(p.min<endMin&&startMin<p.min+CAL_DUR)out.push({time:p.time,label:l.company});
+  });
+  calTasks.forEach(t=>{
+    if(t.deleted||t.owner!==owner)return;
+    if(exclude.taskId!==undefined&&String(t.id)===String(exclude.taskId))return;
+    if(!calTaskOccursOn(t,dateStr))return;
+    const a=calParseTime(t.start_time),b=calParseTime(t.end_time);
+    if(a<endMin&&startMin<b)out.push({time:t.start_time,label:t.title+' (Aufgabe)'});
+  });
+  return out.sort((x,y)=>x.time.localeCompare(y.time));
+}
+function calConflictText(list){return list.slice(0,3).map(c=>`${c.time} ${c.label}`).join(', ')+(list.length>3?` und ${list.length-3} weitere`:'');}
+function calConflictNoteHtml(list){
+  if(!list.length)return '';
+  return `<div class="ap-note ap-warn"><i class="ti ti-calendar-exclamation"></i><span>Überschneidung mit ${esc(calConflictText(list))}. Speichern ist trotzdem möglich.</span></div>`;
+}
+function calConfirmConflicts(list){return !list.length||confirm(`Überschneidung mit ${calConflictText(list)}.\n\nTrotzdem verschieben?`);}
 function calMoveLead(id,dateStr,minutes){
   const l=leads.find(x=>String(x.id)===String(id));
   if(!l)return false;
@@ -2859,6 +2965,7 @@ function calMoveLead(id,dateStr,minutes){
   if(lock&&lock.agentId!==currentUser){alert(`„${l.company}“ wird gerade von ${lock.agentName||'jemand anderem'} bearbeitet und kann nicht verschoben werden.`);return false;}
   const nv=`${dateStr}T${calFmt(minutes)}`;
   if(nv===l.followup)return false;
+  if(!calConfirmConflicts(calConflicts(calApptPerson(),dateStr,minutes,minutes+CAL_DUR,{leadId:l.id}))){renderCalendar();return false;}
   const old=calParse(l.followup);
   const prevFu=l.followup||'';
   l.followup=nv;
@@ -2885,16 +2992,19 @@ function calDropWeek(e,dateStr,startH,endH){
   let min=calSnap(startH*60+y/CAL_HOUR_PX*60);
   min=Math.max(CAL_BOOK_FROM*60,Math.min(CAL_DAY_END*60-CAL_SNAP,min)); // buchbar 09:00 bis 19:30
   const id=calDrag.id;calDrag=null;
+  if(String(id).startsWith('t:')){const [tid,occ]=String(id).slice(2).split('@');return calMoveTask(tid,dateStr,min,occ);}
   calMoveLead(id,dateStr,min);
 }
 function calDropMonth(e,dateStr){
   e.preventDefault();e.currentTarget.classList.remove('drop');
   if(!calDrag)return;
+  if(String(calDrag.id).startsWith('t:')){const [tid,occ]=String(calDrag.id).slice(2).split('@');const t=calTasks.find(x=>x.id===tid);calDrag=null;if(t)calMoveTask(t.id,dateStr,calParseTime(t.start_time),occ);return;}
   const l=leads.find(x=>String(x.id)===String(calDrag.id));calDrag=null;
   const p=l&&calParse(l.followup);
   if(p)calMoveLead(l.id,dateStr,p.min);
 }
 function calEventHtml(ev,style){
+  if(ev.task)return calTaskHtml(ev,style);
   const part=leadBoardPart(ev.lead)==='akquise'?'sql':'pql';
   const now=new Date();const past=new Date(ev.date+'T'+ev.time)<now;
   return `<div class="cal-ev ${part} ${past?'past':''}" draggable="true" style="${style||''}" title="${esc(ev.time+' – '+ev.lead.company)}" ondragstart="calDragStart(event,${JSON.stringify(String(ev.lead.id)).replace(/"/g,'&quot;')})" onclick="openLeadModal(${typeof ev.lead.id==='number'?ev.lead.id:JSON.stringify(ev.lead.id).replace(/"/g,'&quot;')})"><b>${ev.time}</b> ${esc(ev.lead.company)}</div>`;
@@ -2905,7 +3015,8 @@ function renderCalendar(){
   calInit();
   const mFull=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
   const mShort=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
-  const evs=calEvents();
+  const evs=calEvents().concat(calTaskEvents(calVisibleDates()));
+  loadCalTasks();
   let label;
   if(calViewMode==='week'){
     const ws=new Date(calWeekStart+'T00:00:00');const we=new Date(ws);we.setDate(we.getDate()+4);
@@ -2931,20 +3042,21 @@ function renderCalendar(){
     const days=[...Array(5)].map((_,i)=>{const d=new Date(ws);d.setDate(d.getDate()+i);return calYmd(d);});
     const inWeek=evs.filter(e=>days.includes(e.date));
     let startH=CAL_DAY_START,endH=CAL_DAY_END;
-    inWeek.forEach(e=>{startH=Math.min(startH,Math.floor(e.min/60));endH=Math.max(endH,Math.ceil((e.min+CAL_DUR)/60));});
+    inWeek.forEach(e=>{startH=Math.min(startH,Math.floor(e.min/60));endH=Math.max(endH,Math.ceil((e.min+(e.dur||CAL_DUR))/60));});
     const wd=['Mo','Di','Mi','Do','Fr'];
-    h+=`<div class="cal-split ${calPlanPanel?'':'nopanel'}"><div class="cal-wrap"><div class="cal-head"><div></div>${days.map((d,i)=>`<div class="${d===todayStr?'today':''}">${wd[i]}<b>${d.slice(8,10)}.${d.slice(5,7)}.</b></div>`).join('')}</div>`;
+    h+=`<div class="cal-split ${calPlanPanel?'':'nopanel'}"><div class="cal-wrap"><div class="cal-head"><div></div>${days.map((d,i)=>{const fn=feiertagName(d);return `<div class="${d===todayStr?'today':''} ${fn?'hol':''}">${wd[i]}<b>${d.slice(8,10)}.${d.slice(5,7)}.</b>${fn?`<small>${esc(fn)}</small>`:''}</div>`;}).join('')}</div>`;
     h+=`<div class="cal-body"><div class="cal-gutter">${[...Array(endH-startH)].map((_,i)=>`<div>${String(startH+i).padStart(2,'0')}:00</div>`).join('')}</div>`;
     days.forEach(d=>{
-      const list=inWeek.filter(e=>e.date===d).sort((a,b)=>a.min-b.min||String(a.lead.company).localeCompare(b.lead.company));
-      // Ueberschneidungen nebeneinander: Gruppen ueberlappender Termine auf Spuren verteilen
-      const lanes=[];list.forEach(e=>{let li=lanes.findIndex(end=>end<=e.min);if(li<0){li=lanes.length;lanes.push(0);}lanes[li]=e.min+CAL_DUR;e.lane=li;});
-      list.forEach(e=>{const grp=list.filter(o=>o.min<e.min+CAL_DUR&&e.min<o.min+CAL_DUR);e.lanes=Math.max(...grp.map(o=>o.lane))+1;});
-      let inner=list.map(e=>{const top=(e.min-startH*60)/60*CAL_HOUR_PX;const ht=CAL_DUR/60*CAL_HOUR_PX;const w=100/e.lanes;
+      const nm_=e=>e.lead?e.lead.company:e.task.title;const du=e=>e.dur||CAL_DUR;
+      const list=inWeek.filter(e=>e.date===d).sort((a,b)=>a.min-b.min||String(nm_(a)).localeCompare(nm_(b)));
+      // Ueberschneidungen nebeneinander: Gruppen ueberlappender Eintraege auf Spuren verteilen
+      const lanes=[];list.forEach(e=>{let li=lanes.findIndex(end=>end<=e.min);if(li<0){li=lanes.length;lanes.push(0);}lanes[li]=e.min+du(e);e.lane=li;});
+      list.forEach(e=>{const grp=list.filter(o=>o.min<e.min+du(e)&&e.min<o.min+du(o));e.lanes=Math.max(...grp.map(o=>o.lane))+1;});
+      let inner=list.map(e=>{const top=(e.min-startH*60)/60*CAL_HOUR_PX;const ht=du(e)/60*CAL_HOUR_PX;const w=100/e.lanes;
         return calEventHtml(e,`top:${top}px;height:${ht}px;left:calc(${w*e.lane}% + 2px);width:calc(${w}% - 4px);right:auto`);}).join('');
       if(d===todayStr){const n=new Date();const nm=n.getHours()*60+n.getMinutes();if(nm>=startH*60&&nm<=endH*60)inner+=`<div class="cal-now" style="top:${(nm-startH*60)/60*CAL_HOUR_PX}px"></div>`;}
       if(CAL_BOOK_FROM>startH)inner=`<div class="cal-closed" style="height:${(CAL_BOOK_FROM-startH)*CAL_HOUR_PX}px"></div>`+inner;
-      h+=`<div class="cal-day ${d===todayStr?'today':''}" style="height:${(endH-startH)*CAL_HOUR_PX}px" data-date="${d}" onclick="calSlotClick(event,'${d}',${startH})" ondragover="calDragOver(event)" ondragleave="calDragLeave(event)" ondrop="calDropWeek(event,'${d}',${startH},${endH})">${inner}</div>`;
+      h+=`<div class="cal-day ${d===todayStr?'today':''} ${feiertagName(d)?'hol':''}" style="height:${(endH-startH)*CAL_HOUR_PX}px" data-date="${d}" onclick="calSlotClick(event,'${d}',${startH})" ondragover="calDragOver(event)" ondragleave="calDragLeave(event)" ondrop="calDropWeek(event,'${d}',${startH},${endH})">${inner}</div>`;
     });
     h+=`</div></div>${calPlanPanel?calPlanPanelHtml():''}</div>`;
   } else {
@@ -2961,7 +3073,8 @@ function renderCalendar(){
         const list=evs.filter(e=>e.date===ds).sort((a,b)=>a.min-b.min);
         const shown=list.slice(0,4).map(e=>calEventHtml(e)).join('');
         const more=list.length>4?`<div class="cal-more" onclick="calOpenWeekOf('${ds}')">+${list.length-4} weitere</div>`:'';
-        h+=`<div class="cal-cell ${ds===todayStr?'today':''}" data-date="${ds}" ondragover="calDragOver(event)" ondragleave="calDragLeave(event)" ondrop="calDropMonth(event,'${ds}')"><div class="dn">${d.getDate()}</div>${shown}${more}</div>`;
+        const fn=feiertagName(ds);
+        h+=`<div class="cal-cell ${ds===todayStr?'today':''} ${fn?'hol':''}" data-date="${ds}" ondragover="calDragOver(event)" ondragleave="calDragLeave(event)" ondrop="calDropMonth(event,'${ds}')"><div class="dn">${d.getDate()}</div>${fn?`<div class="hn">${esc(fn)}</div>`:''}${shown}${more}</div>`;
       }
     }
     h+=`</div>`;
@@ -2969,9 +3082,10 @@ function renderCalendar(){
   if(!evs.length)h+=`<div style="margin-top:12px;font-size:12px;color:var(--text3)">Keine Termine mit Uhrzeit. Termine erscheinen hier, sobald bei einem Follow-up eine Uhrzeit eingetragen ist.</div>`;
   h+=`</div>`;
   el.innerHTML=h;
+  renderCalFilterMenu();
   // Personenauswahl, "Zu planen" und "+ Termin" sitzen rechts in der Suchleiste - wie im Board
   const top=document.getElementById('calTopActions');
-  if(top)top.innerHTML=`${agentSel}
+  if(top)top.innerHTML=`
     ${calViewMode==='week'?`<button class="omnibar-btn ${calPlanPanel?'on':''}" onclick="calTogglePlanPanel()" title="Seitenleiste ein-/ausblenden"><i class="ti ti-list-check"></i> Zu planen <b>${calPlanItems().length}</b></button>`:''}
     <button class="omnibar-btn primary" onclick="openCalAppt()"><i class="ti ti-plus"></i> Termin</button>`;
 }
@@ -2993,7 +3107,7 @@ function openCalAppt(dateStr,time){
   const today=calYmd(new Date());
   let d=dateStr;
   if(!d){const ws=calWeekStart;const we=calYmd(new Date(new Date(ws+'T00:00:00').getTime()+6*86400000));d=(calViewMode==='week'&&(today<ws||today>we))?ws:today;}
-  calAppt={leadId:null,date:d,time:time||'09:00',note:'',q:'',err:''};
+  calAppt={kind:'lead',leadId:null,date:d,time:time||'09:00',note:'',q:'',err:''};
   renderCalAppt();
   openModal('calApptModal');
   setTimeout(()=>{const i=document.getElementById('apSearch');if(i)i.focus();},30);
@@ -3004,6 +3118,160 @@ function openCalApptForLead(id){
   const date=p&&p.date>=today?p.date:((l.followup||'').slice(0,10)>=today?(l.followup||'').slice(0,10):today);
   openCalAppt(date,p?calFmt(Math.max(CAL_BOOK_FROM*60,Math.min(CAL_DAY_END*60-CAL_SNAP,calSnap(p.min)))):'09:00');
   calAppt.leadId=String(l.id);calAppt.q='';renderCalAppt();
+}
+// ── Eigene Aufgaben im Kalender (Tabelle calendar_events) ──
+// Titel, Datum, Beginn, Ende frei, optional mit Lead verknuepft. Unabhaengig vom FollowUp eines Leads.
+let calTasks=[],calTasksLoadedAt=0,calTasksLoading=false,calTasksError=false;
+async function loadCalTasks(force){
+  if(calTasksLoading||(!force&&Date.now()-calTasksLoadedAt<60000))return;
+  calTasksLoading=true;
+  try{
+    const from=new Date(TODAY+'T00:00:00');from.setDate(from.getDate()-120);
+    calTasks=await fetchAllRows(`calendar_events?select=*&deleted=eq.false&or=(date.gte.${calYmd(from)},repeat.neq.none)&order=date.asc`,{timeoutMs:15000});
+    calTasksError=false;
+  }catch(e){calTasksError=true;}
+  calTasksLoadedAt=Date.now();calTasksLoading=false;
+  if(currentView==='calendar')renderCalendar();
+  if(currentView==='tasks')renderTasksView();
+}
+// Sichtbare Tage der aktuellen Ansicht (Woche: Mo-Fr, Monat: alle Werktage des Monats)
+function calVisibleDates(){
+  calInit();const out=[];
+  if(calViewMode==='week'){const ws=new Date(calWeekStart+'T00:00:00');for(let i=0;i<5;i++){const d=new Date(ws);d.setDate(d.getDate()+i);out.push(calYmd(d));}}
+  else{const d=new Date(calYear,calMonth,1);while(d.getMonth()===calMonth){if(d.getDay()!==0&&d.getDay()!==6)out.push(calYmd(d));d.setDate(d.getDate()+1);}}
+  return out;
+}
+// Serien: repeat = none | daily (Mo-Fr) | weekly (gleicher Wochentag), repeat_until optional, skip_dates = ausgelassene Tage
+function calTaskOccursOn(t,ds){
+  const start=String(t.date).slice(0,10);
+  const rp=t.repeat||'none';
+  if(rp==='none')return ds===start;
+  if(ds<start)return false;
+  if(t.repeat_until&&ds>String(t.repeat_until).slice(0,10))return false;
+  if((t.skip_dates||[]).includes(ds))return false;
+  const dd=new Date(ds+'T00:00:00');const dow=dd.getDay();
+  if(feiertagName(ds))return false; // Serien pausieren an Feiertagen
+  if(rp==='daily')return dow!==0&&dow!==6;
+  if(rp==='weekly')return dow===new Date(start+'T00:00:00').getDay();
+  return false;
+}
+function calTaskEvents(dates){
+  const out=[];
+  if(calKindFilter==='lead')return out;
+  const q=((document.getElementById('calendarSearch')||{}).value||'').toLowerCase().trim();const pk=phoneQueryKeys(q);
+  calTasks.filter(t=>!t.deleted&&(calAgent==='all'||t.owner===calAgent)).forEach(t=>{
+    const lead=t.lead_id?leads.find(l=>String(l.id)===String(t.lead_id)):null;
+    if(lead&&!calFilterLeadOk(lead))return;
+    if(q&&!((t.title||'').toLowerCase().includes(q)||(lead&&leadMatchesSearch(lead,q,pk))))return;
+    const a=calParseTime(t.start_time),b=calParseTime(t.end_time);
+    (dates||[]).forEach(ds=>{if(calTaskOccursOn(t,ds))out.push({task:t,date:ds,min:a,dur:Math.max(15,b-a),time:t.start_time});});
+  });
+  return out;
+}
+function calTaskHtml(ev,style){
+  const t=ev.task;const idAttr=JSON.stringify('t:'+t.id+'@'+ev.date).replace(/"/g,'&quot;');
+  const rep=t.repeat&&t.repeat!=='none';
+  const lead=t.lead_id?leads.find(l=>String(l.id)===String(t.lead_id)):null;
+  return `<div class="cal-ev task" draggable="true" style="${style||''}" title="${esc(t.start_time+'–'+t.end_time+' · '+t.title)}" ondragstart="calDragStart(event,${idAttr})" onclick="openCalTaskEdit('${esc(t.id)}','${ev.date}')"><b>${esc(t.start_time)}–${esc(t.end_time)}</b> ${rep?'<i class="ti ti-repeat" style="font-size:11px" title="Serie"></i> ':''}${esc(t.title)}${lead?` · <span style="opacity:.75">${esc(lead.company)}</span>`:''}${style?`<div class="rs" onmousedown="calResizeStart(event,'${esc(t.id)}')" onclick="event.stopPropagation()" draggable="false"></div>`:''}</div>`;
+}
+async function calTaskWrite(method,task){
+  const url=method==='POST'?`${SUPABASE_URL}/rest/v1/calendar_events`:`${SUPABASE_URL}/rest/v1/calendar_events?id=eq.${encodeURIComponent(task.id)}`;
+  const body=method==='POST'?task:Object.assign({},task);delete body.created_at;
+  const res=await fetchWithTimeout(url,{method,headers:Object.assign({},getSbHeaders(),{'Content-Type':'application/json','Prefer':'return=representation'}),body:JSON.stringify(body)},15000);
+  if(!res.ok)throw new Error('HTTP '+res.status);
+  return res.json();
+}
+async function calMoveTask(id,dateStr,startMin,occDate){
+  const t=calTasks.find(x=>x.id===id);if(!t)return;
+  const dur=Math.max(15,calParseTime(t.end_time)-calParseTime(t.start_time));
+  let st=Math.max(CAL_DAY_START*60,Math.min(CAL_DAY_END*60-15,startMin));let en=Math.min(CAL_DAY_END*60,st+dur);
+  const old={date:t.date,start_time:t.start_time,end_time:t.end_time};
+  // Serie: Uhrzeit gilt fuer alle Termine; woechentlich verschiebt sich der Wochentag um denselben Abstand, taeglich bleibt das Startdatum
+  let newDate=dateStr;
+  const rp=t.repeat||'none';
+  if(rp==='daily')newDate=String(t.date).slice(0,10);
+  else if(rp==='weekly'&&occDate){const delta=Math.round((new Date(dateStr+'T00:00:00')-new Date(occDate+'T00:00:00'))/86400000);const nd=new Date(String(t.date).slice(0,10)+'T00:00:00');nd.setDate(nd.getDate()+delta);newDate=calYmd(nd);}
+  const chkDate=rp==='none'?newDate:(occDate&&rp==='weekly'?dateStr:(occDate||newDate));
+  if(!calConfirmConflicts(calConflicts(t.owner,chkDate,st,en,{taskId:t.id}))){renderCalendar();return;}
+  Object.assign(t,{date:newDate,start_time:calFmt(st),end_time:calFmt(en),updated_at:nowISO()});renderCalendar();
+  try{await calTaskWrite('PATCH',{id:t.id,date:t.date,start_time:t.start_time,end_time:t.end_time,updated_at:t.updated_at});syncLeadTaskFromCal(t);}
+  catch(e){Object.assign(t,old);renderCalendar();alert('Die Aufgabe konnte nicht verschoben werden. Bitte später erneut versuchen.');}
+}
+// Ende ziehen: untere Kante einer Aufgabe in der Wochenansicht, Raster 15 Min.
+let calResize=null;
+function calResizeStart(e,id){
+  e.preventDefault();e.stopPropagation();
+  const t=calTasks.find(x=>x.id===id);if(!t)return;
+  const el=e.target.closest('.cal-ev');
+  calResize={id,y0:e.clientY,h0:el?el.offsetHeight:0,el,start:calParseTime(t.start_time),end0:calParseTime(t.end_time)};
+  document.addEventListener('mousemove',calResizeMove);document.addEventListener('mouseup',calResizeEnd);
+}
+function calResizeTarget(dy){const r=calResize;let en=r.end0+Math.round(dy/CAL_HOUR_PX*60/15)*15;return Math.max(r.start+15,Math.min(CAL_DAY_END*60,en));}
+function calResizeMove(e){if(!calResize)return;const en=calResizeTarget(e.clientY-calResize.y0);if(calResize.el){calResize.el.style.height=((en-calResize.start)/60*CAL_HOUR_PX)+'px';const b=calResize.el.querySelector('b');if(b)b.textContent=calFmt(calResize.start)+'–'+calFmt(en);}}
+function calResizeEnd(e){
+  document.removeEventListener('mousemove',calResizeMove);document.removeEventListener('mouseup',calResizeEnd);
+  if(!calResize)return;const r=calResize;calResize=null;
+  calResizeApply(r.id,calResizeTarget(e.clientY-r.y0));
+}
+async function calResizeApply(id,endMin){
+  const t=calTasks.find(x=>x.id===id);if(!t)return;
+  const en=Math.max(calParseTime(t.start_time)+15,Math.min(CAL_DAY_END*60,endMin));
+  if(calFmt(en)===t.end_time){renderCalendar();return;}
+  if(en>calParseTime(t.end_time)&&!calConfirmConflicts(calConflicts(t.owner,String(t.date).slice(0,10),calParseTime(t.end_time),en,{taskId:t.id}))){renderCalendar();return;}
+  const old=t.end_time;t.end_time=calFmt(en);t.updated_at=nowISO();renderCalendar();
+  try{await calTaskWrite('PATCH',{id:t.id,end_time:t.end_time,updated_at:t.updated_at});syncLeadTaskFromCal(t);}
+  catch(err){t.end_time=old;renderCalendar();alert('Die neue Endzeit konnte nicht gespeichert werden.');}
+}
+function calTaskTimes(){const o=[];for(let m=CAL_DAY_START*60;m<=CAL_DAY_END*60;m+=15)o.push(calFmt(m));return o;}
+function openCalTaskEdit(id,occDate){
+  const t=calTasks.find(x=>x.id===id);if(!t)return;
+  calInit();
+  calAppt={kind:'task',taskId:t.id,occDate:occDate||String(t.date).slice(0,10),title:t.title,leadId:t.lead_id||null,date:String(t.date).slice(0,10),time:t.start_time,end:t.end_time,note:t.note||'',repeat:t.repeat||'none',until:t.repeat_until?String(t.repeat_until).slice(0,10):'',q:'',err:''};
+  renderCalAppt();openModal('calApptModal');
+}
+function calApptKind(k){if(!calAppt)return;calAppt.kind=k;calAppt.err='';if(!calAppt.repeat)calAppt.repeat='none';if(k==='task'&&!calAppt.end){calAppt.end=calFmt(Math.min(CAL_DAY_END*60,calParseTime(calAppt.time)+60));}renderCalAppt();}
+async function saveCalTask(){
+  const a=calAppt;
+  const title=(a.title||'').trim();
+  if(!title){a.err='Bitte einen Titel eingeben.';renderCalAppt();return false;}
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(a.date||'')){a.err='Bitte ein gültiges Datum wählen.';renderCalAppt();return false;}
+  if(calParseTime(a.end)<=calParseTime(a.time)){a.err='Das Ende muss nach dem Beginn liegen.';renderCalAppt();return false;}
+  const owner=calApptPerson();
+  const rp=['daily','weekly'].includes(a.repeat)?a.repeat:'none';
+  if(rp!=='none'&&a.until&&a.until<a.date){a.err='„Wiederholen bis“ muss nach dem Startdatum liegen.';renderCalAppt();return false;}
+  const rec={id:a.taskId||('ev'+Date.now()+Math.random().toString(36).slice(2,7)),owner,title,date:a.date,start_time:a.time,end_time:a.end,lead_id:a.leadId?String(a.leadId):null,note:(a.note||'').trim()||null,repeat:rp,repeat_until:rp!=='none'&&a.until?a.until:null,created_by:currentUser,updated_at:nowISO()};
+  try{
+    const out=await calTaskWrite(a.taskId?'PATCH':'POST',rec);
+    const saved=(Array.isArray(out)&&out[0])||rec;
+    const i=calTasks.findIndex(x=>x.id===rec.id);if(i>=0)calTasks[i]=Object.assign(calTasks[i],saved);else calTasks.push(saved);
+    const ev=calTasks.find(x=>x.id===rec.id);
+    if(a.taskId)syncLeadTaskFromCal(ev);
+    else if(rec.lead_id&&rp==='none'){
+      // neue Kalender-Aufgabe mit Lead: erscheint auch in dessen Aufgabenliste
+      const l=leads.find(x=>String(x.id)===String(rec.lead_id));
+      if(l){if(!Array.isArray(l.tasks))l.tasks=[];l.tasks.push({id:genId(),text:rec.title,dueDate:rec.date,done:false,createdBy:currentUser,createdAt:nowISO(),assigneeId:rec.owner,calEventId:rec.id,calDate:rec.date,calStart:rec.start_time,calEnd:rec.end_time});
+        const ac={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe hinzugefügt (Kalender): ${rec.title}`,date:nowISO()};if(!Array.isArray(l.activity))l.activity=[];l.activity.unshift(ac);pushActivityToDb(l.id,ac);saveState();}
+    }
+  }catch(e){a.err='Speichern fehlgeschlagen. Bitte prüfen, ob die Tabelle für Kalender-Aufgaben eingerichtet ist, und erneut versuchen.';renderCalAppt();return false;}
+  closeModal('calApptModal');calAppt=null;renderCalendar();
+  return true;
+}
+async function deleteCalTask(scope){
+  const a=calAppt;if(!a||!a.taskId)return;
+  const t=calTasks.find(x=>x.id===a.taskId);
+  const series=t&&t.repeat&&t.repeat!=='none';
+  if(series&&scope==='one'){
+    if(!confirm(`Nur den Termin am ${fmtDate(a.occDate)} löschen? Die übrigen Termine der Serie bleiben.`))return;
+    const skip=[...new Set([...(t.skip_dates||[]),a.occDate])];
+    try{await calTaskWrite('PATCH',{id:a.taskId,skip_dates:skip,updated_at:nowISO()});}
+    catch(e){a.err='Löschen fehlgeschlagen. Bitte erneut versuchen.';renderCalAppt();return;}
+    t.skip_dates=skip;closeModal('calApptModal');calAppt=null;renderCalendar();return;
+  }
+  if(!confirm(series?'Die ganze Serie aus dem Kalender löschen?':'Diese Aufgabe aus dem Kalender löschen?'))return;
+  try{await calTaskWrite('PATCH',{id:a.taskId,deleted:true,updated_at:nowISO()});}
+  catch(e){a.err='Löschen fehlgeschlagen. Bitte erneut versuchen.';renderCalAppt();return;}
+  const gone=calTasks.find(x=>x.id===a.taskId);if(gone)syncLeadTaskFromCal(gone,true);
+  calTasks=calTasks.filter(x=>x.id!==a.taskId);closeModal('calApptModal');calAppt=null;renderCalendar();
 }
 function calApptResults(){
   const q=(calAppt.q||'').toLowerCase().trim();
@@ -3019,20 +3287,55 @@ function renderCalApptResults(){
   if(!list.length){el.innerHTML=(calAppt.q||'').trim().length>=2?`<div style="font-size:12px;color:var(--text3);padding:8px 2px">Kein offener Lead gefunden.</div>`:'';return;}
   el.innerHTML=`<div class="ap-res">${list.map(l=>{const on=sel&&l.id===sel.id;return `<div class="ap-row ${on?'on':''}" onclick="calApptPick(${JSON.stringify(String(l.id)).replace(/"/g,'&quot;')})"><i class="ti ${on?'ti-circle-check':'ti-building'}"></i><div>${esc(l.company)}<small>${esc([l.contact,l.customerNumber,l.phone].filter(Boolean).join(' · '))}</small></div><span class="ap-badge">${BOARD_PARTS[leadBoardPart(l)]}</span></div>`;}).join('')}</div>`;
 }
+function renderCalTaskForm(el){
+  const a=calAppt;const times=calTaskTimes();
+  const sel=a.leadId?leads.find(l=>String(l.id)===String(a.leadId)):null;
+  el.innerHTML=`<div class="ap-head"><i class="ti ti-checklist"></i> ${a.taskId?'Aufgabe bearbeiten':'Eintrag planen'}</div>
+  <div class="ap-body">
+    ${a.taskId?'':`<div class="ap-seg"><button onclick="calApptKind('lead')"><i class="ti ti-user"></i> Kundentermin</button><button class="on" onclick="calApptKind('task')"><i class="ti ti-checklist"></i> Aufgabe</button></div>`}
+    <div class="ap-sec"><i class="ti ti-pencil"></i> Was</div>
+    <div class="ap-blk">
+      <div class="ap-lbl">Titel</div><input type="text" id="apTitle" placeholder="z. B. Angebote vorbereiten" value="${esc(a.title||'')}" oninput="calAppt.title=this.value">
+      <div class="ap-lbl">Lead verknüpfen <small>(optional)</small></div>
+      ${sel?`<div class="ap-res"><div class="ap-row on"><i class="ti ti-circle-check"></i><div>${esc(sel.company)}<small>${esc([sel.contact,sel.customerNumber].filter(Boolean).join(' · '))}</small></div><span class="ap-badge" style="cursor:pointer" onclick="event.stopPropagation();calAppt.leadId=null;renderCalAppt()">entfernen</span></div></div>`
+        :`<input type="text" id="apSearch" placeholder="Suche" value="${esc(a.q||'')}" oninput="calApptSearch(this.value)"><div id="apResults"></div>`}
+    </div>
+    <div class="ap-sec"><i class="ti ti-clock"></i> Wann</div>
+    <div class="ap-blk"><div class="ap-g3">
+      <div><div class="ap-lbl">Datum</div><input type="date" value="${a.date}" onchange="calAppt.date=this.value;renderCalAppt()"></div>
+      <div><div class="ap-lbl">Beginn</div><select id="apTStart" onchange="calAppt.time=this.value;if(calParseTime(calAppt.end)<=calParseTime(this.value)){calAppt.end=calFmt(Math.min(CAL_DAY_END*60,calParseTime(this.value)+60));}renderCalAppt()">${times.slice(0,-1).map(t=>`<option ${t===a.time?'selected':''}>${t}</option>`).join('')}</select></div>
+      <div><div class="ap-lbl">Ende</div><select id="apTEnd" onchange="calAppt.end=this.value;renderCalAppt()">${times.filter(t=>calParseTime(t)>calParseTime(a.time)).map(t=>`<option ${t===a.end?'selected':''}>${t}</option>`).join('')}</select></div>
+    </div>${feiertagName(a.date)?`<div class="ap-note ap-warn"><i class="ti ti-beach"></i><span>${esc(feiertagName(a.date))} – Feiertag in Bayern.</span></div>`:''}${calConflictNoteHtml(calConflicts(calApptPerson(),a.date,calParseTime(a.time),calParseTime(a.end),a.taskId?{taskId:a.taskId}:{}))}</div>
+    <div class="ap-sec"><i class="ti ti-repeat"></i> Wiederholen</div>
+    <div class="ap-blk">
+      <div class="ap-seg" style="margin-top:2px">${[['none','Nie'],['daily','Täglich (Mo–Fr)'],['weekly','Wöchentlich']].map(([k,lab])=>`<button class="${(a.repeat||'none')===k?'on':''}" onclick="calAppt.repeat='${k}';renderCalAppt()">${lab}</button>`).join('')}</div>
+      ${(a.repeat||'none')!=='none'?`<div class="ap-lbl">Wiederholen bis <small>(optional, sonst ohne Ende)</small></div><input type="date" value="${esc(a.until||'')}" onchange="calAppt.until=this.value">${a.taskId?`<div style="font-size:11px;color:var(--text3);margin-top:6px">Änderungen an Uhrzeit, Titel oder Notiz gelten für alle Termine der Serie.</div>`:''}`:''}
+    </div>
+    <div class="ap-sec"><i class="ti ti-notes"></i> Notiz</div>
+    <div class="ap-blk"><textarea rows="2" placeholder="optional" oninput="calAppt.note=this.value">${esc(a.note||'')}</textarea></div>
+    ${a.err?`<div class="ap-note ap-err"><i class="ti ti-alert-circle"></i><span>${esc(a.err)}</span></div>`:''}
+  </div>
+  <div class="modal-actions" style="justify-content:flex-start"><button class="btn" onclick="closeModal('calApptModal')">Abbrechen</button><button class="btn ap-primary" onclick="saveCalTask()"><i class="ti ti-check"></i> ${a.taskId?'Speichern':'Aufgabe speichern'}</button>${a.taskId?`<span style="flex:1"></span>${(()=>{const t=calTasks.find(x=>x.id===a.taskId);return t&&t.repeat&&t.repeat!=='none'?`<button class="btn" style="color:#a32d2d" onclick="deleteCalTask('one')"><i class="ti ti-calendar-minus"></i> Nur diesen Tag</button><button class="btn" style="color:#a32d2d" onclick="deleteCalTask('all')"><i class="ti ti-trash"></i> Ganze Serie</button>`:`<button class="btn" style="color:#a32d2d" onclick="deleteCalTask('all')"><i class="ti ti-trash"></i> Löschen</button>`;})()}`:''}</div>`;
+  if(!sel)renderCalApptResults();
+}
 function calApptSearch(v){calAppt.q=v;renderCalApptResults();}
-function calApptPick(id){calAppt.leadId=id;calAppt.err='';renderCalAppt();}
-function calApptSet(k,v){calAppt[k]=v;if(k==='time'){const e=document.getElementById('apEnd');if(e)e.value=calFmt(calParseTime(v)+CAL_DUR);}}
+function calApptPick(id){calAppt.leadId=id;calAppt.err='';calAppt.q='';renderCalAppt();}
+function calApptSet(k,v){calAppt[k]=v;if(k==='time'||k==='date')renderCalAppt();}
 function calParseTime(t){const m=/^(\d{2}):(\d{2})/.exec(t||'');return m?(+m[1])*60+(+m[2]):CAL_BOOK_FROM*60;}
 function renderCalAppt(){
   const el=document.getElementById('calApptModalInner');if(!el||!calAppt)return;
+  if(calAppt.kind==='task')return renderCalTaskForm(el);
   const sel=calAppt.leadId?leads.find(l=>String(l.id)===String(calAppt.leadId)):null;
   const opts=calTimeOptions();if(!opts.includes(calAppt.time))opts.unshift(calAppt.time);
   const person=calApptPerson();const pa=agentById(person);
   let notes='';
   if(sel&&sel.followup){const p=calParse(sel.followup);notes+=`<div class="ap-note ap-warn"><i class="ti ti-alert-triangle"></i><span>Bestehende FollowUp am ${fmtDate(sel.followup)}${p?' um '+p.time:''} wird durch diesen Termin ersetzt.</span></div>`;}
+  {const fn=feiertagName(calAppt.date);if(fn)notes+=`<div class="ap-note ap-warn"><i class="ti ti-beach"></i><span>${esc(fn)} – Feiertag in Bayern.</span></div>`;}
+  {const st=calParseTime(calAppt.time);notes+=calConflictNoteHtml(calConflicts(person,calAppt.date,st,st+CAL_DUR,sel?{leadId:sel.id}:{}));}
   if(sel&&!(sel.members||[]).includes(person))notes+=`<div class="ap-note ap-info"><i class="ti ti-user-plus"></i><span>${esc(pa?pa.name:'Die Person')} wird als Person zum Lead hinzugefügt, damit der Termin im Kalender erscheint.</span></div>`;
-  el.innerHTML=`<div class="ap-head"><i class="ti ti-calendar-plus"></i> Termin planen</div>
+  el.innerHTML=`<div class="ap-head"><i class="ti ti-calendar-plus"></i> Eintrag planen</div>
   <div class="ap-body">
+    <div class="ap-seg"><button class="on" onclick="calApptKind('lead')"><i class="ti ti-user"></i> Kundentermin</button><button onclick="calApptKind('task')"><i class="ti ti-checklist"></i> Aufgabe</button></div>
     <div class="ap-sec"><i class="ti ti-user-search"></i> Wer</div>
     <div class="ap-blk">
       <div class="ap-lbl">Lead <small>(Firma, Kd-Nr., Ansprechpartner, Telefon, E-Mail)</small></div>
@@ -3747,6 +4050,24 @@ function renderBoard(){
 
 // ── DASHBOARD ──
 let activeDashboardAgentFilters=[];
+let dashboardBoardFilter='all';let dashboardFilterSectionOpen='';
+function dfmToggleSec(k,e){if(e)e.stopPropagation();dashboardFilterSectionOpen=dashboardFilterSectionOpen===k?'':k;renderDashboardFilterSections();}
+function setDashboardBoardFilter(v){dashboardBoardFilter=v;renderDashboardFilterSections();renderDashboard();}
+function renderDashboardFilterSections(){
+  const bd=document.getElementById('dashboardFilterMenuBoard');
+  if(bd)bd.innerHTML=[['all','Alle Boards'],['akquise',BOARD_PARTS.akquise],['vertrieb',BOARD_PARTS.vertrieb]].map(([v,l])=>`<div class="filtermenu-item ${dashboardBoardFilter===v?'active':''}" onclick="event.stopPropagation();setDashboardBoardFilter('${v}')"><span>${esc(l)}</span>${dashboardBoardFilter===v?'<i class="ti ti-check"></i>':''}</div>`).join('');
+  [['agents','Agents','dashboardFilterMenuAgents'],['board','Board','dashboardFilterMenuBoard'],['period','Period','dashboardFilterMenuPeriod']].forEach(([k,id,b])=>{
+    const sc=document.getElementById('dfmSec'+id),el=document.getElementById(b);
+    if(sc)sc.classList.toggle('open',dashboardFilterSectionOpen===k);if(el)el.classList.toggle('open',dashboardFilterSectionOpen===k);
+  });
+  const sum=(id,t,act)=>{const el=document.getElementById('dfmSum'+id);if(el)el.textContent=t;const sc=document.getElementById('dfmSec'+id);if(sc)sc.classList.toggle('active',!!act);};
+  const n=activeDashboardAgentFilters.length;
+  sum('Agents',n?(n===1?((agentById(activeDashboardAgentFilters[0])||{}).name||''):n+' gewählt'):'Alle',n>0);
+  sum('Board',dashboardBoardFilter==='all'?'Alle':BOARD_PARTS[dashboardBoardFilter],dashboardBoardFilter!=='all');
+  const pr=(typeof DASHBOARD_PERIOD_OPTIONS!=='undefined'?DASHBOARD_PERIOD_OPTIONS:[]).find(([k])=>k===activeDashboardPeriod);
+  sum('Period',pr?pr[1]:'Gesamt',activeDashboardPeriod!=='all');
+  renderDashboardOmniTokens();
+}
 // Erfasst echte Bewegungen (Statuswechsel) aus dem Aktivitaets-Protokoll der letzten X Tage
 function getRecentMovements(dl,days){
   const cutoff=new Date(TODAY);
@@ -3807,7 +4128,7 @@ function renderDashboardAgentChips(){
     html+=`<div class="filtermenu-item ${active?'active':''}" onclick="toggleDashboardAgentFilter('${a.id}')"><span>${esc(a.name)}</span>${active?'<i class="ti ti-check"></i>':''}</div>`;
   });
   el.innerHTML=html;
-  renderDashboardOmniTokens();
+  renderDashboardFilterSections();
 }
 function toggleDashboardAgentFilter(id){
   if(id==='all'){activeDashboardAgentFilters=[];}
@@ -3827,7 +4148,7 @@ function renderDashboardPeriodChips(){
     const active=activeDashboardPeriod===k;
     return `<div class="filtermenu-item ${active?'active':''}" onclick="setDashboardPeriod('${k}')"><span>${label}</span>${active?'<i class="ti ti-check"></i>':''}</div>`;
   }).join('');
-  renderDashboardOmniTokens();
+  renderDashboardFilterSections();
 }
 function renderDashboardOmniTokens(){
   const el=document.getElementById('dashboardOmniTokens');
@@ -3837,6 +4158,7 @@ function renderDashboardOmniTokens(){
     const a=AGENTS.find(a=>a.id===id);
     if(a)html+=`<div class="omni-token"><i class="ti ti-user" style="font-size:12px"></i>${esc(a.name)}<i class="ti ti-x" onclick="toggleDashboardAgentFilter('${id}')"></i></div>`;
   });
+  if(dashboardBoardFilter!=='all')html+=`<div class="omni-token"><i class="ti ti-layout-kanban" style="font-size:12px"></i>${esc(BOARD_PARTS[dashboardBoardFilter])}<i class="ti ti-x" onclick="setDashboardBoardFilter('all')"></i></div>`;
   if(dashboardDateStart||dashboardDateEnd){
     const label=(dashboardDateStart?fmtDate(dashboardDateStart):'…')+' – '+(dashboardDateEnd?fmtDate(dashboardDateEnd):'…');
     html+=`<div class="omni-token"><i class="ti ti-calendar" style="font-size:12px"></i>${esc(label)}<i class="ti ti-x" onclick="clearDashboardDateRange()"></i></div>`;
@@ -4253,6 +4575,7 @@ function followupGanttHtml(dl){
 }
 function renderDashboard(){
   let dl=activeDashboardAgentFilters.length?leads.filter(l=>(l.members||[]).some(m=>activeDashboardAgentFilters.includes(m))):leads;
+  if(dashboardBoardFilter!=='all')dl=dl.filter(l=>leadBoardPart(l)===dashboardBoardFilter);
   const periodStart=periodStartDate(activeDashboardPeriod);
   let excludedNoDate=0;
   if(dashboardDateStart||dashboardDateEnd){
@@ -4704,7 +5027,7 @@ function heroSpark(values,color,w,h){
 }
 function heroWorkdays(n,fromStr,forward){ // n Arbeitstage (Mo-Fr) bis/ab Datum
   const out=[];const d=new Date((fromStr||TODAY)+'T00:00:00');
-  while(out.length<n){const dow=d.getDay();if(dow!==0&&dow!==6){forward?out.push(calYmd(d)):out.unshift(calYmd(d));}d.setDate(d.getDate()+(forward?1:-1));}
+  while(out.length<n){if(isWorkdayStr(calYmd(d))){forward?out.push(calYmd(d)):out.unshift(calYmd(d));}d.setDate(d.getDate()+(forward?1:-1));}
   return out;
 }
 async function loadTasksHeroActs(){
@@ -4751,7 +5074,7 @@ function tasksHeroHtml(withFollowup,history,q){
   // 3) Termine heute
   const scope=leads.filter(l=>!isClosedLead(l)&&(agent==='all'||(l.members||[]).includes(agent))&&(activeTasksBoardFilter==='all'||leadBoardPart(l)===activeTasksBoardFilter));
   const timed=scope.map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p);
-  const todayT=timed.filter(x=>x.p.date===TODAY).sort((a,b)=>a.p.min-b.p.min);
+  const todayT=timed.filter(x=>x.p.date===TODAY).concat(calTasksForDay(agent,TODAY).map(x=>({l:{company:x.t.title},p:x.p}))).sort((a,b)=>a.p.min-b.p.min);
   const nowMin=new Date().getHours()*60+new Date().getMinutes();
   const next=todayT.find(x=>x.p.min>=nowMin);
   const untimed=scope.filter(l=>l.followup&&!calParse(l.followup)&&String(l.followup).slice(0,10)===TODAY).length;
@@ -4803,6 +5126,22 @@ function assignedOpenCount(q){
 // Termine MIT Uhrzeit stehen in der Zeitleiste "Termine heute" - verstreicht einer ungenutzt
 // (Start + 25 Min.), rutscht er als "Termin HH:MM verpasst" in die Liste.
 // Termine mit Uhrzeit sind immer bewusste Verabredungen - sie zaehlen auch ohne Erstkontakt.
+// Heutige eigene Kalender-Aufgaben (inkl. Serien) fuer "Meine Aufgaben", Banner, Assistent, Erinnerung
+function calTasksForDay(owner,ds){
+  return calTasks.filter(t=>!t.deleted&&(owner==='all'||t.owner===owner)&&calTaskOccursOn(t,ds)).map(t=>{
+    const lead=t.lead_id?leads.find(l=>String(l.id)===String(t.lead_id)):null;
+    return{t,lead,p:{date:ds,min:calParseTime(t.start_time),time:t.start_time,end:t.end_time,dur:Math.max(15,calParseTime(t.end_time)-calParseTime(t.start_time))}};
+  }).sort((a,b)=>a.p.min-b.p.min);
+}
+function tasksTodayCalTasks(){
+  loadCalTasks();
+  const q=((document.getElementById('tasksSearch')||{}).value||'').toLowerCase().trim();const pk=phoneQueryKeys(q);
+  return calTasksForDay(activeTasksAgentFilter,TODAY).filter(x=>{
+    if(activeTasksBoardFilter!=='all'&&x.lead&&leadBoardPart(x.lead)!==activeTasksBoardFilter)return false;
+    if(q&&!((x.t.title||'').toLowerCase().includes(q)||(x.lead&&leadMatchesSearch(x.lead,q,pk))))return false;
+    return true;
+  });
+}
 function tasksTodayAppts(){
   return tasksBaseFollowups(true).map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p&&x.p.date===TODAY).sort((a,b)=>a.p.min-b.p.min);
 }
@@ -4870,32 +5209,40 @@ function tasksTodayLayoutHtml(withFollowup,q){
   const missedN=queue.length-open.length;
   const now=new Date();const nowMin=now.getHours()*60+now.getMinutes();
   const appts=tasksTodayAppts();
+  const calT=tasksTodayCalTasks();
   const colName=l=>{const c=colById(l.status);return c?c.name:'';};
   const dot=l=>`<span class="dot" style="background:${leadBoardPart(l)==='akquise'?'#0e6870':'#ba7517'}" title="${BOARD_PARTS[leadBoardPart(l)]}"></span>`;
   const acts=l=>`<span class="act" onclick="event.stopPropagation()"><button class="q-btn" onclick="quickNotReached(${leadIdArg(l)})" title="Nicht erreicht: Kommentar + FollowUp in ${PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6} Arbeitstagen"><i class="ti ti-phone-off"></i></button><button class="q-btn" onclick="quickReschedule(${leadIdArg(l)},1)" title="Nächster Arbeitstag">+1T</button><button class="q-btn" onclick="openCalApptForLead(${leadIdArg(l)})" title="Termin planen"><i class="ti ti-calendar-plus"></i></button></span>`;
   const sub=l=>esc([colName(l),l.contact].filter(Boolean).join(' · '));
   const total=queue.length;
-  if(!total&&!appts.length){
+  if(!total&&!appts.length&&!calT.length){
     var box=`<div class="today-box done"><div class="today-hd"><i class="ti ti-circle-check"></i> Alles erledigt für heute<span class="n">0</span></div><div style="font-size:12px;color:#0b5e45;margin-top:6px">Keine offenen FollowUps und keine Termine mehr für heute.</div></div>`;
   }else{
     const all=!!taskShowAll.queue;const shown=all?open:open.slice(0,5);
-    loadTasksLastComments([...shown.map(x=>String(x.l.id)),...appts.map(x=>String(x.l.id))]);
+    loadTasksLastComments([...shown.map(x=>String(x.l.id)),...appts.map(x=>String(x.l.id)),...calT.filter(x=>x.lead).map(x=>String(x.lead.id))]);
     const openHtml=open.length?`<div class="day-list"><div class="d3-head" style="margin:0 -14px"><span>Fällig</span><span>Firma · Kontakt</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${shown.map(it=>`<div class="d3" onclick="openLeadModal(${leadIdArg(it.l)})"><span class="f ${it.kind==='today'?'h':''}">${it.kind==='overdue'?`seit ${it.days} T`:'heute'}</span><div class="c">${dot(it.l)}<div><b>${esc(it.l.company)}</b><small>${sub(it.l)}</small></div></div>${d3PhoneHtml(it.l)}${d3CommentHtml(it.l)}${acts(it.l)}</div>`).join('')}${open.length>5?`<div class="d2 more" onclick="taskShowAll.queue=!taskShowAll.queue;renderTasksView()">${all?'Weniger anzeigen':`+ ${open.length-5} weitere`}</div>`:''}</div>`
       :`<div class="day-list"><div class="d2 more" style="cursor:default">Nichts offen ohne Uhrzeit.</div></div>`;
     let apptHtml='';let lineDone=false;let nextDone=false;
-    appts.forEach(x=>{
-      const missed=x.p.min+CAL_DUR<nowMin;const running=!missed&&x.p.min<=nowMin;
-      if(!lineDone&&x.p.min+CAL_DUR>=nowMin){apptHtml+=`<div class="now-line">jetzt ${calFmt(nowMin)}</div>`;lineDone=true;}
-      const isNext=!missed&&!nextDone&&lineDone;if(isNext)nextDone=true;
+    const dayItems=[...appts.map(x=>Object.assign({kind:'lead',dur:CAL_DUR},x)),...calT.map(x=>Object.assign({kind:'task',dur:x.p.dur},x))].sort((a,b)=>a.p.min-b.p.min);
+    dayItems.forEach(x=>{
+      const isTask=x.kind==='task';
+      const missed=!isTask&&x.p.min+CAL_DUR<nowMin;const over=isTask&&x.p.min+x.dur<nowMin;const running=!missed&&!over&&x.p.min<=nowMin;
+      if(!lineDone&&x.p.min+x.dur>=nowMin){apptHtml+=`<div class="now-line">jetzt ${calFmt(nowMin)}</div>`;lineDone=true;}
+      const isNext=!missed&&!over&&!nextDone&&lineDone;if(isNext)nextDone=true;
       const inMin=x.p.min-nowMin;
       const note=missed?'verpasst':running?'läuft gerade':(isNext?(inMin<60?`in ${inMin} Min`:`in ${Math.floor(inMin/60)} Std${inMin%60?' '+(inMin%60)+' Min':''}`):'');
+      if(isTask){
+        const L=x.lead;
+        apptHtml+=`<div class="d3 ${isNext?'next':''}" style="${over?'opacity:.55':''}" onclick="openCalTaskEdit('${esc(x.t.id)}','${TODAY}')"><span class="f tm" style="color:#534ab7">${x.p.time}</span><div class="c"><span class="dot" style="background:#534ab7" title="Aufgabe"></span><div><b>${esc(x.t.title)}</b><small>${[note,'Aufgabe bis '+x.p.end,L?L.company:''].filter(Boolean).map(esc).join(' · ')}</small></div></div>${L?d3PhoneHtml(L):'<span style="color:var(--text3);font-size:12px">–</span>'}${L?d3CommentHtml(L):(x.t.note?`<div class="cm" title="${esc(x.t.note)}">${esc(x.t.note)}</div>`:'<div class="cm e">–</div>')}<span></span></div>`;
+        return;
+      }
       apptHtml+=`<div class="d3 ${missed?'miss':''} ${isNext?'next':''}" onclick="openLeadModal(${leadIdArg(x.l)})"><span class="f tm">${x.p.time}</span><div class="c">${dot(x.l)}<div><b>${esc(x.l.company)}</b><small>${[note,sub(x.l)].filter(Boolean).join(' · ')}</small></div></div>${d3PhoneHtml(x.l)}${d3CommentHtml(x.l)}${acts(x.l)}</div>`;
     });
-    if(appts.length&&!lineDone)apptHtml+=`<div class="now-line">jetzt ${calFmt(nowMin)}</div>`;
+    if(dayItems.length&&!lineDone)apptHtml+=`<div class="now-line">jetzt ${calFmt(nowMin)}</div>`;
     var box=`<div class="today-box">
-      <div class="today-hd"><i class="ti ti-list-check"></i> Meine Aufgaben<span class="n">${open.length} offen · ${appts.length} ${appts.length===1?'Termin':'Termine'}</span>${total?`<button class="today-go" style="margin-left:12px" onclick="startWorkMode()"><i class="ti ti-player-play"></i> Jetzt abarbeiten${missedN?` (${total})`:''}</button>`:''}</div>
+      <div class="today-hd"><i class="ti ti-list-check"></i> Meine Aufgaben<span class="n">${open.length} offen · ${appts.length+calT.length} ${appts.length+calT.length===1?'Termin':'Termine'}</span>${total?`<button class="today-go" style="margin-left:12px" onclick="startWorkMode()"><i class="ti ti-player-play"></i> Jetzt abarbeiten${missedN?` (${total})`:''}</button>`:''}</div>
       <div class="day-sub">Offen, ohne feste Uhrzeit</div>${openHtml}
-      <div class="day-sub t">Termine</div>${appts.length?`<div class="day-list"><div class="d3-head t" style="margin:0 -14px"><span>Uhrzeit</span><span>Firma · Kontakt</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${apptHtml}</div>`:`<div class="day-list"><div class="d2 more" style="cursor:default">Keine Termine mit Uhrzeit · <a href="#" onclick="event.preventDefault();switchView('calendar')" style="color:#206A72;font-weight:600;margin-left:4px">Im Kalender planen</a></div></div>`}
+      <div class="day-sub t">Termine</div>${(appts.length+calT.length)?`<div class="day-list"><div class="d3-head t" style="margin:0 -14px"><span>Uhrzeit</span><span>Firma · Kontakt</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${apptHtml}</div>`:`<div class="day-list"><div class="d2 more" style="cursor:default">Keine Termine mit Uhrzeit · <a href="#" onclick="event.preventDefault();switchView('calendar')" style="color:#206A72;font-weight:600;margin-left:4px">Im Kalender planen</a></div></div>`}
     </div>`;
   }
   // Naechste 3 Arbeitstage - gleicher Aufbau wie "Heute zu erledigen" (Tabelle je Tag)
@@ -4949,7 +5296,7 @@ function renderWork(){
   const el=document.getElementById('workModalInner');if(!el||!work)return;
   const n=work.items.length;
   if(work.i>=n){
-    const tmr=(()=>{const d=new Date(TODAY+'T00:00:00');d.setDate(d.getDate()+1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);return calYmd(d);})();
+    const tmr=(()=>{const d=new Date(TODAY+'T00:00:00');d.setDate(d.getDate()+1);while(!isWorkdayStr(calYmd(d)))d.setDate(d.getDate()+1);return calYmd(d);})();
     const tomorrow=tasksBaseFollowups().filter(l=>String(l.followup).slice(0,10)===tmr).length;
     const st=work.stats;
     el.innerHTML=`<div class="ap-head"><i class="ti ti-circle-check"></i> ${n?'Alles erledigt für heute':'Nichts zu erledigen'}</div>
@@ -5135,6 +5482,7 @@ function toggleAssignedTask(leadId,taskId){
   const l=leads.find(x=>x.id===leadId);
   const t=l&&l.tasks.find(x=>x.id===taskId);
   if(t)t.done=!t.done;
+  if(t&&t.calEventId){const ce=calTasks.find(x=>x.id===t.calEventId);if(ce)ce.deleted=t.done;taskCalWrite('PATCH',{id:t.calEventId,deleted:t.done,updated_at:nowISO()});}
   saveState();
   renderTasksView();
 }
@@ -5287,6 +5635,9 @@ let activityPeriod='30'; // Tage als String, oder 'all'
 let activityAgentFilter='all';
 let activityTypeFilter='all';
 let activityStatusFilter='all';
+let activityBoardFilter='all';let activityFilterSectionOpen='';
+function afmToggleSec(k,e){if(e)e.stopPropagation();activityFilterSectionOpen=activityFilterSectionOpen===k?'':k;renderActivityFilterChips();}
+function activityBoardOk(lead){return activityBoardFilter==='all'||(lead&&leadBoardPart(lead)===activityBoardFilter);}
 const ACTIVITY_TYPE_OPTIONS=[['all','Alle'],['comment','Kommentare'],['activity','Aktivitäten'],['login','Logins']];
 function renderActivityFilterChips(){
   const agentEl=document.getElementById('activityFilterMenuAgents');
@@ -5305,15 +5656,26 @@ function renderActivityFilterChips(){
       return `<div class="filtermenu-item ${active?'active':''}" onclick="setActivityFilter('type','${v}')"><span>${l}</span>${active?'<i class="ti ti-check"></i>':''}</div>`;
     }).join('');
   }
+  const boardEl=document.getElementById('activityFilterMenuBoard');
+  if(boardEl)boardEl.innerHTML=[['all','Alle Boards'],['akquise',BOARD_PARTS.akquise],['vertrieb',BOARD_PARTS.vertrieb]].map(([v,l])=>`<div class="filtermenu-item ${activityBoardFilter===v?'active':''}" onclick="event.stopPropagation();setActivityFilter('board','${v}')"><span>${esc(l)}</span>${activityBoardFilter===v?'<i class="ti ti-check"></i>':''}</div>`).join('');
   const statusEl=document.getElementById('activityFilterMenuStatus');
   if(statusEl){
     let html=`<div class="filtermenu-item ${activityStatusFilter==='all'?'active':''}" onclick="setActivityFilter('status','all')"><span>Alle</span>${activityStatusFilter==='all'?'<i class="ti ti-check"></i>':''}</div>`;
-    COLUMNS.forEach(c=>{
+    COLUMNS.filter(c=>activityBoardFilter==='all'||colBoard(c)===activityBoardFilter).forEach(c=>{
       const active=activityStatusFilter===c.id;
       html+=`<div class="filtermenu-item ${active?'active':''}" onclick="setActivityFilter('status','${c.id}')"><span>${esc(c.name)}</span>${active?'<i class="ti ti-check"></i>':''}</div>`;
     });
     statusEl.innerHTML=html;
   }
+  // Bereiche auf/zu + Zusammenfassung
+  [['agents','Agents'],['board','Board'],['types','Types'],['status','Status']].forEach(([k,id])=>{
+    const sc=document.getElementById('afmSec'+id),bd=document.getElementById(id==='Agents'?'activityFilterMenuAgents':id==='Board'?'activityFilterMenuBoard':id==='Types'?'activityFilterMenuTypes':'activityFilterMenuStatus');
+    if(sc)sc.classList.toggle('open',activityFilterSectionOpen===k);if(bd)bd.classList.toggle('open',activityFilterSectionOpen===k);
+  });
+  const sum=(id,t,act)=>{const el=document.getElementById('afmSum'+id);if(el)el.textContent=t;const sc=document.getElementById('afmSec'+id);if(sc)sc.classList.toggle('active',!!act);};
+  const ag=AGENTS.find(a=>a.id===activityAgentFilter);const ty=ACTIVITY_TYPE_OPTIONS.find(([v])=>v===activityTypeFilter);const st=COLUMNS.find(c=>c.id===activityStatusFilter);
+  sum('Agents',ag?ag.name:'Alle',!!ag);sum('Board',activityBoardFilter==='all'?'Alle':BOARD_PARTS[activityBoardFilter],activityBoardFilter!=='all');
+  sum('Types',ty?ty[1]:'Alle',activityTypeFilter!=='all');sum('Status',st?st.name:'Alle',!!st);
   renderActivityOmniTokens();
 }
 function renderActivityOmniTokens(){
@@ -5328,6 +5690,7 @@ function renderActivityOmniTokens(){
     const t=ACTIVITY_TYPE_OPTIONS.find(([v])=>v===activityTypeFilter);
     if(t)html+=`<div class="omni-token"><i class="ti ti-category" style="font-size:12px"></i>${esc(t[1])}<i class="ti ti-x" onclick="setActivityFilter('type','all')"></i></div>`;
   }
+  if(activityBoardFilter!=='all')html+=`<div class="omni-token"><i class="ti ti-layout-kanban" style="font-size:12px"></i>${esc(BOARD_PARTS[activityBoardFilter])}<i class="ti ti-x" onclick="setActivityFilter('board','all')"></i></div>`;
   if(activityStatusFilter!=='all'){
     const c=COLUMNS.find(c=>c.id===activityStatusFilter);
     if(c)html+=`<div class="omni-token"><i class="ti ti-flag" style="font-size:12px"></i>${esc(c.name)}<i class="ti ti-x" onclick="setActivityFilter('status','all')"></i></div>`;
@@ -5363,6 +5726,7 @@ function setActivityFilter(kind,val){
   if(kind==='agent')activityAgentFilter=val;
   if(kind==='type')activityTypeFilter=val;
   if(kind==='status')activityStatusFilter=val;
+  if(kind==='board'){activityBoardFilter=val;const sc=colById(activityStatusFilter);if(sc&&val!=='all'&&colBoard(sc)!==val)activityStatusFilter='all';}
   renderActivityFilterChips();
   renderActivities();
 }
@@ -5619,6 +5983,7 @@ async function fetchAllActivitiesForView(q, matchingLeads){
           const lead=leads.find(l=>String(l.id)===String(r.lead_id));
           if(!lead)return; // Lead gelöscht
           if(activityStatusFilter!=='all'&&lead.status!==activityStatusFilter)return;
+          if(!activityBoardOk(lead))return;
           entries.push({lead,text:r.text,date:r.date,type:r.type,author:r.author});
         });
         if(entries.length>=5000)break;
@@ -5634,6 +5999,7 @@ async function fetchAllActivitiesForView(q, matchingLeads){
     const relevantLeads=q?matchingLeads:leads;
     relevantLeads.forEach(l=>{
       if(activityStatusFilter!=='all'&&l.status!==activityStatusFilter)return;
+      if(!activityBoardOk(l))return;
       (l.activity||[]).forEach(a=>{
         entries.push({lead:l,text:a.text,date:a.date,type:a.type,author:a.author});
       });
@@ -5641,7 +6007,7 @@ async function fetchAllActivitiesForView(q, matchingLeads){
   }
 
   // Login-Eintraege einmischen
-  if(activityTypeFilter==='all'||activityTypeFilter==='login'){
+  if((activityTypeFilter==='all'||activityTypeFilter==='login')&&activityBoardFilter==='all'){
     (window.__loginLogCache||[]).forEach(entry=>{
       if(activityAgentFilter!=='all'&&entry.agent_id!==activityAgentFilter)return;
       if(activityPeriod!=='all'){
@@ -6984,13 +7350,15 @@ function renderLeadModal(){
         <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})" style="margin-top:3px;flex-shrink:0">
         <div style="flex:1;min-width:0">
           <span class="check-item-text ${t.done?'done':''}" style="font-size:13px">${esc(t.text)}</span>
-          ${(dueBadge||assigneeBadge)?`<div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">${assigneeBadge}${dueBadge}</div>`:''}
+          ${(dueBadge||assigneeBadge||t.calDate)?`<div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">${assigneeBadge}${t.calDate?taskCalChipHtml(t):dueBadge}</div>`:''}
         </div>
         <button class="icon-btn icon-btn-danger" onclick="deleteTask(${t.id})" title="Löschen"><i class="ti ti-trash"></i></button>
       </div>
     </div>`;
   }).join('')||`<div class="activity-item" style="padding-left:0">Noch keine Aufgaben.</div>`;
   const openTaskCount=(draftLead.tasks||[]).filter(t=>!t.done).length;
+  const leadSeries=calTasks.filter(e=>!e.deleted&&e.repeat&&e.repeat!=='none'&&String(e.lead_id)===String(draftLead.id));
+  const seriesHtml=leadSeries.length?`<div style="margin-top:8px">${leadSeries.map(e=>`<div class="activity-item" style="padding-left:0;display:flex;gap:6px;align-items:center;cursor:pointer" onclick="closeModal('leadModal');switchView('calendar')"><i class="ti ti-repeat" style="color:#534ab7"></i><span><b>${esc(e.title)}</b> · Serie im Kalender (${e.repeat==='daily'?'täglich':'wöchentlich'} ${esc(e.start_time)}–${esc(e.end_time)})</span></div>`).join('')}</div>`:'';
 
   const forecastComputedNow=draftLead.demandPrinters.reduce((sum,p)=>sum+p.skus.reduce((s,x)=>s+(parseFloat(x.priceVk)||0)*(parseFloat(x.qty)||0),0),0);
   const actualComputedNow=draftLead.actualPrinters.reduce((sum,p)=>sum+p.skus.reduce((s,x)=>s+(parseFloat(x.priceVk)||0)*(parseFloat(x.qty)||0),0),0);
@@ -7061,8 +7429,9 @@ function renderLeadModal(){
           <div id="taskMentionPopoverContainer">${renderTaskMentionPopoverHtml()}</div>
         </div>
         <div id="taskFormError" style="display:none;color:var(--red);font-size:11px;margin-bottom:6px"></div>
+        ${taskCalFormHtml()}
         <div class="field-row-2" style="margin-bottom:0;align-items:end">
-          <div><label>Frist</label><input type="date" id="newTaskDue" style="width:100%"></div>
+          <div style="${draftTaskCal&&draftTaskCal.on?'visibility:hidden':''}"><label>Frist</label><input type="date" id="newTaskDue" style="width:100%"></div>
           <div><label style="visibility:hidden">Aktion</label>
             <button class="btn btn-petrol-muted" style="width:100%;justify-content:center" onclick="addTask()"><i class="ti ti-plus"></i> Aufgabe erstellen</button>
           </div>
@@ -7071,7 +7440,7 @@ function renderLeadModal(){
 
       <div class="info-section">
         <div class="section-hdr" style="margin-top:0">${openTaskCount?`${openTaskCount} offene Aufgabe(n)`:'Keine offenen Aufgaben'}</div>
-        ${tasksHtml}
+        ${tasksHtml}${seriesHtml}
       </div>
     </div>`;
   }else if(rightTab==='files'){
@@ -7770,6 +8139,51 @@ function selectTaskMention(agentId){
   const ta2=document.getElementById('newTaskText');
   if(ta2&&newCaret!==null){ta2.focus();ta2.selectionStart=ta2.selectionEnd=newCaret;}
 }
+// ── Lead-Aufgabe mit Zeit im Kalender (Okt. 2026) ──
+// Eine Aufgabe, zwei Ansichten: die Lead-Aufgabe ist das Original (Haken, @Person, Frist), der
+// Kalender-Eintrag in calendar_events wird mitgefuehrt (task.calEventId). Abhaken blendet ihn aus.
+let draftTaskCal=null; // {on,date,start,end}
+function taskCalToggle(on){
+  if(!draftTaskCal)draftTaskCal={on:false,date:TODAY,start:'09:00',end:'10:00'};
+  draftTaskCal.on=on;renderLeadModal();
+}
+function taskCalSet(k,v){
+  if(!draftTaskCal)return;draftTaskCal[k]=v;
+  if(k==='start'&&calParseTime(draftTaskCal.end)<=calParseTime(v))draftTaskCal.end=calFmt(Math.min(CAL_DAY_END*60,calParseTime(v)+60));
+  if(k!=='date')renderLeadModal();
+}
+function taskCalFormHtml(){
+  const c=draftTaskCal||{on:false,date:TODAY,start:'09:00',end:'10:00'};const times=calTaskTimes();
+  return `<label style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;margin:4px 0 8px;cursor:pointer"><input type="checkbox" ${c.on?'checked':''} onchange="taskCalToggle(this.checked)"><i class="ti ti-calendar-event" style="color:#534ab7"></i> Zeit im Kalender blocken</label>
+  ${c.on?`<div class="field-row-3" style="display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px;margin-bottom:10px">
+    <div><label>Datum</label><input type="date" value="${c.date}" onchange="taskCalSet('date',this.value)" style="width:100%"></div>
+    <div><label>Beginn</label><select onchange="taskCalSet('start',this.value)" style="width:100%">${times.slice(0,-1).map(t=>`<option ${t===c.start?'selected':''}>${t}</option>`).join('')}</select></div>
+    <div><label>Ende</label><select onchange="taskCalSet('end',this.value)" style="width:100%">${times.filter(t=>calParseTime(t)>calParseTime(c.start)).map(t=>`<option ${t===c.end?'selected':''}>${t}</option>`).join('')}</select></div>
+  </div>`:''}`;
+}
+function taskCalChipHtml(t){
+  if(!t.calDate)return '';
+  const d=new Date(t.calDate+'T00:00:00');const wd=['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()];
+  return `<span class="due-badge" style="background:#eeedfe;color:#3c3489"><i class="ti ti-calendar-event" style="font-size:11px"></i>${wd} ${fmtDate(t.calDate).slice(0,6)} · ${esc(t.calStart)}–${esc(t.calEnd)}</span>`;
+}
+async function taskCalWrite(method,rec){try{await calTaskWrite(method,rec);return true;}catch(e){alert('Der Kalender-Eintrag konnte nicht gespeichert werden. Die Aufgabe ist im Lead gespeichert – bitte später erneut versuchen.');return false;}}
+// Kalender -> Lead: Aenderung eines Kalender-Eintrags in die verknuepfte Lead-Aufgabe uebernehmen
+function syncLeadTaskFromCal(ev,remove){
+  if(!ev||!ev.lead_id)return;
+  const l=leads.find(x=>String(x.id)===String(ev.lead_id));if(!l)return;
+  const t=(l.tasks||[]).find(x=>x.calEventId===ev.id);if(!t)return;
+  if(remove){
+    l.tasks=l.tasks.filter(x=>x!==t);
+    const a={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe entfernt (Kalender): ${t.text}`,date:nowISO()};if(!Array.isArray(l.activity))l.activity=[];l.activity.unshift(a);pushActivityToDb(l.id,a);
+  }else{
+    const moved=t.calDate!==String(ev.date).slice(0,10)||t.calStart!==ev.start_time||t.calEnd!==ev.end_time;
+    t.calDate=String(ev.date).slice(0,10);t.calStart=ev.start_time;t.calEnd=ev.end_time;t.dueDate=t.calDate;
+    if(ev.title&&ev.title!==t.text)t.text=ev.title;
+    if(moved){const a={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe im Kalender verschoben: ${t.text} → ${fmtDate(t.calDate)} ${t.calStart}–${t.calEnd}`,date:nowISO()};if(!Array.isArray(l.activity))l.activity=[];l.activity.unshift(a);pushActivityToDb(l.id,a);}
+  }
+  if(draftLead&&String(draftLead.id)===String(l.id)){const dt=(draftLead.tasks||[]).find(x=>x.calEventId===ev.id);if(dt){if(remove)draftLead.tasks=draftLead.tasks.filter(x=>x!==dt);else Object.assign(dt,{calDate:t.calDate,calStart:t.calStart,calEnd:t.calEnd,dueDate:t.dueDate,text:t.text});}}
+  saveState();
+}
 function addTask(){
   const textEl=document.getElementById('newTaskText');
   const dueEl=document.getElementById('newTaskDue');
@@ -7782,7 +8196,18 @@ function addTask(){
     return;
   }
   clearTaskFormError();
-  draftLead.tasks.push({id:genId(),text,dueDate:dueEl.value,done:false,createdBy:currentUser,createdAt:nowISO(),assigneeId:pendingTaskAssigneeId||null});
+  const cal=draftTaskCal&&draftTaskCal.on?draftTaskCal:null;
+  if(cal&&(!/^\d{4}-\d{2}-\d{2}$/.test(cal.date||'')||calParseTime(cal.end)<=calParseTime(cal.start))){
+    const errEl=document.getElementById('taskFormError');if(errEl){errEl.style.display='block';errEl.textContent='Bitte Datum sowie Beginn und Ende (Ende nach Beginn) für den Kalender wählen.';}return;
+  }
+  const newTask={id:genId(),text,dueDate:cal?cal.date:dueEl.value,done:false,createdBy:currentUser,createdAt:nowISO(),assigneeId:pendingTaskAssigneeId||null};
+  if(cal){
+    newTask.calDate=cal.date;newTask.calStart=cal.start;newTask.calEnd=cal.end;newTask.calEventId='lt'+Date.now()+Math.random().toString(36).slice(2,6);
+    const rec={id:newTask.calEventId,owner:newTask.assigneeId||currentUser,title:text,date:cal.date,start_time:cal.start,end_time:cal.end,lead_id:String(editingLeadId||draftLead.id),note:null,repeat:'none',created_by:currentUser,updated_at:nowISO()};
+    taskCalWrite('POST',rec).then(okk=>{if(okk){calTasks=calTasks.filter(x=>x.id!==rec.id);calTasks.push(Object.assign({deleted:false},rec));}});
+    draftTaskCal={on:false,date:TODAY,start:'09:00',end:'10:00'};
+  }
+  draftLead.tasks.push(newTask);
   const _act3={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe hinzugefügt: ${text}`,date:nowISO()};draftLead.activity.unshift(_act3);pushActivityToDb(editingLeadId||draftLead.id,_act3);
   textEl.value='';
   dueEl.value='';
@@ -7796,6 +8221,7 @@ function toggleTask(id){
   const t=draftLead.tasks.find(x=>x.id===id);
   if(t){
     t.done=!t.done;
+    if(t.calEventId){const ce=calTasks.find(x=>x.id===t.calEventId);if(ce)ce.deleted=t.done;taskCalWrite('PATCH',{id:t.calEventId,deleted:t.done,updated_at:nowISO()});}
     const _act4={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe ${t.done?'erledigt':'wieder geöffnet'}: ${t.text}`,date:nowISO()};draftLead.activity.unshift(_act4);pushActivityToDb(editingLeadId||draftLead.id,_act4);
   }
   autoPersistIfEditing();
@@ -7803,6 +8229,7 @@ function toggleTask(id){
 }
 function deleteTask(id){
   const t=draftLead.tasks.find(x=>x.id===id);
+  if(t&&t.calEventId){calTasks=calTasks.filter(x=>x.id!==t.calEventId);taskCalWrite('PATCH',{id:t.calEventId,deleted:true,updated_at:nowISO()});}
   draftLead.tasks=draftLead.tasks.filter(x=>x.id!==id);
   if(t){const _act5={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Aufgabe entfernt: ${t.text}`,date:nowISO()};draftLead.activity.unshift(_act5);pushActivityToDb(editingLeadId||draftLead.id,_act5);}
   autoPersistIfEditing();
@@ -7938,10 +8365,43 @@ function addComment(){
 // des Kommentarfelds) einen festen Kommentar ein und setzt das Follow-up-Datum automatisch
 // auf in 3 Tagen - damit ein nicht erreichter Kunde nie versehentlich ohne FollowUp
 // liegen bleibt.
-// n Arbeitstage nach dem Datum (Sa/So zaehlen nicht): Freitag + 3 = Mittwoch, Freitag + 1 = Montag
+// ── Feiertage Bayern (Berechnung identisch zu Sales OS) ──
+function easterSundayUTC(year){
+  var a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,
+      f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,
+      i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
+      month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
+  return new Date(Date.UTC(year,month-1,day));
+}
+function addUTCDaysToDate(d,n){var r=new Date(d);r.setUTCDate(r.getUTCDate()+n);return r;}
+const _feiertagCache={};
+function bayernFeiertage(year){
+  if(_feiertagCache[year])return _feiertagCache[year];
+  var ostern=easterSundayUTC(year);
+  var liste=[
+    {d:new Date(Date.UTC(year,0,1)),n:'Neujahr'},
+    {d:new Date(Date.UTC(year,0,6)),n:'Heilige Drei Könige'},
+    {d:addUTCDaysToDate(ostern,-2),n:'Karfreitag'},
+    {d:addUTCDaysToDate(ostern,1),n:'Ostermontag'},
+    {d:new Date(Date.UTC(year,4,1)),n:'Tag der Arbeit'},
+    {d:addUTCDaysToDate(ostern,39),n:'Christi Himmelfahrt'},
+    {d:addUTCDaysToDate(ostern,50),n:'Pfingstmontag'},
+    {d:addUTCDaysToDate(ostern,60),n:'Fronleichnam'},
+    {d:new Date(Date.UTC(year,7,15)),n:'Mariä Himmelfahrt'},
+    {d:new Date(Date.UTC(year,9,3)),n:'Tag der Deutschen Einheit'},
+    {d:new Date(Date.UTC(year,10,1)),n:'Allerheiligen'},
+    {d:new Date(Date.UTC(year,11,25)),n:'1. Weihnachtsfeiertag'},
+    {d:new Date(Date.UTC(year,11,26)),n:'2. Weihnachtsfeiertag'}
+  ];
+  var map={};liste.forEach(function(h){map[h.d.toISOString().slice(0,10)]=h.n;});
+  return(_feiertagCache[year]=map);
+}
+function feiertagName(ds){ds=String(ds||'').slice(0,10);if(!/^\d{4}-\d{2}-\d{2}$/.test(ds))return '';return bayernFeiertage(+ds.slice(0,4))[ds]||'';}
+function isWorkdayStr(ds){const dow=new Date(String(ds).slice(0,10)+'T00:00:00').getDay();return dow!==0&&dow!==6&&!feiertagName(ds);}
+// n Arbeitstage nach dem Datum (Sa/So und Feiertage zaehlen nicht): Freitag + 3 = Mittwoch, Freitag + 1 = Montag
 function addWorkdays(dateStr,n){
   const d=new Date(String(dateStr).slice(0,10)+'T00:00:00');let left=Math.max(0,n|0);
-  while(left>0){d.setDate(d.getDate()+1);if(d.getDay()!==0&&d.getDay()!==6)left--;}
+  while(left>0){d.setDate(d.getDate()+1);if(isWorkdayStr(calYmd(d)))left--;}
   return calYmd(d);
 }
 function markNotReached(){
@@ -8412,6 +8872,9 @@ async function loadAllLeadActivitiesForBackup(){
 // Gibt true zurueck, wenn die Kommentartabelle vollstaendig im Backup steckt.
 async function exportFullBackup(isAutomatic){
   const act=await loadAllLeadActivitiesForBackup();
+  // Kalender-Aufgaben (Tabelle calendar_events) gehoeren seit Okt. 2026 mit ins Backup
+  let calEvents=[],calEventsError=null;
+  try{calEvents=await fetchAllRows('calendar_events?select=*&order=date.asc,id.asc',{timeoutMs:30000});}catch(e){calEventsError=e.message||String(e);}
   const activities=act.rows;
   const complete=!act.error;
   if(!complete)console.warn('Backup: Kommentartabelle unvollstaendig -',act.error);
@@ -8422,6 +8885,8 @@ async function exportFullBackup(isAutomatic){
     leads,COLUMNS,LABELS,AGENTS,ARTICLES,PROJECT,
     nextId,nextLabelId,nextPrinterId,nextColId,nextAgentId,nextArticleId,nextMilestoneId,nextRiskId,nextNotifyRuleId,
     lead_activities:activities,
+    calendar_events:calEvents,
+    calendar_events_complete:!calEventsError,
     lead_activities_complete:complete,
     lead_activities_total:act.total,
     _note:complete
@@ -8440,7 +8905,7 @@ async function exportFullBackup(isAutomatic){
   URL.revokeObjectURL(url);
   if(complete&&!isAutomatic){
     // Sichtbare Bestaetigung beim manuellen Export - vorher stand das nur in der Datei (_note).
-    alert(`Backup gespeichert – vollständig.\n\n${leads.length} Leads\n${activities.length} von ${act.total} Kommentaren/Aktivitäten\n${AGENTS.length} Mitarbeiter, ${LABELS.length} Labels, ${ARTICLES.length} Artikel\n\nHinweis: Dateianhänge aus dem Dateispeicher sind nur als Verweis enthalten, nicht als Datei.`);
+    alert(`Backup gespeichert – vollständig.\n\n${leads.length} Leads\n${activities.length} von ${act.total} Kommentaren/Aktivitäten\n${calEventsError?'Kalender-Aufgaben: NICHT enthalten ('+calEventsError+')':calEvents.filter(e=>!e.deleted).length+' Kalender-Aufgaben'}\n${AGENTS.length} Mitarbeiter, ${LABELS.length} Labels, ${ARTICLES.length} Artikel\n\nHinweis: Dateianhänge aus dem Dateispeicher sind nur als Verweis enthalten, nicht als Datei.`);
   }
   if(!complete&&!isAutomatic){
     alert(`Backup wurde gespeichert, ist aber UNVOLLSTÄNDIG:\n\n${act.error}\n\nLeads, Einstellungen und der eingebettete Verlauf sind enthalten. Bitte ggf. neu anmelden und das Backup wiederholen.`);
@@ -9101,6 +9566,7 @@ document.addEventListener('click',e=>{
   if(!e.target.closest('.omni-addfilter-wrap')&&filterMenuOpen){filterMenuOpen=false;document.getElementById('filterMenu').classList.remove('show');}
   if(!e.target.closest('.infobtn-wrap')&&overflowMenuOpen){overflowMenuOpen=false;document.getElementById('overflowMenu').classList.remove('show');}
   if(!e.target.closest('.crrma-menu-wrap')&&crrmaMenuOpen){crrmaMenuOpen=false;document.getElementById('crrmaOverflowMenu').classList.remove('show');}
+  if(!e.target.closest('.omni-addfilter-wrap')&&calFilterMenuOpen){calFilterMenuOpen=false;const mc=document.getElementById('calFilterMenu');if(mc)mc.classList.remove('show');}
   if(!e.target.closest('.omni-addfilter-wrap')&&tasksFilterMenuOpen){tasksFilterMenuOpen=false;const m=document.getElementById('tasksFilterMenu');if(m)m.classList.remove('show');}
   if(!e.target.closest('.omni-addfilter-wrap')&&activityFilterMenuOpen){activityFilterMenuOpen=false;const m2=document.getElementById('activityFilterMenu');if(m2)m2.classList.remove('show');}
   if(!e.target.closest('.omni-addfilter-wrap')&&dashboardFilterMenuOpen){dashboardFilterMenuOpen=false;const m3=document.getElementById('dashboardFilterMenu');if(m3)m3.classList.remove('show');}
@@ -9520,7 +9986,7 @@ function renderWizardPage(){
 // 1 Ueberfaellig (3 aelteste + Jetzt planen) · 2 Heute geplant · 3 Gestern (eigene Zahlen + Team)
 // 4 Offene Angebote (5 aelteste) · 5 Dir zugewiesen + Spruch des Tages
 let wizardYesterday=null;
-function wizardLastWorkday(){const d=new Date(TODAY+'T00:00:00');do{d.setDate(d.getDate()-1);}while(d.getDay()===0||d.getDay()===6);return d;}
+function wizardLastWorkday(){const d=new Date(TODAY+'T00:00:00');do{d.setDate(d.getDate()-1);}while(!isWorkdayStr(calYmd(d)));return d;}
 async function loadWizardYesterday(){
   wizardYesterday={loading:true};
   try{
@@ -9546,22 +10012,24 @@ function apptRemindedSave(m){try{const cut=Date.now()-2*86400000;Object.keys(m).
 function dueApptReminders(nowDate){
   const now=nowDate||new Date();const today=calYmd(now);const nowMin=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
   const done=apptRemindedLoad();
-  return leads.filter(l=>!isClosedLead(l)&&(l.members||[]).includes(currentUser)).map(l=>({l,p:calParse(l.followup)}))
-    .filter(x=>x.p&&x.p.date===today&&x.p.min-nowMin>0&&x.p.min-nowMin<=APPT_REMIND_MIN&&!done[String(x.l.id)+'|'+x.l.followup])
-    .sort((a,b)=>a.p.min-b.p.min);
+  const leadsDue=leads.filter(l=>!isClosedLead(l)&&(l.members||[]).includes(currentUser)).map(l=>({l,p:calParse(l.followup),key:String(l.id)+'|'+l.followup}))
+    .filter(x=>x.p&&x.p.date===today&&x.p.min-nowMin>0&&x.p.min-nowMin<=APPT_REMIND_MIN&&!done[x.key]);
+  const tasksDue=calTasksForDay(currentUser,today).map(x=>Object.assign(x,{key:'task|'+x.t.id+'|'+today+'|'+x.t.start_time}))
+    .filter(x=>x.p.min-nowMin>0&&x.p.min-nowMin<=APPT_REMIND_MIN&&!done[x.key]);
+  return leadsDue.concat(tasksDue).sort((a,b)=>a.p.min-b.p.min);
 }
 function checkApptReminders(nowDate){
   if(!currentUser||!leads.length)return;
   const due=dueApptReminders(nowDate);
   if(!due.length)return;
-  const m=apptRemindedLoad();due.forEach(x=>{m[String(x.l.id)+'|'+x.l.followup]=Date.now();});apptRemindedSave(m);
+  const m=apptRemindedLoad();due.forEach(x=>{m[x.key]=Date.now();});apptRemindedSave(m);
   const body=document.getElementById('apptReminderBody');if(!body)return;
   const now=nowDate||new Date();const nowMin=now.getHours()*60+now.getMinutes();
   const idArg=l=>typeof l.id==='number'?l.id:JSON.stringify(String(l.id)).replace(/"/g,'&quot;');
   body.innerHTML=`<div class="wizard-icon"><i class="ti ti-bell-ringing"></i></div>
     <div class="wizard-title">${due.length===1?`Termin in ${Math.max(1,Math.round(due[0].p.min-nowMin))} Minuten`:`${due.length} Termine in Kürze`}</div>
-    ${due.map(x=>{const c=colById(x.l.status);return wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc([x.l.contact,x.l.phone,c?c.name:''].filter(Boolean).join(' · ')),'<i class="ti ti-arrow-right"></i>',`closeApptReminder();openLeadModal(${idArg(x.l)})`);}).join('')}
-    <div class="wizard-sub">Klick öffnet den Lead.</div>`;
+    ${due.map(x=>{if(x.t)return wizardRow(`<span style="color:#c9c4ff;margin-right:8px">${x.p.time}</span>${esc(x.t.title)}`,esc(['Aufgabe bis '+x.p.end,x.lead?x.lead.company:''].filter(Boolean).join(' · ')),'<i class="ti ti-arrow-right"></i>',`closeApptReminder();switchView('calendar');openCalTaskEdit('${esc(x.t.id)}','${x.p.date}')`);const c=colById(x.l.status);return wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc([x.l.contact,x.l.phone,c?c.name:''].filter(Boolean).join(' · ')),'<i class="ti ti-arrow-right"></i>',`closeApptReminder();openLeadModal(${idArg(x.l)})`);}).join('')}
+    <div class="wizard-sub">Klick öffnet den Eintrag.</div>`;
   document.getElementById('apptReminderOverlay').classList.remove('hidden');
 }
 function closeApptReminder(){document.getElementById('apptReminderOverlay').classList.add('hidden');}
@@ -9600,12 +10068,13 @@ function renderAmWizardPage(body){
         :'<div class="wizard-sub">Alles im grünen Bereich – aktuell keine überfälligen Follow-ups.</div>'}`;
   }else if(pageKey==='today'){
     const today=TODAY;
-    const timed=scope.map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p&&x.p.date===today).sort((a,b)=>a.p.min-b.p.min);
+    loadCalTasks();
+    const timed=scope.map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p&&x.p.date===today).concat(calTasksForDay(currentUser,today)).sort((a,b)=>a.p.min-b.p.min);
     const untimed=scope.filter(l=>l.followup&&!calParse(l.followup)&&(l.followup||'').slice(0,10)===today).length;
     body.innerHTML=`
       <div class="wizard-icon"><i class="ti ti-calendar-time"></i></div>
       <div class="wizard-title" style="margin-bottom:8px">Heute geplant${timed.length?` · ${timed.length} ${timed.length===1?'Termin':'Termine'}`:''}</div>
-      ${timed.length?timed.slice(0,6).map(x=>wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc(colName(x.l)),'',`wizardOpenLead(${idArg(x.l)})`)).join('')+(timed.length>6?`<div class="wizard-sub">+${timed.length-6} weitere im Kalender</div>`:'')
+      ${timed.length?timed.slice(0,6).map(x=>x.t?wizardRow(`<span style="color:#c9c4ff;margin-right:8px">${x.p.time}</span>${esc(x.t.title)}`,esc('Aufgabe bis '+x.p.end),'',`closeLoginWizard();switchView('calendar');openCalTaskEdit('${esc(x.t.id)}','${today}')`):wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc(colName(x.l)),'',`wizardOpenLead(${idArg(x.l)})`)).join('')+(timed.length>6?`<div class="wizard-sub">+${timed.length-6} weitere im Kalender</div>`:'')
         :'<div class="wizard-sub">Für heute sind noch keine Termine mit Uhrzeit geplant.</div>'}
       ${untimed?`<button class="wizard-next-btn" style="margin-top:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)" onclick="wizardJumpToPlanning()">${untimed} ${untimed===1?'FollowUp':'FollowUps'} noch ohne Uhrzeit <i class="ti ti-arrow-right"></i></button>`:''}`;
   }else if(pageKey==='yesterday'){
