@@ -115,7 +115,7 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .ap-primary{background:#206A72!important;border-color:#206A72!important;color:#fff!important}
 .cal-split{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:12px;align-items:start}
 .cal-split.nopanel{grid-template-columns:minmax(0,1fr)}
-.cal-plan{border:1px solid var(--border2,#dfe7e6);border-radius:10px;padding:10px;max-height:820px;overflow-y:auto}
+.cal-plan{border:1px solid var(--purple-dark);background:var(--purple-bg);border-radius:10px;padding:10px;max-height:820px;overflow-y:auto}
 .cal-plan-h{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
 .cal-grp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#206A72;text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px;cursor:pointer}
 .cal-grp span{margin-left:auto;color:var(--text3)}
@@ -125,6 +125,115 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .cal-it.od{box-shadow:inset 3px 0 0 #e24b4a}
 .omnibar-btn.on{background:var(--purple-bg);color:var(--purple-dark);border-color:var(--purple-dark)}
 .cal-person{height:34px;border:1px solid var(--border2,#dfe7e6);border-radius:var(--r-md,8px);padding:0 30px 0 10px;font-size:13px;font-weight:600;font-family:inherit;background:var(--bg,#fff);color:var(--text);cursor:pointer}
+.today-box{background:#fdecec;border:1px solid #f0a0a0;border-radius:14px;padding:14px 16px}
+.today-box.done{background:#e3f5ee;border-color:#9fe1cb}
+.today-hd{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#a32d2d}
+.today-box.done .today-hd{color:#0b5e45}
+.today-hd .n{margin-left:auto;font-size:13px;font-weight:600}
+.today-go{background:#a32d2d;color:#fff;border:0;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
+.today-go:hover{background:#8a2424}
+.q-row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #f3d0d0;border-radius:10px;padding:9px 12px;margin-top:6px;cursor:pointer}
+.q-row:hover{border-color:#e08a8a}
+.q-row .c{flex:1;min-width:0}
+.q-row .c b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-row .c small{display:block;font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-tag{font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;white-space:nowrap}
+.q-tag.r{background:#fcebeb;color:#a32d2d}.q-tag.a{background:#faeeda;color:#633806}.q-tag.t{background:#e3f0f0;color:#0b4f55}
+.q-btn{border:1px solid var(--border2,#dfe7e6);background:#fff;border-radius:7px;padding:3px 8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.q-btn:hover{border-color:#206A72;color:#206A72}
+.side-card{background:var(--bg,#fff);border:1px solid var(--border2,#dfe7e6);border-radius:14px;padding:14px 16px}
+.side-hd{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;margin-bottom:8px}
+.side-hd .n{margin-left:auto;font-size:13px;color:var(--text3);font-weight:600}
+.tl2{position:relative;margin-left:6px;padding-left:16px;border-left:2px solid var(--border2,#dfe7e6)}
+.tl2-it{position:relative;margin-bottom:10px;font-size:13px;cursor:pointer}
+.tl2-it:before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:#c9d6d5}
+.tl2-it.next:before{background:#206A72;box-shadow:0 0 0 4px rgba(32,106,114,.15)}
+.tl2-it.miss:before{background:#e24b4a}
+.tl2-it.past{opacity:.55}
+.tl2-it small{display:block;font-size:11px;color:var(--text3)}
+.pv3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 22px}
+.pv3 .side-card{padding:12px 14px}
+.pv3-it{font-size:12px;padding:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.pv3-it b{color:#206A72;margin-right:6px}
+.wk-tag{font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px}
+.wk-act{display:flex;gap:6px;flex-wrap:wrap;padding:12px 20px 16px;border-top:1px solid var(--border2,#dfe7e6)}
+.wk-act .btn{font-size:12px}
+.day-sub{font-size:11px;font-weight:700;color:#a32d2d;text-transform:uppercase;letter-spacing:.05em;margin:14px 2px 6px}
+.day-sub.t{color:#206A72}
+.day-list{background:#fff;border-radius:11px;padding:2px 14px}
+.d2{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #f1e3e3;font-size:13px;cursor:pointer}
+.day-list>.d2:first-child{border-top:0}
+.d2 .c{flex:1;min-width:0}
+.d2 .c b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d2 .c small{display:block;font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d2 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.d2 .age{color:#a32d2d;font-size:12px;font-weight:600;white-space:nowrap}
+.d2 .tm{font-weight:700;color:#206A72;min-width:44px;font-variant-numeric:tabular-nums}
+.d2.miss .tm,.d2.miss .c b{color:#a32d2d}
+.d2.next{background:#e3f0f0;margin:0 -14px;padding:10px 14px;border-radius:8px}
+.d2 .act{display:flex;gap:4px;opacity:0;transition:opacity .12s}
+.d2:hover .act{opacity:1}
+@media (hover:none){.d2 .act{opacity:1}}
+.d2.more{color:var(--text3);font-size:12px;justify-content:center}
+.now-line{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:#206A72;margin:2px 0}
+.now-line:after{content:"";flex:1;height:2px;background:#206A72;border-radius:1px}
+.pv-line{display:flex;gap:18px;flex-wrap:wrap;align-items:center;background:var(--bg,#fff);border:1px solid var(--border2,#dfe7e6);border-radius:12px;padding:10px 16px;margin:14px 0 22px;font-size:12px;color:var(--text3)}
+.pv-line b{color:var(--text);font-weight:700}
+.pv-line .it{cursor:pointer}
+.pv-line .it span{color:#206A72;font-weight:700}
+.d3-head,.d3{display:grid;grid-template-columns:78px minmax(0,1.1fr) 150px minmax(0,1.7fr) 104px;gap:14px;align-items:center}
+.d3-head{font-size:10px;font-weight:700;color:#a32d2d;text-transform:uppercase;letter-spacing:.05em;padding:8px 14px 4px}
+.d3-head.t{color:#206A72}
+.d3{padding:9px 0;border-top:1px solid #f1e3e3;font-size:13px;cursor:pointer}
+.day-list>.d3:first-child{border-top:0}
+.d3 .f{font-size:12px;font-weight:700;color:#a32d2d;white-space:nowrap;font-variant-numeric:tabular-nums}
+.d3 .f.h{color:#8a5a0b}.d3 .f.tm{color:#206A72;font-size:13px}
+.d3 .c{min-width:0;display:flex;align-items:center;gap:8px}
+.d3 .c .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.d3 .c div{min-width:0}
+.d3 .c b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d3 .c small{display:block;font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d3 .ph{font-size:12px;color:#206A72;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.d3 .ph:hover{text-decoration:underline}
+.d3 .cm{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d3 .cm b{font-weight:700;color:var(--text);margin-right:5px}
+.d3 .cm.e{color:var(--text3)}
+.d3 .act{display:flex;gap:4px;justify-content:flex-end;opacity:0;transition:opacity .12s}
+.d3:hover .act{opacity:1}
+@media (hover:none){.d3 .act{opacity:1}}
+.d3.miss .f,.d3.miss .c b{color:#a32d2d}
+.d3.next{background:#e3f0f0;margin:0 -14px;padding:9px 14px;border-radius:8px}
+@media (max-width:1100px){.d3-head,.d3{grid-template-columns:70px minmax(0,1fr) 130px minmax(0,1fr) 100px}}
+.next-sec{margin-top:22px}
+.next-sec .day-sub{color:var(--text2);display:flex;align-items:center}
+.next-sec .day-sub span{margin-left:auto;font-weight:600;letter-spacing:0;text-transform:none;color:var(--text3)}
+.next-sec .d3{border-top-color:var(--border2,#e4ebea)}
+.next-sec .d3-head{color:var(--text3)}
+.ass-sec .d3-head{color:var(--text3)}
+.ass-sec .d3{border-top-color:var(--border2,#e4ebea)}
+.ass-sec .d3 .f{color:#a32d2d}.ass-sec .d3 .f.h{color:#8a5a0b}.ass-sec .d3 .f.nt{color:var(--text3)}
+.d3 .f.nt{color:var(--text3);font-weight:600}
+.wk2-head{background:linear-gradient(180deg,#1d6169 0%,#206A72 100%);color:#fff;padding:14px 22px;display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.wk2-head .n{margin-left:auto;font-size:13px;font-weight:600;opacity:.9}
+.wk2-head .x{background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.wk2-head .x:hover{background:rgba(255,255,255,.28)}
+.wk2-bar{height:5px;background:#e8eeee}.wk2-bar div{height:5px;transition:width .2s}
+.wk2-body{padding:22px 26px;overflow-y:auto}
+.wk2-top{display:flex;align-items:flex-start;gap:16px}
+.wk2-co{font-size:24px;font-weight:700;margin-top:8px}
+.wk2-ct{font-size:14px;color:var(--text2);margin-top:3px}
+.wk2-call{display:inline-flex;align-items:center;gap:8px;background:#0F6E56;color:#fff;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:700;text-decoration:none;white-space:nowrap}
+.wk2-call:hover{background:#0c5a46}
+.wk2-call.off{background:var(--bg2,#f4f6f6);color:var(--text3);pointer-events:none}
+.wk2-nh{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 10px}
+.wk2-note{border-left:3px solid #9fe1cb;padding:3px 0 3px 12px;margin-bottom:12px;font-size:14px;line-height:1.5}
+.wk2-note small{display:block;font-size:11px;color:var(--text3);margin-bottom:2px}
+.wk2-ta{width:100%;box-sizing:border-box;min-height:76px;border:1px solid var(--border2,#dfe7e6);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical}
+.wk2-ta:focus{border-color:#206A72;box-shadow:0 0 0 3px rgba(32,106,114,.15);outline:none}
+.wk2-ft{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;padding:14px 26px 18px;border-top:1px solid var(--border2,#dfe7e6)}
+.wk2-ft .btn{justify-content:center;width:100%;font-size:13px;padding:10px 0}
+.wk2-ft .btn.skip{background:#fdecec;border-color:#f0a0a0;color:#a32d2d}
+.wk2-ft .btn.skip:hover{background:#fbdcdc}
 .board-part-hint{flex:0 0 260px;align-self:flex-start;border:1.5px dashed var(--purple-dark);border-radius:var(--r-md);padding:16px;background:var(--purple-bg);font-size:13px;color:var(--purple-dark);display:flex;flex-direction:column;gap:10px;}
 .board-part-hint button{align-self:flex-start;}
 .nav-icon-badge{width:36px;height:36px;border-radius:9px;background:linear-gradient(180deg,#27808a 0%,#206A72 100%);box-shadow:0 6px 16px rgba(32,106,114,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -861,12 +970,15 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
           <div class="omni-addfilter-wrap">
             <button class="omnibar-btn" onclick="toggleTasksFilterMenu(event)"><i class="ti ti-plus" style="font-size:12px"></i> Filter</button>
             <div class="filtermenu" id="tasksFilterMenu">
-              <h4>Mitarbeiter</h4>
-              <div id="tasksFilterMenuAgents"></div>
+              <div class="fm-sec" id="tfmSecAgents" onclick="toggleTasksFilterSection('agents',event)"><i class="ti ti-user"></i><span>Mitarbeiter</span><span class="fm-sum" id="tfmSumAgents"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="tasksFilterMenuAgents" class="fm-body"></div>
+              <div class="fm-sec" id="tfmSecBoard" onclick="toggleTasksFilterSection('board',event)"><i class="ti ti-layout-kanban"></i><span>Board</span><span class="fm-sum" id="tfmSumBoard"></span><i class="ti ti-chevron-right fm-chev"></i></div>
+              <div id="tasksFilterMenuBoard" class="fm-body"></div>
             </div>
           </div>
           <div id="tasksOmniTokens" style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;overflow-x:auto;max-width:320px;flex-shrink:1;"></div>
           <div class="omni-spacer"></div>
+          <button class="omnibar-btn" onclick="switchView('calendar')" title="Zum Kalender"><i class="ti ti-calendar"></i> Kalender</button>
         </div>
       </div>
       <div class="view-scroll" id="tasksViewContent"></div>
@@ -925,6 +1037,9 @@ label{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bot
       <div id="backupModalContent" style="min-height:120px"></div>
     </div>
   </div>
+</div>
+<div class="modal-overlay hidden" id="workModal" style="align-items:flex-start;padding-top:5vh">
+  <div class="modal-lg" id="workModalInner"></div>
 </div>
 <div class="modal-overlay hidden" id="leadModal">
   <div class="modal-lg" id="leadModalInner"></div>
@@ -1063,7 +1178,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-21T17:00:00.000Z';
+const BUILD_VERSION='2026-10-22T08:00:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -2488,6 +2603,8 @@ function runDataIntegrityCheck(){
 let activeAgentFilters=[];
 let activeLabelFilters=[];
 let activeTasksAgentFilter='all';
+let activeTasksBoardFilter='all';
+let tasksFilterSectionOpen='';
 let dragCardId=null;
 let dragColId=null;
 let colMenuOpenId=null;
@@ -2603,8 +2720,8 @@ function runBoardRestructure(){
   alert('Umbau abgeschlossen. Die Listen sind jetzt auf „Board: SQL“ und „Board: PQL“ verteilt.');
 }
 // ── Sortierung der Listen (pro Person im Browser gespeichert) ──
-// manual = eigene Reihenfolge (Pfeile auf den Karten), due_asc / due_desc = nach Wiedervorlage.
-// Leads ohne Wiedervorlage stehen bei der Faelligkeits-Sortierung immer unten.
+// manual = eigene Reihenfolge (Pfeile auf den Karten), due_asc / due_desc = nach FollowUp.
+// Leads ohne FollowUp stehen bei der Faelligkeits-Sortierung immer unten.
 let boardSortMode=(()=>{try{const v=localStorage.getItem('projectos_board_sort');return['manual','due_asc','due_desc'].includes(v)?v:'manual';}catch(e){return 'manual';}})();
 function setBoardSort(mode){
   boardSortMode=['manual','due_asc','due_desc'].includes(mode)?mode:'manual';
@@ -2634,7 +2751,7 @@ function renderBoardSortMenu(){
 // ── MEIN KALENDER ──
 // Zeigt Follow-ups MIT Uhrzeit als 25-Minuten-Termine. Klick oeffnet den Lead, Ziehen verschiebt
 // (Woche: Tag + Uhrzeit, Raster 30 Min.; Monat: nur der Tag, Uhrzeit bleibt). Jede Verschiebung
-// wird wie im Lead-Fenster protokolliert (Wiedervorlage-Verlauf + Aktivitaet).
+// wird wie im Lead-Fenster protokolliert (FollowUp-Verlauf + Aktivitaet).
 const CAL_HOUR_PX=64, CAL_DUR=25, CAL_SNAP=30;
 let calViewMode=(()=>{try{return localStorage.getItem('projectos_cal_view')==='month'?'month':'week';}catch(e){return 'week';}})();
 let calWeekStart=null, calYear=null, calMonth=null, calAgent=null, calDrag=null, calMiniOpen=false, calMiniYear=null;
@@ -2673,7 +2790,7 @@ function calNav(delta){
 function calToday(){const t=new Date();calWeekStart=calYmd(calMonday(t));calYear=t.getFullYear();calMonth=t.getMonth();renderCalendar();}
 function calOpenWeekOf(dateStr){calWeekStart=calYmd(calMonday(new Date(dateStr+'T00:00:00')));setCalView('week');}
 function calSetAgent(v){calAgent=v;renderCalendar();}
-// ── Seitenleiste "Zu planen": Wiedervorlagen ohne Uhrzeit (ueberfaellig, heute, diese Woche)
+// ── Seitenleiste "Zu planen": FollowUps ohne Uhrzeit (ueberfaellig, heute, diese Woche)
 // und Termine am Wochenende. Ziehen auf eine Uhrzeit = Termin; Klick oeffnet den Lead.
 function calTogglePlanPanel(){calPlanPanel=!calPlanPanel;try{localStorage.setItem('projectos_cal_plan',calPlanPanel?'1':'0');}catch(e){}renderCalendar();}
 function calTogglePlanGroup(k){calPlanOpen[k]=!calPlanOpen[k];renderCalendar();}
@@ -2860,7 +2977,7 @@ function renderCalendar(){
 }
 // ── Termin planen (Fenster im Stil von Sales OS) ──
 // Setzt beim gewaehlten Lead das Follow-up auf Datum + Startzeit - dasselbe Feld wie im Lead-Fenster
-// und auf der Board-Karte. Eine bestehende Wiedervorlage wird ersetzt und protokolliert.
+// und auf der Board-Karte. Eine bestehende FollowUp wird ersetzt und protokolliert.
 let calAppt=null;
 function calApptPerson(){return calAgent&&calAgent!=='all'?calAgent:currentUser;}
 function calTimeOptions(){const o=[];for(let m=CAL_BOOK_FROM*60;m<=CAL_DAY_END*60-CAL_SNAP;m+=CAL_SNAP)o.push(calFmt(m));return o;}
@@ -2880,6 +2997,13 @@ function openCalAppt(dateStr,time){
   renderCalAppt();
   openModal('calApptModal');
   setTimeout(()=>{const i=document.getElementById('apSearch');if(i)i.focus();},30);
+}
+function openCalApptForLead(id){
+  const l=leads.find(x=>String(x.id)===String(id));if(!l)return;
+  const p=calParse(l.followup);const today=calYmd(new Date());
+  const date=p&&p.date>=today?p.date:((l.followup||'').slice(0,10)>=today?(l.followup||'').slice(0,10):today);
+  openCalAppt(date,p?calFmt(Math.max(CAL_BOOK_FROM*60,Math.min(CAL_DAY_END*60-CAL_SNAP,calSnap(p.min)))):'09:00');
+  calAppt.leadId=String(l.id);calAppt.q='';renderCalAppt();
 }
 function calApptResults(){
   const q=(calAppt.q||'').toLowerCase().trim();
@@ -2905,7 +3029,7 @@ function renderCalAppt(){
   const opts=calTimeOptions();if(!opts.includes(calAppt.time))opts.unshift(calAppt.time);
   const person=calApptPerson();const pa=agentById(person);
   let notes='';
-  if(sel&&sel.followup){const p=calParse(sel.followup);notes+=`<div class="ap-note ap-warn"><i class="ti ti-alert-triangle"></i><span>Bestehende Wiedervorlage am ${fmtDate(sel.followup)}${p?' um '+p.time:''} wird durch diesen Termin ersetzt.</span></div>`;}
+  if(sel&&sel.followup){const p=calParse(sel.followup);notes+=`<div class="ap-note ap-warn"><i class="ti ti-alert-triangle"></i><span>Bestehende FollowUp am ${fmtDate(sel.followup)}${p?' um '+p.time:''} wird durch diesen Termin ersetzt.</span></div>`;}
   if(sel&&!(sel.members||[]).includes(person))notes+=`<div class="ap-note ap-info"><i class="ti ti-user-plus"></i><span>${esc(pa?pa.name:'Die Person')} wird als Person zum Lead hinzugefügt, damit der Termin im Kalender erscheint.</span></div>`;
   el.innerHTML=`<div class="ap-head"><i class="ti ti-calendar-plus"></i> Termin planen</div>
   <div class="ap-body">
@@ -2962,9 +3086,12 @@ function saveCalAppt(){
     const a2={id:Date.now()+Math.random(),type:'comment',author:currentUser,text:`Termin ${fmtDate(calAppt.date)} ${calAppt.time}: ${calAppt.note.trim()}`,date:nowISO()};l.activity.unshift(a2);pushActivityToDb(l.id,a2);
   }
   saveState();
+  const fromWork=!!(work&&work.awaitAppt); // vor dem Schliessen merken - closeModal setzt awaitAppt zurueck
   closeModal('calApptModal');
   calAppt=null;
   renderCalendar();
+  if(fromWork&&work){work.awaitAppt=null;workNext('termin');return true;}
+  if(currentView==='tasks')renderTasksView();
   return true;
 }
 function renderBoardNav(){
@@ -3061,8 +3188,15 @@ function removeContactTime(field){
   draftLead[field]=(draftLead[field]||'').split('T')[0];
   renderLeadModal();
 }
-function daysUntil(d){if(!d)return null;const diff=(new Date(d)-new Date(TODAY))/86400000;return Math.round(diff);}
+// Nur das Datum zaehlt - eine Uhrzeit (z.B. 2026-10-21T14:00) darf die Tage nicht verschieben (bis 21.10.2026 galt 14:00 heute als "morgen").
+function daysUntil(d){if(!d)return null;const diff=(new Date(String(d).slice(0,10))-new Date(TODAY))/86400000;return Math.round(diff);}
 function renderFollowupTimeline(lead){
+  const lostCol=colById(lead.status);
+  const isLost=!!(lostCol&&lostCol.outcome==='lost');
+  const lostDate=isLost?String(lead.closedAt||lead.statusSince||'').slice(0,10):'';
+  if(!lead.firstContact&&isLost&&lostDate){
+    return `<div class="lead-timeline"><div class="timeline-point"><div class="timeline-dot" style="background:var(--red)"></div><div class="timeline-label">Verloren<br><span>${fmtDate(lostDate)}</span></div></div></div>`;
+  }
   if(!lead.firstContact){
     return '<p style="font-size:11px;color:var(--text3)">Noch kein Datum Erstkontakt gesetzt – der Zeitstrahl startet, sobald das erfasst ist.</p>';
   }
@@ -3071,7 +3205,8 @@ function renderFollowupTimeline(lead){
     points.push({label:(lead.followupHistory.length>1?'Follow-up '+(i+1):'Follow-up'),date:h.date,color:'var(--amber)'});
   });
   const daysSince=Math.abs(daysUntil(lead.firstContact));
-  points.push({label:'Heute',date:null,color:'var(--purple)',sub:daysSince+' Tag'+(daysSince===1?'':'e')});
+  if(isLost&&lostDate)points.push({label:'Verloren',date:lostDate,color:'var(--red)'}); // Strahl endet beim Verlieren
+  else points.push({label:'Heute',date:null,color:'var(--purple)',sub:daysSince+' Tag'+(daysSince===1?'':'e')});
 
   let html='<div class="lead-timeline">';
   points.forEach((p,i)=>{
@@ -4459,7 +4594,7 @@ function followupBucketCountsAt(withFollowupAll,offsetDays){
   const refMs=ref.getTime();
   let overdue=0,today=0,week=0,nextweek=0;
   withFollowupAll.forEach(l=>{
-    const diff=Math.round((new Date(l.followup)-refMs)/86400000);
+    const diff=Math.round((new Date(String(l.followup).slice(0,10))-refMs)/86400000);
     if(diff<0)overdue++;
     else if(diff===0)today++;
     else if(diff<=7)week++;
@@ -4504,7 +4639,9 @@ function followupBucket(l){
 function followupRowHtml(l){
   const d=daysUntil(l.followup);
   const cls=d<0?'due-overdue':(d<=2?'due-soon':'due-ok');
-  const label=d<0?`${Math.abs(d)}T überfällig`:(d===0?'heute':fmtDate(l.followup));
+  const ftime=((l.followup||'').split('T')[1]||'').slice(0,5);
+  const label=d<0?`${Math.abs(d)}T überfällig`:((d===0?'heute':fmtDate(l.followup))+(ftime?` · ${ftime}`:''));
+  const part=leadBoardPart(l)==='akquise'?'SQL':'PQL';
   const membersHtml=(l.members||[]).slice(0,3).map(id=>{const a=agentById(id);return a?`<div class="member-av" style="position:static;margin-left:-6px;background:${COLOR_BG[a.color]};color:${COLOR_TEXT[a.color]}" title="${esc(a.name)}">${ini(a.name)}</div>`:'';}).join('');
   return `<div class="task-row" onclick="openLeadModal(${l.id})">
     <span class="task-group-dot" style="background:${COLOR_HEX[colById(l.status).color]};flex-shrink:0"></span>
@@ -4512,9 +4649,11 @@ function followupRowHtml(l){
       <div class="task-row-text">${esc(l.company)}</div>
       <div style="font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(l.contact)}${l.customerNumber?' · '+esc(l.customerNumber):''} · ${esc(colById(l.status).name)}</div>
     </div>
+    <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:6px;flex-shrink:0;${part==='SQL'?'background:#e3f0f0;color:#0b4f55':'background:#fdf1dc;color:#7a4e07'}">${part}</span>
     <div class="member-stack">${membersHtml}</div>
     <span class="due-badge ${cls}"><i class="ti ti-clock" style="font-size:11px"></i>${label}</span>
     <div class="quick-reschedule" onclick="event.stopPropagation()">
+      <button onclick="openCalApptForLead(${typeof l.id==='number'?l.id:JSON.stringify(String(l.id)).replace(/"/g,'&quot;')})" title="Termin mit Uhrzeit planen"><i class="ti ti-calendar-plus"></i></button>
       <button onclick="quickReschedule(${l.id},1)" title="Auf morgen verschieben">+1T</button>
       <button onclick="quickReschedule(${l.id},3)" title="Um 3 Tage verschieben">+3T</button>
       <button onclick="quickReschedule(${l.id},7)" title="Um 7 Tage verschieben">+7T</button>
@@ -4522,23 +4661,388 @@ function followupRowHtml(l){
   </div>`;
 }
 function quickReschedule(leadId,days){
-  const l=leads.find(x=>x.id===leadId);
-  if(!l)return;
-  const base=new Date(TODAY);
-  base.setDate(base.getDate()+days);
-  const newDate=base.toISOString().slice(0,10);
+  const l=leads.find(x=>String(x.id)===String(leadId));
+  if(!l)return false;
+  const lock=getLeadLock(l.id);
+  if(lock&&lock.agentId!==currentUser){alert(`„${l.company}“ wird gerade von ${lock.agentName||'jemand anderem'} bearbeitet.`);return false;}
+  const newDate=addWorkdays(TODAY,days); // +1T/+3T in Arbeitstagen
+  const old=l.followup||'';
   l.followup=newDate;
   l.followupHistory=[...(l.followupHistory||[]),{date:newDate,setAt:nowISO()}];
+  const act={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:`Follow-up-Datum geändert: "${fmtDate(old)||'–'}" → "${fmtDate(newDate)}"`,date:nowISO()};
+  if(!Array.isArray(l.activity))l.activity=[];
+  l.activity.unshift(act);pushActivityToDb(l.id,act);
   saveState();
-  renderTasksView();
+  if(currentView==='tasks')renderTasksView();
+  return true;
 }
-let taskSectionOpen={assigned:true,overdue:true,today:true,week:true,nextweek:true};
+let taskSectionOpen=(()=>{const d={assigned:true,overdue:true,today:true,week:true,nextweek:true,wk:false,nwk:false};try{return Object.assign(d,JSON.parse(localStorage.getItem('projectos_task_sections')||'{}'));}catch(e){return d;}})();
 function toggleTaskSection(key){
+  setTimeout(()=>{try{localStorage.setItem('projectos_task_sections',JSON.stringify(taskSectionOpen));}catch(e){}},0);
   taskSectionOpen[key]=!taskSectionOpen[key];
   renderTasksView();
 }
 // Baut die Zeilen einer Sektion: im zugeklappten Zustand max. 3 Zeilen, mit leeren
 // Platzhalter-Zeilen aufgefuellt, damit alle Boxen zugeklappt gleich hoch sind.
+let taskShowAll={};
+// ── Petrol-Banner fuer "Meine Aufgaben" (Farben, Masse und Grafiken 1:1 wie Sales OS) ──
+// Oben: Gespraeche (Woche), Free Toner zugesagt (Monat), Termine heute. Unten: Aufgaben, Ueberfaellig,
+// Heute, Diese Woche, Naechste Woche, Gesamt - jeweils mit Verlaufslinie und Vortag.
+let tasksHeroActs=null; // {loadedAt, rows} | {loading:true} | {error:true}
+function heroBars(values,color,w,h,hiIndex,labels){
+  w=w||300;h=h||34;
+  const vals=(values||[]).map(v=>v||0);if(!vals.length)return `<svg width="${w}" height="${h}"></svg>`;
+  const max=Math.max(...vals,1);const n=vals.length,gap=4,bw=(w-gap*(n-1))/n;
+  const hi=hiIndex===undefined?n-1:hiIndex;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block;max-width:100%">${vals.map((v,i)=>{const bh=Math.max(2,v/max*h);return `<rect x="${(i*(bw+gap)).toFixed(1)}" y="${(h-bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" fill="${color}" opacity="${i===hi?1:0.35}" rx="2"><title>${labels?esc(labels[i])+': ':''}${v}</title></rect>`;}).join('')}</svg>`;
+}
+function heroSpark(values,color,w,h){
+  w=w||90;h=h||18;const v=(values||[]).filter(x=>x!==null&&x!==undefined);
+  if(v.length<2)return `<svg width="${w}" height="${h}"></svg>`;
+  const min=Math.min(...v),max=Math.max(...v),r=max-min||1,step=w/(v.length-1),pad=4;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block"><polyline points="${v.map((x,i)=>(i*step).toFixed(1)+','+(pad+(1-(x-min)/r)*(h-2*pad)).toFixed(1)).join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+function heroWorkdays(n,fromStr,forward){ // n Arbeitstage (Mo-Fr) bis/ab Datum
+  const out=[];const d=new Date((fromStr||TODAY)+'T00:00:00');
+  while(out.length<n){const dow=d.getDay();if(dow!==0&&dow!==6){forward?out.push(calYmd(d)):out.unshift(calYmd(d));}d.setDate(d.getDate()+(forward?1:-1));}
+  return out;
+}
+async function loadTasksHeroActs(){
+  if(tasksHeroActs&&(tasksHeroActs.loading||(tasksHeroActs.loadedAt&&Date.now()-tasksHeroActs.loadedAt<60000)))return;
+  tasksHeroActs={loading:true};
+  try{
+    const from=new Date(TODAY+'T00:00:00');from.setDate(from.getDate()-63);
+    const rows=await fetchAllRows(`lead_activities?select=author,type,text,date&date=gte.${calYmd(from)}&order=id.asc`,{timeoutMs:20000});
+    tasksHeroActs={loadedAt:Date.now(),rows:rows.filter(r=>r.type==='comment'||/^Status geändert:/.test(r.text||''))};
+  }catch(e){tasksHeroActs={error:true};}
+  if(currentView==='tasks')renderTasksView();
+}
+function tasksHeroHtml(withFollowup,history,q){
+  loadTasksHeroActs();
+  const C={label:'#9fc9cd',sub:'#8fb5b9',unit:'#bcdadd',bar:'#7ED2DB',red:'#e57373',white:'#fff'};
+  const agent=activeTasksAgentFilter;const byMe=r=>agent==='all'||r.author===agent;
+  const acts=tasksHeroActs&&tasksHeroActs.rows;const loading=!acts;
+  const dayOf=r=>calYmd(new Date(r.date));
+  const am=colById('am_order');const isToner=r=>am&&/^Status geändert:/.test(r.text||'')&&(r.text||'').endsWith('→ '+am.name);
+  // 1) Gespraeche diese Woche
+  const wd14=heroWorkdays(14);const mon=calYmd(calMonday(new Date(TODAY+'T00:00:00')));
+  const prevMon=(()=>{const d=new Date(mon+'T00:00:00');d.setDate(d.getDate()-7);return calYmd(d);})();
+  let talks='…',talksAvg='',talksPrev='',talkBars=[];
+  if(!loading){
+    const mine=acts.filter(r=>r.type==='comment'&&byMe(r));
+    talkBars=wd14.map(d=>mine.filter(r=>dayOf(r)===d).length);
+    const wk=mine.filter(r=>dayOf(r)>=mon&&dayOf(r)<=TODAY).length;talks=wk;
+    const elapsed=heroWorkdays(5,mon,true).filter(d=>d<=TODAY).length||1;
+    talksAvg=(wk/elapsed).toLocaleString('de-DE',{maximumFractionDigits:1});
+    talksPrev=mine.filter(r=>dayOf(r)>=prevMon&&dayOf(r)<mon).length;
+  }
+  // 2) Free Toner zugesagt im Monat (Wechsel nach "AM: Auftrag")
+  const ym=TODAY.slice(0,7);const mNames=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  let toner='…',tonerAvg='',tonerTeam='',tonerBars=[],tonerLbl=[];
+  if(!loading){
+    const all=acts.filter(isToner);const mine=all.filter(byMe);
+    toner=mine.filter(r=>dayOf(r).slice(0,7)===ym).length;tonerTeam=all.filter(r=>dayOf(r).slice(0,7)===ym).length;
+    const weeks=[...Array(8)].map((_,i)=>{const d=new Date(mon+'T00:00:00');d.setDate(d.getDate()-7*(7-i));return calYmd(d);});
+    tonerBars=weeks.map((w,i)=>{const end=i<7?weeks[i+1]:'9999';return mine.filter(r=>dayOf(r)>=w&&dayOf(r)<end).length;});
+    tonerLbl=weeks.map(w=>'KW '+calIsoWeek(new Date(w+'T00:00:00')));
+    const wkInMonth=Math.max(1,Math.ceil((+TODAY.slice(8,10))/7));
+    tonerAvg=(toner/wkInMonth).toLocaleString('de-DE',{maximumFractionDigits:1});
+  }
+  // 3) Termine heute
+  const scope=leads.filter(l=>!isClosedLead(l)&&(agent==='all'||(l.members||[]).includes(agent))&&(activeTasksBoardFilter==='all'||leadBoardPart(l)===activeTasksBoardFilter));
+  const timed=scope.map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p);
+  const todayT=timed.filter(x=>x.p.date===TODAY).sort((a,b)=>a.p.min-b.p.min);
+  const nowMin=new Date().getHours()*60+new Date().getMinutes();
+  const next=todayT.find(x=>x.p.min>=nowMin);
+  const untimed=scope.filter(l=>l.followup&&!calParse(l.followup)&&String(l.followup).slice(0,10)===TODAY).length;
+  const wdNext=heroWorkdays(10,TODAY,true);
+  const apptBars=wdNext.map(d=>timed.filter(x=>x.p.date===d).length);
+  const top=(label,val,unit,sub1,sub2,graph)=>`<div style="grid-column:span 1;padding-left:14px;min-width:0">
+      <div style="font-size:10.5px;font-weight:600;color:${C.label};letter-spacing:.04em;margin-bottom:4px">${label.toUpperCase()}</div>
+      <div style="font-size:30px;font-weight:700;line-height:1">${val} <span style="font-size:15px;font-weight:500;color:${C.unit}">${unit}</span></div>
+      <div style="font-size:11px;color:${C.sub};margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sub1}</div>
+      <div style="font-size:11px;color:${C.sub};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${sub2}</div>
+    </div><div style="grid-column:span 1;display:flex;align-items:center;height:100%;padding:4px 14px;min-width:0">${graph}</div>`;
+  let h=`<div class="tasks-hero" style="background:linear-gradient(180deg,#0c3b40 0%,#164e54 55%,#1d6169 100%);box-shadow:0 12px 28px rgba(15,61,66,0.22);border-radius:16px;padding:22px 26px;color:#fff;margin-bottom:22px;width:100%;box-sizing:border-box">
+    <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.14);min-height:118px;align-items:center">`;
+  h+=top(`Gespräche · KW ${calIsoWeek(new Date(TODAY+'T00:00:00'))}`,talks,'Gespräche',loading?'':`Ø ${talksAvg} pro Arbeitstag`,loading?'':`Vorwoche ${talksPrev}`,loading?'':heroBars(talkBars,C.bar,300,34,undefined,wd14.map(d=>fmtDate(d))));
+  h+=top(`Free Toner zugesagt · ${mNames[+ym.slice(5,7)-1]}`,toner,'Zusagen',loading?'':`Ø ${tonerAvg} pro Woche`,loading?'':`Team gesamt ${tonerTeam}`,loading?'':heroBars(tonerBars,C.bar,300,34,undefined,tonerLbl));
+  h+=top('Termine heute',todayT.length,todayT.length===1?'Termin':'Termine',next?`Nächster: ${next.p.time} ${esc(next.l.company)}`:(todayT.length?'Keine weiteren Termine heute':'Keine Termine mit Uhrzeit'),`${untimed} ${untimed===1?'FollowUp':'FollowUps'} ohne Uhrzeit`,heroBars(apptBars,C.bar,300,34,0,wdNext.map(d=>fmtDate(d))));
+  h+=`</div><div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px">`;
+  // Untere Reihe
+  const curr=history[29],prev=history[28];
+  const series=k=>history.slice(-14).map(x=>x[k]);
+  const assignedOpen=assignedOpenCount(q);
+  const cell=(label,val,prevVal,spark,warn,subTxt)=>{
+    const col=warn?C.red:C.white;
+    const tr=(prevVal===null||prevVal===undefined)?'':(val>prevVal?'\u2191':val<prevVal?'\u2193':'\u2192');
+    return `<div style="padding:4px 14px;position:relative;min-width:0">
+      <div style="font-size:9.5px;font-weight:600;color:${C.label};letter-spacing:.04em">${label.toUpperCase()}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;gap:6px"><div style="font-size:19px;font-weight:700;color:${col};white-space:nowrap">${val} ${tr}</div>${spark?heroSpark(spark,col,90,18):''}</div>
+      <div style="font-size:10px;color:${C.sub};margin-top:3px">${subTxt!==undefined?subTxt:('Vortag '+prevVal)}</div></div>`;
+  };
+  h+=cell('Aufgaben',assignedOpen.open,null,null,assignedOpen.overdue>0,assignedOpen.overdue?`davon ${assignedOpen.overdue} überfällig`:'offen, zugewiesen');
+  h+=cell('Überfällig',curr.overdue,prev.overdue,series('overdue'),curr.overdue>0);
+  const qn=tasksTodayQueue(withFollowup);const qod=qn.filter(x=>x.kind!=='today').length;
+  h+=cell('Meine Aufgaben',qn.length,null,history.slice(-14).map(x=>x.overdue+x.today),qn.length>0,qod?`davon ${qod} überfällig`:'heute fällig');
+  h+=cell('Diese Woche',curr.week,prev.week,series('week'),false);
+  h+=cell('Nächste Woche',curr.nextweek,prev.nextweek,series('nextweek'),false);
+  h+=cell('Gesamt',curr.total,prev.total,series('total'),false);
+  h+=`</div></div>`;
+  return h;
+}
+// Offene zugewiesene Aufgaben - gleiche Filter wie die Liste "Zugewiesene Aufgaben"
+function assignedOpenCount(q){
+  let items=[];leads.forEach(l=>(l.tasks||[]).forEach(t=>{if(t.assigneeId&&!t.done)items.push({t,l});}));
+  if(activeTasksAgentFilter!=='all')items=items.filter(x=>x.t.assigneeId===activeTasksAgentFilter);
+  if(activeTasksBoardFilter!=='all')items=items.filter(x=>leadBoardPart(x.l)===activeTasksBoardFilter);
+  if(q){const pk=phoneQueryKeys(q);items=items.filter(x=>leadMatchesSearch(x.l,q,pk));}
+  return{open:items.length,overdue:items.filter(x=>x.t.dueDate&&daysUntil(x.t.dueDate)<0).length};
+}
+// ── "Heute zu erledigen" (Okt. 2026): Ueberfaellige + heute faellige OHNE Uhrzeit + verpasste Termine.
+// Termine MIT Uhrzeit stehen in der Zeitleiste "Termine heute" - verstreicht einer ungenutzt
+// (Start + 25 Min.), rutscht er als "Termin HH:MM verpasst" in die Liste.
+// Termine mit Uhrzeit sind immer bewusste Verabredungen - sie zaehlen auch ohne Erstkontakt.
+function tasksTodayAppts(){
+  return tasksBaseFollowups(true).map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p&&x.p.date===TODAY).sort((a,b)=>a.p.min-b.p.min);
+}
+function tasksTodayQueue(withFollowup){
+  const now=new Date();const nowMin=now.getHours()*60+now.getMinutes();
+  const out=[];
+  const seen=new Set(withFollowup.map(l=>String(l.id)));
+  const extra=tasksTodayAppts().map(x=>x.l).filter(l=>!seen.has(String(l.id))); // verpasste Termine ohne Erstkontakt
+  withFollowup.concat(extra).forEach(l=>{
+    const date=String(l.followup).slice(0,10);const p=calParse(l.followup);
+    if(date<TODAY)out.push({l,kind:'overdue',days:-daysUntil(date),date,p});
+    else if(date===TODAY){
+      if(!p)out.push({l,kind:'today',date});
+      else if(p.min+CAL_DUR<nowMin)out.push({l,kind:'missed',date,p});
+    }
+  });
+  const rank={overdue:0,missed:1,today:2};
+  return out.sort((a,b)=>rank[a.kind]-rank[b.kind]||(a.date<b.date?-1:a.date>b.date?1:0)||((a.p?a.p.min:0)-(b.p?b.p.min:0))||String(a.l.company).localeCompare(b.l.company));
+}
+function queueTagHtml(it){
+  if(it.kind==='overdue')return `<span class="q-tag r">seit ${it.days} T</span>`;
+  if(it.kind==='missed')return `<span class="q-tag r">Termin ${it.p.time} verpasst</span>`;
+  return `<span class="q-tag a">heute</span>`;
+}
+function leadIdArg(l){return typeof l.id==='number'?l.id:JSON.stringify(String(l.id)).replace(/"/g,'&quot;');}
+// Letzter Kommentar je Lead fuer die sichtbaren Zeilen (ein gemeinsamer Abruf, 60 s gemerkt).
+// Ein gerade im Lead-Fenster geschriebener Kommentar (im Speicher) hat Vorrang.
+let tasksLastComments={};let tasksLastCommentsAt=0;let tasksLastCommentsLoading=false;
+function lastCommentFor(l){
+  const mem=(l.activity||[]).filter(a=>a.type==='comment').sort((a,b)=>String(b.date).localeCompare(String(a.date)))[0];
+  const db=tasksLastComments[String(l.id)];
+  if(mem&&(!db||String(mem.date)>String(db.date)))return mem;
+  return db;
+}
+async function loadTasksLastComments(ids){
+  if(Date.now()-tasksLastCommentsAt>60000){tasksLastComments={};tasksLastCommentsAt=Date.now();}
+  const missing=ids.filter(id=>!(id in tasksLastComments));
+  if(!missing.length||tasksLastCommentsLoading)return;
+  tasksLastCommentsLoading=true;
+  missing.forEach(id=>{tasksLastComments[id]=undefined;});
+  try{
+    for(const part of chunkList(missing,100)){
+      const rows=await fetchAllRows(`lead_activities?lead_id=in.(${part.map(x=>'"'+x+'"').join(',')})&type=eq.comment&select=lead_id,text,date&order=date.desc,id.desc`,{timeoutMs:15000});
+      part.forEach(id=>{tasksLastComments[id]=rows.find(r=>String(r.lead_id)===id)||false;});
+    }
+  }catch(e){missing.forEach(id=>{if(tasksLastComments[id]===undefined)tasksLastComments[id]=false;});}
+  tasksLastCommentsLoading=false;
+  if(currentView==='tasks')renderTasksView();
+}
+function d3CommentHtml(l){
+  const c=lastCommentFor(l);
+  if(c===undefined)return `<div class="cm e">…</div>`;
+  if(!c)return `<div class="cm e">Noch kein Kommentar</div>`;
+  const d=String(c.date).slice(0,10);
+  return `<div class="cm" title="${esc(c.text)}"><b>${d.slice(8,10)}.${d.slice(5,7)}.</b>${esc(c.text)}</div>`;
+}
+function d3PhoneHtml(l){
+  return l.phone?`<a class="ph" href="tel:${esc(String(l.phone).replace(/[^\d+]/g,''))}" onclick="event.stopPropagation()" title="Anrufen"><i class="ti ti-phone"></i>${esc(l.phone)}</a>`:`<span style="color:var(--text3);font-size:12px">–</span>`;
+}
+function tasksTodayLayoutHtml(withFollowup,q){
+  // Variante B (Okt. 2026): ein Kasten ueber die volle Breite - oben "Offen, ohne feste Uhrzeit",
+  // darunter "Termine" nach Uhrzeit mit Jetzt-Linie. Darunter Zugewiesene Aufgaben + Vorschau.
+  const queue=tasksTodayQueue(withFollowup);
+  const open=queue.filter(x=>x.kind!=='missed');
+  const missedN=queue.length-open.length;
+  const now=new Date();const nowMin=now.getHours()*60+now.getMinutes();
+  const appts=tasksTodayAppts();
+  const colName=l=>{const c=colById(l.status);return c?c.name:'';};
+  const dot=l=>`<span class="dot" style="background:${leadBoardPart(l)==='akquise'?'#0e6870':'#ba7517'}" title="${BOARD_PARTS[leadBoardPart(l)]}"></span>`;
+  const acts=l=>`<span class="act" onclick="event.stopPropagation()"><button class="q-btn" onclick="quickNotReached(${leadIdArg(l)})" title="Nicht erreicht: Kommentar + FollowUp in ${PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6} Arbeitstagen"><i class="ti ti-phone-off"></i></button><button class="q-btn" onclick="quickReschedule(${leadIdArg(l)},1)" title="Nächster Arbeitstag">+1T</button><button class="q-btn" onclick="openCalApptForLead(${leadIdArg(l)})" title="Termin planen"><i class="ti ti-calendar-plus"></i></button></span>`;
+  const sub=l=>esc([colName(l),l.contact].filter(Boolean).join(' · '));
+  const total=queue.length;
+  if(!total&&!appts.length){
+    var box=`<div class="today-box done"><div class="today-hd"><i class="ti ti-circle-check"></i> Alles erledigt für heute<span class="n">0</span></div><div style="font-size:12px;color:#0b5e45;margin-top:6px">Keine offenen FollowUps und keine Termine mehr für heute.</div></div>`;
+  }else{
+    const all=!!taskShowAll.queue;const shown=all?open:open.slice(0,5);
+    loadTasksLastComments([...shown.map(x=>String(x.l.id)),...appts.map(x=>String(x.l.id))]);
+    const openHtml=open.length?`<div class="day-list"><div class="d3-head" style="margin:0 -14px"><span>Fällig</span><span>Firma · Kontakt</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${shown.map(it=>`<div class="d3" onclick="openLeadModal(${leadIdArg(it.l)})"><span class="f ${it.kind==='today'?'h':''}">${it.kind==='overdue'?`seit ${it.days} T`:'heute'}</span><div class="c">${dot(it.l)}<div><b>${esc(it.l.company)}</b><small>${sub(it.l)}</small></div></div>${d3PhoneHtml(it.l)}${d3CommentHtml(it.l)}${acts(it.l)}</div>`).join('')}${open.length>5?`<div class="d2 more" onclick="taskShowAll.queue=!taskShowAll.queue;renderTasksView()">${all?'Weniger anzeigen':`+ ${open.length-5} weitere`}</div>`:''}</div>`
+      :`<div class="day-list"><div class="d2 more" style="cursor:default">Nichts offen ohne Uhrzeit.</div></div>`;
+    let apptHtml='';let lineDone=false;let nextDone=false;
+    appts.forEach(x=>{
+      const missed=x.p.min+CAL_DUR<nowMin;const running=!missed&&x.p.min<=nowMin;
+      if(!lineDone&&x.p.min+CAL_DUR>=nowMin){apptHtml+=`<div class="now-line">jetzt ${calFmt(nowMin)}</div>`;lineDone=true;}
+      const isNext=!missed&&!nextDone&&lineDone;if(isNext)nextDone=true;
+      const inMin=x.p.min-nowMin;
+      const note=missed?'verpasst':running?'läuft gerade':(isNext?(inMin<60?`in ${inMin} Min`:`in ${Math.floor(inMin/60)} Std${inMin%60?' '+(inMin%60)+' Min':''}`):'');
+      apptHtml+=`<div class="d3 ${missed?'miss':''} ${isNext?'next':''}" onclick="openLeadModal(${leadIdArg(x.l)})"><span class="f tm">${x.p.time}</span><div class="c">${dot(x.l)}<div><b>${esc(x.l.company)}</b><small>${[note,sub(x.l)].filter(Boolean).join(' · ')}</small></div></div>${d3PhoneHtml(x.l)}${d3CommentHtml(x.l)}${acts(x.l)}</div>`;
+    });
+    if(appts.length&&!lineDone)apptHtml+=`<div class="now-line">jetzt ${calFmt(nowMin)}</div>`;
+    var box=`<div class="today-box">
+      <div class="today-hd"><i class="ti ti-list-check"></i> Meine Aufgaben<span class="n">${open.length} offen · ${appts.length} ${appts.length===1?'Termin':'Termine'}</span>${total?`<button class="today-go" style="margin-left:12px" onclick="startWorkMode()"><i class="ti ti-player-play"></i> Jetzt abarbeiten${missedN?` (${total})`:''}</button>`:''}</div>
+      <div class="day-sub">Offen, ohne feste Uhrzeit</div>${openHtml}
+      <div class="day-sub t">Termine</div>${appts.length?`<div class="day-list"><div class="d3-head t" style="margin:0 -14px"><span>Uhrzeit</span><span>Firma · Kontakt</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${apptHtml}</div>`:`<div class="day-list"><div class="d2 more" style="cursor:default">Keine Termine mit Uhrzeit · <a href="#" onclick="event.preventDefault();switchView('calendar')" style="color:#206A72;font-weight:600;margin-left:4px">Im Kalender planen</a></div></div>`}
+    </div>`;
+  }
+  // Naechste 3 Arbeitstage - gleicher Aufbau wie "Heute zu erledigen" (Tabelle je Tag)
+  const tmr=(()=>{const d=new Date(TODAY+'T00:00:00');d.setDate(d.getDate()+1);return calYmd(d);})();
+  const days=heroWorkdays(3,tmr,true);const wdN=['So','Mo','Di','Mi','Do','Fr','Sa'];
+  const timedAll=tasksBaseFollowups(true).map(l=>({l,p:calParse(l.followup)})).filter(x=>x.p);
+  let nextTotal=0;const nextIds=[];
+  const dayBlocks=days.map(d=>{
+    const timed=timedAll.filter(x=>x.p.date===d).sort((a,b)=>a.p.min-b.p.min);
+    const untimed=withFollowup.filter(l=>!calParse(l.followup)&&String(l.followup).slice(0,10)===d).sort((a,b)=>String(a.company).localeCompare(String(b.company)));
+    const items=[...timed.map(x=>({l:x.l,time:x.p.time})),...untimed.map(l=>({l,time:null}))];
+    nextTotal+=items.length;
+    const key='nd_'+d;const allD=!!taskShowAll[key];const shownD=allD?items:items.slice(0,5);
+    shownD.forEach(it=>nextIds.push(String(it.l.id)));
+    const dd=new Date(d+'T00:00:00');const lab=(d===tmr?'Morgen · ':'')+wdN[dd.getDay()]+' '+String(dd.getDate()).padStart(2,'0')+'.'+String(dd.getMonth()+1).padStart(2,'0')+'.';
+    const nT=timed.length,nU=untimed.length;
+    const head=`<div class="day-sub">${lab}<span>${items.length?[nT?`${nT} ${nT===1?'Termin':'Termine'}`:'',nU?`${nU} ohne Uhrzeit`:''].filter(Boolean).join(' · '):'nichts geplant'}</span></div>`;
+    if(!items.length)return head;
+    return head+`<div class="day-list"><div class="d3-head" style="margin:0 -14px"><span>Uhrzeit</span><span>Firma · Kontakt</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${shownD.map(it=>`<div class="d3" onclick="openLeadModal(${leadIdArg(it.l)})"><span class="f ${it.time?'tm':'nt'}">${it.time||'ohne Zeit'}</span><div class="c">${dot(it.l)}<div><b>${esc(it.l.company)}</b><small>${sub(it.l)}</small></div></div>${d3PhoneHtml(it.l)}${d3CommentHtml(it.l)}${acts(it.l)}</div>`).join('')}${items.length>5?`<div class="d2 more" onclick="taskShowAll['${key}']=!taskShowAll['${key}'];renderTasksView()">${allD?'Weniger anzeigen':`+ ${items.length-5} weitere`}</div>`:''}</div>`;
+  }).join('');
+  loadTasksLastComments(nextIds);
+  const pv=`<div class="info-section next-sec"><div class="section-hdr" style="margin-top:0"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-calendar-week" style="color:var(--purple);font-size:16px"></i>Nächste 3 Tage</span><span class="task-group-count">${nextTotal} ${nextTotal===1?'FollowUp':'FollowUps'}</span></div>${dayBlocks}</div>`;
+  return `<div style="margin-bottom:22px">${assignedTasksHtml(q)}</div>${box}${pv}`;
+}
+// ── Abarbeiten-Modus: geht "Heute zu erledigen" Lead fuer Lead durch ──
+let work=null;
+function tasksBaseFollowups(withoutFirstContact){
+  const q=(document.getElementById('tasksSearch').value||'').toLowerCase().trim();
+  let list=leads.filter(l=>l.followup&&(withoutFirstContact||l.firstContact)&&!isLostStatus(l.status));
+  if(activeTasksAgentFilter!=='all')list=list.filter(l=>(l.members||[]).includes(activeTasksAgentFilter));
+  if(activeTasksBoardFilter!=='all')list=list.filter(l=>leadBoardPart(l)===activeTasksBoardFilter);
+  if(q){const pk=phoneQueryKeys(q);list=list.filter(l=>leadMatchesSearch(l,q,pk));}
+  return list;
+}
+function startWorkMode(){
+  const queue=tasksTodayQueue(tasksBaseFollowups());
+  work={items:queue.map(x=>({id:String(x.l.id),kind:x.kind,days:x.days,p:x.p})),i:0,stats:{moved:0,ne:0,termin:0,skip:0},comments:{}};
+  openModal('workModal');renderWork();
+}
+function workCurrentLead(){const it=work&&work.items[work.i];return it?leads.find(l=>String(l.id)===it.id):null;}
+async function workLoadComment(id){
+  if(!work||work.comments[id]!==undefined)return;
+  const w0=work;w0.comments[id]=null;
+  let res=false;
+  try{const rows=await fetchAllRows(`lead_activities?lead_id=eq.${id}&type=eq.comment&select=text,date,author&order=date.desc,id.desc`,{maxRows:3,timeoutMs:10000});res=rows;}
+  catch(e){res=false;}
+  w0.comments[id]=res; // Modus kann inzwischen geschlossen sein
+  if(work===w0&&work.items[work.i]&&work.items[work.i].id===id)renderWork();
+}
+function renderWork(){
+  const el=document.getElementById('workModalInner');if(!el||!work)return;
+  const n=work.items.length;
+  if(work.i>=n){
+    const tmr=(()=>{const d=new Date(TODAY+'T00:00:00');d.setDate(d.getDate()+1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);return calYmd(d);})();
+    const tomorrow=tasksBaseFollowups().filter(l=>String(l.followup).slice(0,10)===tmr).length;
+    const st=work.stats;
+    el.innerHTML=`<div class="ap-head"><i class="ti ti-circle-check"></i> ${n?'Alles erledigt für heute':'Nichts zu erledigen'}</div>
+      <div class="ap-body" style="text-align:center;padding:18px 20px">
+        <div style="width:56px;height:56px;border-radius:50%;background:#e3f5ee;color:#0b5e45;display:flex;align-items:center;justify-content:center;font-size:28px;margin:4px auto 8px"><i class="ti ti-confetti"></i></div>
+        <div style="font-size:16px;font-weight:700">${n?`${n} ${n===1?'Lead':'Leads'} bearbeitet`:'Heute steht nichts mehr an'}</div>
+        ${n?`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0">${[['verschoben',st.moved],['nicht erreicht',st.ne],['Termine',st.termin],['übersprungen',st.skip]].map(([k,v])=>`<div style="background:var(--bg2,#f4f6f6);border-radius:10px;padding:8px"><div style="font-size:20px;font-weight:700">${v}</div><div style="font-size:11px;color:var(--text3)">${k}</div></div>`).join('')}</div>`:''}
+        <div style="font-size:12px;color:var(--text3)">${fmtDate(tmr)}: ${tomorrow} ${tomorrow===1?'FollowUp':'FollowUps'}</div>
+      </div>
+      <div class="modal-actions" style="justify-content:flex-start"><button class="btn" onclick="closeModal('workModal');switchView('calendar')"><i class="ti ti-calendar"></i> Zum Kalender</button><button class="btn ap-primary" onclick="closeModal('workModal');work=null;renderTasksView()"><i class="ti ti-check"></i> Fertig</button></div>`;
+    return;
+  }
+  const it=work.items[work.i];const l=workCurrentLead();
+  if(!l){work.i++;renderWork();return;}
+  const red=it.kind!=='today';
+  const tag=it.kind==='overdue'?`<span class="q-tag r">seit ${it.days} T</span>`:it.kind==='missed'?`<span class="q-tag r">Termin ${it.p.time} verpasst</span>`:`<span class="q-tag a">heute</span>`;
+  const col=colById(l.status);const part=leadBoardPart(l)==='akquise'?'SQL':'PQL';
+  const cm=work.comments[it.id];if(cm===undefined)workLoadComment(it.id);
+  // letzte 3 Notizen: aus der Datenbank, ergaenzt um gerade im Speicher geschriebene
+  const mem=(l.activity||[]).filter(a=>a.type==='comment');
+  const notes=Array.isArray(cm)?[...mem,...cm].filter((n,i,arr)=>arr.findIndex(x=>x.text===n.text&&String(x.date).slice(0,16)===String(n.date).slice(0,16))===i).sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,3):mem.slice(0,3);
+  const notesHtml=(cm===undefined||cm===null)&&!notes.length?'<div style="color:var(--text3);font-size:13px">Notizen werden geladen…</div>'
+    :(notes.length?notes.map(n=>{const a=agentById(n.author);const d=String(n.date).slice(0,10);return `<div class="wk2-note"><small>${d.slice(8,10)}.${d.slice(5,7)}.${d.slice(0,4)}${a?' · '+esc(a.name):''}</small>${esc(n.text)}</div>`;}).join(''):'<div style="color:var(--text3);font-size:13px">Noch keine Notizen.</div>');
+  const pct=Math.round(work.i/n*100);
+  const id=leadIdArg(l);
+  const tel=String(l.phone||'').replace(/[^\d+]/g,'');
+  el.innerHTML=`<div class="wk2-head"><i class="ti ti-player-play"></i> Heute abarbeiten<span class="n">${work.i+1} von ${n}</span><button class="x" onclick="closeModal('workModal');work=null;renderTasksView()" title="Schließen"><i class="ti ti-x"></i></button></div>
+    <div class="wk2-bar"><div style="width:${pct}%;background:${red?'#e24b4a':'#ba7517'}"></div></div>
+    <div class="wk2-body">
+      <div class="wk2-top"><div style="flex:1;min-width:0">
+        <div style="display:flex;gap:6px;align-items:center">${tag}<span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;${part==='SQL'?'background:#e3f0f0;color:#0b4f55':'background:#fdf1dc;color:#7a4e07'}">${part}</span><span style="font-size:13px;color:var(--text3)">${esc(col?col.name:'')}</span></div>
+        <div class="wk2-co">${esc(l.company)}</div>
+        <div class="wk2-ct">${esc([l.contact,l.customerNumber?'Kd-Nr. '+l.customerNumber:'',l.email].filter(Boolean).join(' · '))}</div>
+      </div>${tel?`<a class="wk2-call" href="tel:${esc(tel)}"><i class="ti ti-phone"></i>${esc(l.phone)}</a>`:`<span class="wk2-call off"><i class="ti ti-phone-off"></i>Keine Nummer</span>`}</div>
+      <div class="wk2-nh">Letzte Notizen</div>${notesHtml}
+      <div class="wk2-nh">Notiz zum Anruf</div>
+      <textarea class="wk2-ta" id="wk2Note" placeholder="Was wurde besprochen? Wird beim Klick unten automatisch als Kommentar gespeichert." oninput="work.note=this.value">${esc(work.note||'')}</textarea>
+    </div>
+    <div class="wk2-ft">
+      <button class="btn" onclick="workDo('ne')"><i class="ti ti-phone-off"></i> Nicht erreicht</button>
+      <button class="btn" onclick="workDo('d1')">+1T</button>
+      <button class="btn" onclick="workDo('d3')">+3T</button>
+      <button class="btn" onclick="workDo('termin')"><i class="ti ti-calendar-plus"></i> Termin</button>
+      <button class="btn" onclick="openLeadModal(${id})"><i class="ti ti-external-link"></i> Öffnen</button>
+      <button class="btn skip" onclick="workDo('skip')">Überspringen <i class="ti ti-arrow-right"></i></button>
+    </div>`;
+}
+// "Nicht erreicht" ohne geoeffnetes Lead-Fenster - identisch zum Knopf im Lead-Fenster:
+// Kommentar, FollowUp + X Tage (Einstellung), im Board: SQL aus Offen / NE 1-4 eine Liste weiter.
+function applyNotReached(l){
+  const prevDraft=draftLead,prevId=editingLeadId,prevRO=modalReadOnly;
+  draftLead=JSON.parse(JSON.stringify(l));if(!Array.isArray(draftLead.activity))draftLead.activity=[];
+  editingLeadId=l.id;modalReadOnly=false;
+  try{markNotReached();}finally{draftLead=prevDraft;editingLeadId=prevId;modalReadOnly=prevRO;}
+}
+function quickNotReached(id){
+  const l=leads.find(x=>String(x.id)===String(id));if(!l)return false;
+  const lock=getLeadLock(l.id);
+  if(lock&&lock.agentId!==currentUser){alert(`„${l.company}“ wird gerade von ${lock.agentName||'jemand anderem'} bearbeitet.`);return false;}
+  applyNotReached(l);
+  if(currentView==='tasks')renderTasksView();
+  return true;
+}
+// Notiz aus dem Feld "Notiz zum Anruf" als Kommentar am Lead speichern (vor jeder Aktion)
+function workSaveNote(l){
+  const ta=document.getElementById('wk2Note');const txt=((ta&&ta.value)||(work&&work.note)||'').trim();
+  if(!txt||!l)return false;
+  const act={id:Date.now()+Math.random(),type:'comment',author:currentUser,text:txt,date:nowISO()};
+  if(!Array.isArray(l.activity))l.activity=[];
+  l.activity.unshift(act);pushActivityToDb(l.id,act);
+  if(work){work.note='';delete work.comments[String(l.id)];}
+  saveState();
+  return true;
+}
+function workNext(stat){if(stat)work.stats[stat]++;work.i++;renderWork();if(currentView==='tasks')renderTasksView();}
+function workDo(action){
+  const l=workCurrentLead();if(!l||!work)return;
+  const lock=getLeadLock(l.id);
+  if(action!=='skip'&&lock&&lock.agentId!==currentUser){alert(`„${l.company}“ wird gerade von ${lock.agentName||'jemand anderem'} bearbeitet.`);return;}
+  workSaveNote(l); // Notiz zum Anruf wird bei jeder Aktion mitgespeichert
+  if(action==='skip')return workNext('skip');
+  if(action==='termin'){work.awaitAppt=String(l.id);openCalApptForLead(l.id);return;}
+  if(action==='d1'||action==='d3'){if(quickReschedule(l.id,action==='d1'?1:3))workNext('moved');return;}
+  if(action==='ne'){applyNotReached(l);workNext('ne');}
+}
+function limitedRowsHtml(rowHtmls,isOpen,key,emptyMsg,limit){
+  if(!isOpen)return '';
+  if(!rowHtmls.length)return `<div class="task-row-empty">${emptyMsg}</div>`;
+  const all=!!taskShowAll[key];const LIM=limit||10;
+  let html=(all?rowHtmls:rowHtmls.slice(0,LIM)).join('');
+  if(rowHtmls.length>LIM)html+=`<button class="btn" style="margin-top:8px;width:100%;justify-content:center" onclick="taskShowAll['${key}']=!taskShowAll['${key}'];renderTasksView()">${all?'Weniger anzeigen':`Alle anzeigen (${rowHtmls.length})`}</button>`;
+  return html;
+}
 function collapsibleRowsHtml(rowHtmls,isOpen,minRows,emptyMsg){
   if(isOpen)return rowHtmls.length?rowHtmls.join(''):`<div class="task-row-empty">${emptyMsg}</div>`;
   const visible=rowHtmls.slice(0,minRows);
@@ -4551,7 +5055,7 @@ function followupGroupHtml(title,items,colorVar,icon,accentClass,sectionKey){
   const rowHtmls=items.map(followupRowHtml);
   return `<div class="info-section followup-group ${accentClass}">
     <div class="section-hdr" style="margin-top:0;cursor:pointer" onclick="toggleTaskSection('${sectionKey}')"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-${icon}" style="color:${colorVar};font-size:16px"></i>${title}</span> <span style="display:flex;align-items:center;gap:8px"><span class="task-group-count">${items.length} Lead${items.length===1?'':'s'}</span><i class="ti ti-chevron-${isOpen?'up':'down'}" style="font-size:14px;color:var(--text3)"></i></span></div>
-    ${collapsibleRowsHtml(rowHtmls,isOpen,3,'Keine Leads in diesem Zeitraum.')}
+    ${limitedRowsHtml(rowHtmls,isOpen,sectionKey,'Keine Leads in diesem Zeitraum.')}
   </div>`;
 }
 function renderTasksAgentChips(){
@@ -4563,14 +5067,31 @@ function renderTasksAgentChips(){
     html+=`<div class="filtermenu-item ${active?'active':''}" onclick="setTasksAgentFilter('${a.id}')"><span>${esc(a.name)}</span>${active?'<i class="ti ti-check"></i>':''}</div>`;
   });
   el.innerHTML=html;
+  const eb=document.getElementById('tasksFilterMenuBoard');
+  if(eb)eb.innerHTML=[['all','Alle Boards'],['akquise',BOARD_PARTS.akquise],['vertrieb',BOARD_PARTS.vertrieb]].map(([v,lab])=>`<div class="filtermenu-item ${activeTasksBoardFilter===v?'active':''}" onclick="event.stopPropagation();setTasksBoardFilter('${v}')"><span>${esc(lab)}</span>${activeTasksBoardFilter===v?'<i class="ti ti-check"></i>':''}</div>`).join('');
   renderTasksOmniTokens();
+}
+function setTasksBoardFilter(v){activeTasksBoardFilter=v;renderTasksAgentChips();renderTasksView();}
+function toggleTasksFilterSection(k,e){if(e)e.stopPropagation();tasksFilterSectionOpen=tasksFilterSectionOpen===k?'':k;applyTasksFilterSections();}
+function applyTasksFilterSections(){
+  [['agents','Agents'],['board','Board']].forEach(([k,id])=>{
+    const sec=document.getElementById('tfmSec'+id),body=document.getElementById(id==='Agents'?'tasksFilterMenuAgents':'tasksFilterMenuBoard');
+    if(sec)sec.classList.toggle('open',tasksFilterSectionOpen===k);
+    if(body)body.classList.toggle('open',tasksFilterSectionOpen===k);
+  });
+  const a=activeTasksAgentFilter==='all'?null:agentById(activeTasksAgentFilter);
+  const sa=document.getElementById('tfmSumAgents');if(sa)sa.textContent=a?a.name:'Alle';
+  const sb=document.getElementById('tfmSumBoard');if(sb)sb.textContent=activeTasksBoardFilter==='all'?'Alle':BOARD_PARTS[activeTasksBoardFilter];
+  document.getElementById('tfmSecAgents')&&document.getElementById('tfmSecAgents').classList.toggle('active',!!a);
+  document.getElementById('tfmSecBoard')&&document.getElementById('tfmSecBoard').classList.toggle('active',activeTasksBoardFilter!=='all');
 }
 function renderTasksOmniTokens(){
   const el=document.getElementById('tasksOmniTokens');
   if(!el)return;
-  if(activeTasksAgentFilter==='all'){el.innerHTML='';return;}
-  const a=AGENTS.find(a=>a.id===activeTasksAgentFilter);
-  el.innerHTML=a?`<div class="omni-token"><i class="ti ti-user" style="font-size:12px"></i>${esc(a.name)}<i class="ti ti-x" onclick="setTasksAgentFilter('all')"></i></div>`:'';
+  applyTasksFilterSections();
+  const a=activeTasksAgentFilter==='all'?null:AGENTS.find(a=>a.id===activeTasksAgentFilter);
+  el.innerHTML=(a?`<div class="omni-token"><i class="ti ti-user" style="font-size:12px"></i>${esc(a.name)}<i class="ti ti-x" onclick="setTasksAgentFilter('all')"></i></div>`:'')
+    +(activeTasksBoardFilter!=='all'?`<div class="omni-token"><i class="ti ti-layout-kanban" style="font-size:12px"></i>${esc(BOARD_PARTS[activeTasksBoardFilter])}<i class="ti ti-x" onclick="setTasksBoardFilter('all')"></i></div>`:'');
 }
 let tasksFilterMenuOpen=false;
 function toggleTasksFilterMenu(e){
@@ -4584,42 +5105,30 @@ function setTasksAgentFilter(id){
   renderTasksView();
 }
 function assignedTasksHtml(q){
+  // Gleiche Tabelle wie "Heute zu erledigen": Faellig | Aufgabe · Firma | Telefon | Letzter Kommentar | Erledigt
   let items=[];
-  leads.forEach(l=>{
-    (l.tasks||[]).forEach(t=>{
-      if(t.assigneeId)items.push(Object.assign({},t,{lead:l}));
-    });
-  });
+  leads.forEach(l=>{(l.tasks||[]).forEach(t=>{if(t.assigneeId)items.push(Object.assign({},t,{lead:l}));});});
   if(activeTasksAgentFilter!=='all')items=items.filter(t=>t.assigneeId===activeTasksAgentFilter);
+  if(activeTasksBoardFilter!=='all')items=items.filter(t=>leadBoardPart(t.lead)===activeTasksBoardFilter);
+  items=items.filter(t=>!t.done); // erledigte Aufgaben verschwinden aus der Liste
   if(q){const pk=phoneQueryKeys(q);items=items.filter(t=>leadMatchesSearch(t.lead,q,pk));}
-  items.sort((a,b)=>{
-    if(a.done!==b.done)return a.done?1:-1;
-    return (a.dueDate||'9999-99-99').localeCompare(b.dueDate||'9999-99-99');
-  });
-  const openCount=items.filter(t=>!t.done).length;
+  items.sort((a,b)=>(a.dueDate||'9999-99-99').localeCompare(b.dueDate||'9999-99-99'));
+  const openCount=items.length;
   const isOpen=taskSectionOpen.assigned;
-  const rowHtmls=items.map(t=>{
+  const all=!!taskShowAll.assigned;const shown=all?items:items.slice(0,3);
+  if(isOpen)loadTasksLastComments(shown.map(t=>String(t.lead.id)));
+  const idA=x=>typeof x==='number'?x:JSON.stringify(String(x)).replace(/"/g,'&quot;');
+  const rows=shown.map(t=>{
     const a=agentById(t.assigneeId);
-    let dueBadge='';
-    if(t.dueDate){
-      const d=daysUntil(t.dueDate);
-      const cls=t.done?'due-ok':(d<0?'due-overdue':(d<=2?'due-soon':'due-ok'));
-      const dlabel=d<0?`${Math.abs(d)}T überfällig`:(d===0?'heute':fmtDate(t.dueDate));
-      dueBadge=`<span class="due-badge ${cls}"><i class="ti ti-clock" style="font-size:11px"></i>${dlabel}</span>`;
-    }
-    return `<div class="task-row" onclick="openLeadModal(${t.lead.id})">
-      <input type="checkbox" ${t.done?'checked':''} onclick="event.stopPropagation();toggleAssignedTask(${t.lead.id},${t.id})" style="flex-shrink:0">
-      <div class="member-av" style="position:static;margin:0;background:${COLOR_BG[a?a.color:'gray']};color:${COLOR_TEXT[a?a.color:'gray']}" title="${a?esc(a.name):''}">${a?ini(a.name):'?'}</div>
-      <div style="flex:1;min-width:0">
-        <div class="task-row-text ${t.done?'done':''}">${esc(t.text)}</div>
-        <div style="font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.lead.company)}</div>
-      </div>
-      ${dueBadge}
-    </div>`;
-  });
-  return `<div class="info-section">
+    let f='<span class="f nt">–</span>';
+    if(t.dueDate){const d=daysUntil(t.dueDate);f=d<0?`<span class="f">seit ${Math.abs(d)} T</span>`:d===0?'<span class="f h">heute</span>':`<span class="f nt">${fmtDate(t.dueDate).slice(0,6)}</span>`;}
+    const av=`<div class="member-av" style="position:static;margin:0;flex-shrink:0;width:22px;height:22px;font-size:9px;background:${COLOR_BG[a?a.color:'gray']};color:${COLOR_TEXT[a?a.color:'gray']}" title="${a?esc(a.name):''}">${a?ini(a.name):'?'}</div>`;
+    return `<div class="d3" onclick="openLeadModal(${idA(t.lead.id)})">${f}<div class="c"><div><b>${esc(t.text)}</b><small>${esc([t.lead.company,a?'für '+a.name:''].filter(Boolean).join(' · '))}</small></div></div>${d3PhoneHtml(t.lead)}${d3CommentHtml(t.lead)}<span class="act" onclick="event.stopPropagation()"><button class="q-btn" onclick="toggleAssignedTask(${idA(t.lead.id)},${idA(t.id)})" title="Als erledigt markieren"><i class="ti ti-check"></i></button></span></div>`;
+  }).join('');
+  const body=!isOpen?'':(items.length?`<div class="day-list"><div class="d3-head" style="margin:0 -14px"><span>Fällig</span><span>Aufgabe · Firma</span><span>Telefon</span><span>Letzter Kommentar</span><span></span></div>${rows}${items.length>3?`<div class="d2 more" onclick="taskShowAll.assigned=!taskShowAll.assigned;renderTasksView()">${all?'Weniger anzeigen':`Alle anzeigen (${items.length})`}</div>`:''}</div>`:`<div class="task-row-empty">Keine offenen zugewiesenen Aufgaben.</div>`);
+  return `<div class="info-section ass-sec">
     <div class="section-hdr" style="margin-top:0;cursor:pointer" onclick="toggleTaskSection('assigned')"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-user-check" style="color:var(--purple);font-size:16px"></i>Zugewiesene Aufgaben</span> <span style="display:flex;align-items:center;gap:8px"><span class="task-group-count">${openCount} offen</span><i class="ti ti-chevron-${isOpen?'up':'down'}" style="font-size:14px;color:var(--text3)"></i></span></div>
-    ${collapsibleRowsHtml(rowHtmls,isOpen,3,'Keine zugewiesenen Aufgaben.')}
+    ${body}
   </div>`;
 }
 function toggleAssignedTask(leadId,taskId){
@@ -4631,15 +5140,17 @@ function toggleAssignedTask(leadId,taskId){
 }
 function renderTasksView(){
   const q=(document.getElementById('tasksSearch').value||'').toLowerCase().trim();
-  let withFollowup=leads.filter(l=>l.followup);
+  // Nur echte Aufgaben: FollowUp + Erstkontakt erfolgt, Lead nicht verloren (Okt. 2026)
+  let withFollowup=leads.filter(l=>l.followup&&l.firstContact&&!isLostStatus(l.status));
   if(activeTasksAgentFilter!=='all')withFollowup=withFollowup.filter(l=>(l.members||[]).includes(activeTasksAgentFilter));
+  if(activeTasksBoardFilter!=='all')withFollowup=withFollowup.filter(l=>leadBoardPart(l)===activeTasksBoardFilter);
   if(q){const pk=phoneQueryKeys(q);withFollowup=withFollowup.filter(l=>leadMatchesSearch(l,q,pk));}
   const buckets={overdue:[],today:[],week:[],nextweek:[]};
   withFollowup.forEach(l=>{const b=followupBucket(l);if(b)buckets[b].push(l);});
   ['overdue','today','week','nextweek'].forEach(k=>buckets[k].sort((a,b)=>a.followup.localeCompare(b.followup)));
 
   const history=Array.from({length:30},(_,i)=>29-i).map(o=>followupBucketCountsAt(withFollowup,o));
-  const curr=history[6],prev=history[5];
+  const curr=history[29],prev=history[28]; // heute und Vortag (bis 21.10.2026 faelschlich Stand vor 23 Tagen)
   function kpiCard(label,key,colorVar){
     const series=history.map(h=>h[key]);
     const currVal=curr[key],prevVal=prev[key];
@@ -4654,18 +5165,8 @@ function renderTasksView(){
   }
 
   const html=`
-    <div class="dash-kpi-row" style="grid-template-columns:repeat(5,1fr)">
-      ${kpiCard('Überfällig','overdue','var(--red)')}
-      ${kpiCard('Heute','today','var(--red)')}
-      ${kpiCard('Diese Woche','week','var(--green-dark)')}
-      ${kpiCard('Nächste Woche','nextweek','var(--purple)')}
-      ${kpiCard('Gesamt','total','var(--text)')}
-    </div>
-    ${assignedTasksHtml(q)}
-    ${followupGroupHtml('Überfällig',buckets.overdue,'var(--red)','alert-triangle','followup-kpi-overdue','overdue')}
-    ${followupGroupHtml('Heute',buckets.today,'var(--amber-dark)','sun','followup-kpi-today','today')}
-    ${followupGroupHtml('Diese Woche',buckets.week,'var(--green-dark)','calendar-week','followup-kpi-week','week')}
-    ${followupGroupHtml('Nächste Woche',buckets.nextweek,'var(--purple)','calendar-plus','followup-kpi-nextweek','nextweek')}`;
+    ${tasksHeroHtml(withFollowup,history,q)}
+    ${tasksTodayLayoutHtml(withFollowup,q)}`;
   document.getElementById('tasksViewContent').innerHTML=html;
 }
 // ── CR RMA: Artikel-Stammdaten ──
@@ -5363,7 +5864,7 @@ function renderSettings(){
       </div>
       <div class="info-section">
         <div class="section-hdr" style="margin-top:0">"Nicht erreicht"-Verhalten</div>
-        <div class="field"><label>Follow-up automatisch verschieben um (Tage)</label><input type="number" min="1" max="90" step="1" value="${PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6}" onchange="setProjectField('notReachedFollowupDays',Math.max(1,parseInt(this.value)||6))" style="width:100%;max-width:200px"></div>
+        <div class="field"><label>FollowUp automatisch verschieben um (Arbeitstage)</label><input type="number" min="1" max="90" step="1" value="${PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6}" onchange="setProjectField('notReachedFollowupDays',Math.max(1,parseInt(this.value)||6))" style="width:100%;max-width:200px"></div>
         <p style="font-size:11px;color:var(--text3);margin-top:6px">Klickt jemand im Lead auf "Nicht erreicht", wird das Follow-up-Datum automatisch um diese Anzahl Tage ab heute gesetzt.</p>
       </div>`,
     project:`
@@ -5819,6 +6320,8 @@ function trackClosedStage(lead,oldStatus,newStatus){
     lead.closedFromStage=oldStatus;
     lead.closedAt=nowISO();
   }
+  // Verloren: FollowUp entfaellt - der Lead taucht nicht mehr in Aufgaben/Kalender auf.
+  if(newCol&&newCol.outcome==='lost'&&oldStatus!==newStatus)lead.followup='';
 }
 function trackStatusSince(lead,oldStatus,newStatus){
   if(oldStatus!==newStatus)lead.statusSince=TODAY;
@@ -6594,7 +7097,7 @@ function renderLeadModal(){
           <textarea id="commentInput" placeholder="Kommentar schreiben… (Strg+Enter zum Senden)" oninput="draftCommentText=this.value" onkeydown="if((event.key==='Enter')&&(event.ctrlKey||event.metaKey))addComment()">${esc(draftCommentText)}</textarea>
         </div>
         <div style="display:flex;gap:8px">
-          <button class="btn" style="flex:1;justify-content:center" onclick="markNotReached()" title="Trägt automatisch einen Kommentar ein und setzt das Follow-up-Datum auf in ${PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6} Tagen (einstellbar unter Einstellungen)"><i class="ti ti-phone-off"></i> Nicht erreicht</button>
+          <button class="btn" style="flex:1;justify-content:center" onclick="markNotReached()" title="Trägt automatisch einen Kommentar ein und setzt das Follow-up-Datum auf in ${PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6} Arbeitstagen (einstellbar unter Einstellungen)"><i class="ti ti-phone-off"></i> Nicht erreicht</button>
           <button class="btn btn-petrol-muted" style="flex:1;justify-content:center" onclick="addComment()"><i class="ti ti-send"></i> Kommentieren</button>
         </div>
       </div>
@@ -7433,14 +7936,18 @@ function addComment(){
 }
 // Ein-Klick-Aktion fuer "Kunde war nicht erreichbar": traegt IMMER (unabhaengig vom Inhalt
 // des Kommentarfelds) einen festen Kommentar ein und setzt das Follow-up-Datum automatisch
-// auf in 3 Tagen - damit ein nicht erreichter Kunde nie versehentlich ohne Wiedervorlage
+// auf in 3 Tagen - damit ein nicht erreichter Kunde nie versehentlich ohne FollowUp
 // liegen bleibt.
+// n Arbeitstage nach dem Datum (Sa/So zaehlen nicht): Freitag + 3 = Mittwoch, Freitag + 1 = Montag
+function addWorkdays(dateStr,n){
+  const d=new Date(String(dateStr).slice(0,10)+'T00:00:00');let left=Math.max(0,n|0);
+  while(left>0){d.setDate(d.getDate()+1);if(d.getDay()!==0&&d.getDay()!==6)left--;}
+  return calYmd(d);
+}
 function markNotReached(){
   if(modalReadOnly)return;
   const days=PROJECT.notReachedFollowupDays!==undefined?PROJECT.notReachedFollowupDays:6;
-  const d=new Date(TODAY+'T00:00:00');
-  d.setDate(d.getDate()+days);
-  const newFollowup=d.toISOString().slice(0,10);
+  const newFollowup=addWorkdays(TODAY,days); // Arbeitstage - Wochenende wird uebersprungen
   const oldFollowup=draftLead.followup;
   const act1={id:Date.now(),type:'comment',author:currentUser,text:'Nicht erreicht ... erneut probieren',date:nowISO()};
   draftLead.activity.unshift(act1);
@@ -7471,7 +7978,7 @@ function nextNotReachedStatus(statusId){
   if(!cur||colBoard(cur)!=='akquise')return null;
   const ne=COLUMNS.filter(c=>c.neLevel).sort((a,b)=>a.neLevel-b.neLevel);
   if(!ne.length)return null; // vor dem Umbau: Verhalten wie bisher
-  if(!cur.neLevel&&(isStage(statusId,'open')||isStage(statusId,'qual')))return ne[0].id;
+  if(!cur.neLevel&&isStage(statusId,'open'))return ne[0].id; // aus Rueckruf wird nicht verschoben (Okt. 2026)
   if(cur.neLevel){
     const nxt=ne.find(c=>c.neLevel===cur.neLevel+1);
     if(nxt)return nxt.id;
@@ -8567,6 +9074,7 @@ function importArticleCSVFile(file){
 function openModal(id){document.getElementById(id).classList.remove('hidden');}
 function closeModal(id){
   document.getElementById(id).classList.add('hidden');
+  if((id==='leadModal'||id==='calApptModal')&&work&&!document.getElementById('workModal').classList.contains('hidden')){if(id==='calApptModal')work.awaitAppt=null;setTimeout(renderWork,0);}
   if(id==='leadModal'){
     clearTimeout(lockHeartbeatTimer);
     if(editingLeadId&&!modalReadOnly)releaseLeadLock(editingLeadId);
@@ -8697,10 +9205,8 @@ async function bootstrapApp(){
     console.warn('Initialer Sync beim Start fehlgeschlagen (wird automatisch per Hintergrund-Abgleich erneut versucht):',e);
     sbInitialSyncDone=true;
   }
-  if(pendingLoginWizard){
-    pendingLoginWizard=false;
-    openLoginWizard();
-  }
+  pendingLoginWizard=false;
+  maybeDailyWizard(); // einmal taeglich ab 09:00 Uhr (statt nur nach Passwort-Anmeldung)
   setTimeout(()=>{sbPoll();window.__sbPollInterval=setInterval(sbPoll,5000);},Math.random()*5000);
   window.__versionCheckInterval=setInterval(checkForNewVersion,60000);
   window.__autoBackupInterval=setInterval(maybeRunClientAutoBackup,60000);
@@ -8893,8 +9399,9 @@ function wizardLeadScope(){
   if(me&&me.role==='am')return leads.filter(l=>(l.members||[]).includes(currentUser));
   return leads;
 }
+// Ueberfaellig = wie in "Meine Aufgaben": nur Leads mit Erstkontakt, nicht abgeschlossen
 function wizardOverdueCount(){
-  return wizardLeadScope().filter(l=>l.followup&&daysUntil(l.followup)<0&&!isClosedLead(l)).length;
+  return wizardLeadScope().filter(l=>l.followup&&l.firstContact&&daysUntil(l.followup)<0&&!isClosedLead(l)).length;
 }
 function wizardStageCounts(){
   const scope=wizardLeadScope();
@@ -9082,7 +9589,7 @@ function renderAmWizardPage(body){
   const idArg=l=>typeof l.id==='number'?l.id:JSON.stringify(String(l.id)).replace(/"/g,'&quot;');
   const pageKey=amWizardPages()[wizardPage]||'quote';
   if(pageKey==='overdue'){
-    const od=scope.filter(l=>l.followup&&daysUntil(l.followup)<0).sort((a,b)=>daysUntil(a.followup)-daysUntil(b.followup));
+    const od=scope.filter(l=>l.followup&&l.firstContact&&daysUntil(l.followup)<0).sort((a,b)=>daysUntil(a.followup)-daysUntil(b.followup));
     const n=od.length;
     body.innerHTML=`
       <div class="wizard-icon"><i class="ti ti-alert-triangle"></i></div>
@@ -9100,7 +9607,7 @@ function renderAmWizardPage(body){
       <div class="wizard-title" style="margin-bottom:8px">Heute geplant${timed.length?` · ${timed.length} ${timed.length===1?'Termin':'Termine'}`:''}</div>
       ${timed.length?timed.slice(0,6).map(x=>wizardRow(`<span style="color:#9fe1cb;margin-right:8px">${x.p.time}</span>${esc(x.l.company)}`,esc(colName(x.l)),'',`wizardOpenLead(${idArg(x.l)})`)).join('')+(timed.length>6?`<div class="wizard-sub">+${timed.length-6} weitere im Kalender</div>`:'')
         :'<div class="wizard-sub">Für heute sind noch keine Termine mit Uhrzeit geplant.</div>'}
-      ${untimed?`<button class="wizard-next-btn" style="margin-top:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)" onclick="wizardJumpToPlanning()">${untimed} ${untimed===1?'Wiedervorlage':'Wiedervorlagen'} noch ohne Uhrzeit <i class="ti ti-arrow-right"></i></button>`:''}`;
+      ${untimed?`<button class="wizard-next-btn" style="margin-top:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)" onclick="wizardJumpToPlanning()">${untimed} ${untimed===1?'FollowUp':'FollowUps'} noch ohne Uhrzeit <i class="ti ti-arrow-right"></i></button>`:''}`;
   }else if(pageKey==='yesterday'){
     const y=wizardYesterday;const d=wizardLastWorkday();
     const label=`${['So','Mo','Di','Mi','Do','Fr','Sa'][d.getDay()]} ${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.`;
@@ -9198,6 +9705,24 @@ function continueOffline(){
   showApp(true);
 }
 let pendingLoginWizard=false;
+// Taeglicher Assistent (Okt. 2026): einmal pro Tag und Person ab 09:00 Uhr - beim ersten Oeffnen
+// nach 9 Uhr oder punkt 9, wenn das Board schon offen ist. Wartet, solange ein anderes Fenster offen ist.
+const WIZARD_HOUR=9;
+function maybeDailyWizard(){
+  try{
+    if(!currentUser||!agentById(currentUser))return;
+    const now=new Date();
+    if(now.getHours()<WIZARD_HOUR)return;
+    const key='projectos_wizard_day_'+currentUser,today=calYmd(now);
+    if(localStorage.getItem(key)===today)return;
+    const ls=document.getElementById('loginScreen');if(ls&&!ls.classList.contains('hidden'))return;
+    const busy=[...document.querySelectorAll('.modal-overlay,.wizard-overlay')].some(o=>!o.classList.contains('hidden'));
+    if(busy)return; // naechster Versuch in einer Minute
+    localStorage.setItem(key,today);
+    openLoginWizard();
+  }catch(e){}
+}
+setInterval(()=>{try{maybeDailyWizard();}catch(e){}},60000);
 function showApp(isFreshLogin){
   document.getElementById('loginScreen').classList.add('hidden');
   document.querySelector('.app-shell').classList.remove('hidden');
@@ -9206,7 +9731,7 @@ function showApp(isFreshLogin){
     if(isFreshLogin)pendingLoginWizard=true;
     bootstrapApp();
   }else if(isFreshLogin){
-    openLoginWizard();
+    maybeDailyWizard();
   }
   if(isFreshLogin){
     setTimeout(()=>{
