@@ -246,6 +246,51 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .cal-day.hol{background-color:rgba(0,0,0,.055)}
 .cal-cell.hol{background:#f1f1f1}
 .cal-cell .hn{font-size:10px;font-weight:600;color:var(--text3);margin:-2px 0 3px}
+.stage-bar{display:flex;gap:2px;overflow-x:auto;padding-bottom:2px}
+.stage-seg{min-width:68px;height:30px;border-radius:6px;color:#fff;font-size:11px;font-weight:600;display:flex;flex-direction:column;justify-content:center;padding:0 8px;white-space:nowrap;overflow:hidden;cursor:default}
+.stage-seg small{font-size:10px;font-weight:500;opacity:.85}
+.stage-seg.cur{box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.stage-end{flex:0 0 auto;min-width:76px;height:30px;border-radius:6px;font-size:11px;font-weight:700;display:flex;flex-direction:column;justify-content:center;padding:0 9px;white-space:nowrap}
+.stage-end small{font-size:10px;font-weight:500}
+.stage-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.stage-tbl th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;padding:5px 6px;border-bottom:1px solid var(--border2,#e4ebea)}
+.stage-tbl td{padding:6px;border-bottom:1px solid var(--border2,#e4ebea)}
+.ts-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.ts-tile{background:#E9F0F1;border-radius:10px;padding:8px 11px;font-size:10px;font-weight:600;color:#0e4f55;text-transform:uppercase;letter-spacing:.03em}
+.ts-tile b{display:block;font-size:17px;font-weight:700;margin-top:2px;text-transform:none;letter-spacing:0}
+.ts-tile small{display:block;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;opacity:.75}
+.ts-tile.main{background:#206A72;color:#d6ecee}.ts-tile.main b{color:#fff}
+.ts-search{position:relative;margin-bottom:4px}
+.ts-res{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--bg,#fff);border:1px solid var(--border2,#dfe7e6);border-radius:10px;box-shadow:0 12px 30px rgba(15,61,66,.14);z-index:60;max-height:300px;overflow-y:auto}
+.ts-res-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;column-gap:10px;align-items:center;padding:8px 12px;border-top:1px solid var(--border2,#eef2f2);cursor:pointer;font-size:12px}
+.ts-res-row:first-child{border-top:0}
+.ts-res-row:hover{background:#E9F0F1}
+.ts-res-row.dis{opacity:.45;cursor:default}
+.ts-res-row small{grid-column:2;font-size:11px;color:var(--text3)}
+.ts-card{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr) auto 26px;column-gap:12px;row-gap:3px;align-items:center;border:1px solid var(--border2,#dfe7e6);border-radius:10px;padding:10px 12px;margin-top:7px}
+.ts-card.crrma-warn{border-color:#FAC775}.ts-card.crrma-bad{border-color:#F09595}
+.ts-qty{grid-column:1;grid-row:1 / span 2;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:#dfe7e6;color:#33424a;cursor:pointer;user-select:none}
+.ts-qty.crrma-good{background:#c9eedf;color:#04342c}.ts-qty.crrma-warn{background:#fbd99a;color:#412402}.ts-qty.crrma-bad{background:#f7c1c1;color:#501313}
+.ts-qty:hover{box-shadow:0 0 0 2px rgba(32,106,114,.35)}
+.ts-qty-menu{position:absolute;left:8px;top:46px;z-index:70;background:var(--bg,#fff);border:1px solid var(--border2,#dfe7e6);border-radius:9px;box-shadow:0 12px 30px rgba(15,61,66,.16);padding:4px;display:grid;grid-template-columns:repeat(5,30px);gap:3px}
+.ts-qty-menu span{text-align:center;font-size:12px;padding:5px 0;border-radius:6px;cursor:pointer}
+.ts-qty-menu span:hover{background:#E9F0F1}.ts-qty-menu span.on{background:#206A72;color:#fff}
+.ts-hits{margin:4px 0 10px;padding:6px;border-radius:12px;background:#E9F0F1}
+.ts-hits .ts-card{margin-top:6px;background:var(--bg,#fff);cursor:pointer}
+.ts-hits .ts-card:first-child{margin-top:0}
+.ts-hits .ts-card:hover{border-color:#206A72;box-shadow:0 0 0 2px rgba(32,106,114,.15)}
+.ts-hits .ts-card.dis{opacity:.5;cursor:default;box-shadow:none}
+.ts-hits .ts-qty{cursor:inherit;font-size:14px}
+.ts-card .bin.add{color:#206A72;font-size:18px;display:flex}
+.ts-res-inline .ts-res{position:static;box-shadow:none;margin-top:6px;max-height:none}
+.ts-card .t{grid-column:2 / span 2;grid-row:1;font-size:13px;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ts-card .bin{grid-column:4;grid-row:1 / span 2;align-self:center;justify-self:end;background:none;border:0;color:var(--text3);cursor:pointer;font-size:16px;padding:0}
+.ts-card .bin:hover{color:var(--red)}
+.ts-card .sku{grid-column:2;grid-row:2;font-size:11px;color:var(--text3)}
+.ts-card .vals{grid-column:3;grid-row:2;display:flex;gap:6px;justify-content:flex-end}
+.ts-pill{border-radius:6px;padding:2px 8px;font-size:11px;background:var(--bg2,#f4f6f6);white-space:nowrap}
+.ts-pill.crrma-warn{background:var(--amber-bg);color:var(--amber-dark);font-weight:600}
+.ts-pill.crrma-bad{background:var(--red-bg);color:var(--red-dark);font-weight:600}
 .board-part-hint{flex:0 0 260px;align-self:flex-start;border:1.5px dashed var(--purple-dark);border-radius:var(--r-md);padding:16px;background:var(--purple-bg);font-size:13px;color:var(--purple-dark);display:flex;flex-direction:column;gap:10px;}
 .board-part-hint button{align-self:flex-start;}
 .nav-icon-badge{width:36px;height:36px;border-radius:9px;background:linear-gradient(180deg,#27808a 0%,#206A72 100%);box-shadow:0 6px 16px rgba(32,106,114,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -1203,7 +1248,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-22T14:00:00.000Z';
+const BUILD_VERSION='2026-10-22T16:15:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -3493,6 +3538,40 @@ function removeContactTime(field){
 }
 // Nur das Datum zaehlt - eine Uhrzeit (z.B. 2026-10-21T14:00) darf die Tage nicht verschieben (bis 21.10.2026 galt 14:00 heute als "morgen").
 function daysUntil(d){if(!d)return null;const diff=(new Date(String(d).slice(0,10))-new Date(TODAY))/86400000;return Math.round(diff);}
+// ── Listen-Verlauf (Okt. 2026): in welchen Listen der Lead war und wie lange ──
+// Quelle: Verlaufseintraege "Status geaendert: A → B" (Datum + Person). Breite = Verweildauer,
+// mit Mindestbreite; Gewonnen/Verloren erscheinen als fester Abschluss.
+let leadStageDetailsOpen=false;
+function leadStageSegments(lead){
+  const ch=(lead.activity||[]).map(a=>{const m=/^Status geändert: (.+?) → (.+?)(?: \(Liste gelöscht\))?$/.exec(a.text||'');return m?{from:m[1].trim(),to:m[2].trim(),date:String(a.date||''),by:a.author}:null;})
+    .filter(x=>x&&x.date).sort((a,b)=>a.date.localeCompare(b.date));
+  const cur=colById(lead.status);
+  let start=String(lead.createdAt||'');
+  if(!start||(ch[0]&&ch[0].date<start))start=ch[0]?ch[0].date:String(lead.statusSince||lead.firstContact||TODAY);
+  const segs=[];let name=ch.length?ch[0].from:(cur?cur.name:'');let from=start,by=null;
+  ch.forEach(c=>{segs.push({name,from,to:c.date,by});name=c.to;from=c.date;by=c.by;});
+  segs.push({name:cur?cur.name:name,from,to:null,by,current:true});
+  return segs;
+}
+function stageShort(n){const i=String(n).indexOf(': ');return i>0?String(n).slice(i+2):String(n);}
+function stageColor(name){const c=COLUMNS.find(x=>x.name===name);return c&&COLOR_TEXT[c.color]?COLOR_TEXT[c.color]:'#888780';}
+function renderLeadStageBar(lead){
+  const segs=leadStageSegments(lead);
+  if(!segs.length)return '';
+  const cur=colById(lead.status);const closed=!!(cur&&(cur.outcome==='won'||cur.outcome==='lost'));
+  const dayDiff=(a,b)=>Math.max(0,Math.round((new Date(String(b).slice(0,10)+'T00:00:00')-new Date(String(a).slice(0,10)+'T00:00:00'))/86400000));
+  const bars=segs.filter(x=>!(closed&&x.current));
+  const endSeg=closed?segs[segs.length-1]:null;
+  const ag=id=>{const a=agentById(id);return a?a.name:'';};
+  const html=bars.map(x=>{const d=dayDiff(x.from,x.to||TODAY);const tip=`${x.name}\n${fmtDate(String(x.from).slice(0,10))} – ${x.to?fmtDate(String(x.to).slice(0,10)):'heute'} · ${d} ${d===1?'Tag':'Tage'}${x.by?'\nverschoben von '+ag(x.by):''}`;
+      return `<div class="stage-seg ${x.current?'cur':''}" style="flex:${Math.max(1,d)} 0 68px;background:${stageColor(x.name)}" title="${esc(tip)}">${esc(stageShort(x.name))}<small>${x.current?'seit ':''}${d} T</small></div>`;}).join('')
+    +(endSeg?`<div class="stage-end" style="${cur.outcome==='won'?'background:#e3f5ee;color:#0b5e45':'background:#fcebeb;color:#a32d2d'}" title="${esc(endSeg.name+' · '+fmtDate(String(endSeg.from).slice(0,10)))}"><span><i class="ti ti-${cur.outcome==='won'?'circle-check':'circle-x'}"></i> ${cur.outcome==='won'?'Gewonnen':'Verloren'}</span><small>${fmtDate(String(endSeg.from).slice(0,10))}</small></div>`:'');
+  const rows=segs.map(x=>{const d=dayDiff(x.from,x.to||TODAY);const isEnd=closed&&x.current;return `<tr ${x.current?'style="font-weight:600"':''}><td><span style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;background:${isEnd?(cur.outcome==='won'?'#0f6e56':'#e24b4a'):stageColor(x.name)}"></span>${esc(x.name)}</td><td>${fmtDate(String(x.from).slice(0,10))}</td><td>${isEnd?'–':(x.to?fmtDate(String(x.to).slice(0,10)):'heute')}</td><td>${isEnd?'–':d+' '+(d===1?'Tag':'Tage')}</td><td>${esc(ag(x.by)||(x===segs[0]?'Anlage':''))}</td></tr>`;}).join('');
+  const n=segs.length-1;
+  return `<div style="margin-bottom:10px"><div class="stage-bar">${html}</div>
+    ${n>0?`<div style="font-size:11px;margin-top:5px"><a href="#" style="color:#206A72;font-weight:600" onclick="event.preventDefault();leadStageDetailsOpen=!leadStageDetailsOpen;renderLeadModal()">${leadStageDetailsOpen?'Listenwechsel ausblenden':`Alle Listenwechsel anzeigen (${n})`}</a></div>`:''}
+    ${leadStageDetailsOpen&&n>0?`<table class="stage-tbl"><thead><tr><th>Liste</th><th>Von</th><th>Bis</th><th>Dauer</th><th>Verschoben von</th></tr></thead><tbody>${rows}</tbody></table>`:''}</div>`;
+}
 function renderFollowupTimeline(lead){
   const lostCol=colById(lead.status);
   const isLost=!!(lostCol&&lostCol.outcome==='lost');
@@ -4195,7 +4274,7 @@ function periodStartDate(p){
 function computeDashboardKpiMetrics(arr){
   const overdue=arr.filter(l=>l.followup&&daysUntil(l.followup)<0).length;
   const forecastSum=arr.reduce((s,l)=>s+(parseFloat(l.forecast)||0),0);
-  const investSum=arr.reduce((s,l)=>s+l.shipPrinter.skus.reduce((ss,x)=>ss+(parseFloat(x.priceEk)||0),0),0);
+  const investSum=arr.reduce((s,l)=>s+shipEkTotal(l),0);
   const shippedCount=arr.filter(l=>l.tonerSent==='Ja').length;
   const investTotal=investSum+shippedCount*SHIPPING_COST_PER_SEND;
   const won=arr.filter(l=>isWon(l)).length;
@@ -4600,7 +4679,7 @@ function renderDashboard(){
   const closedCount=won+lost;
   const winRateClosed=closedCount?Math.round(won/closedCount*100):null;
   const forecastSum=dl.reduce((s,l)=>s+(parseFloat(l.forecast)||0),0);
-  const investSum=dl.reduce((s,l)=>s+l.shipPrinter.skus.reduce((ss,x)=>ss+(parseFloat(x.priceEk)||0),0),0);
+  const investSum=dl.reduce((s,l)=>s+shipEkTotal(l),0);
   const shippedCount=dl.filter(l=>l.tonerSent==='Ja').length;
   const shippingCostSum=shippedCount*SHIPPING_COST_PER_SEND;
 
@@ -4616,7 +4695,7 @@ function renderDashboard(){
   const daysElapsed=Math.max(0,Math.round((today-projStart)/86400000));
   const timeProgress=Math.min(100,Math.round(daysElapsed/daysTotal*100));
   const daysRemaining=Math.round((projEnd-today)/86400000);
-  const allInvestSum=leads.reduce((s,l)=>s+l.shipPrinter.skus.reduce((ss,x)=>ss+(parseFloat(x.priceEk)||0),0),0);
+  const allInvestSum=leads.reduce((s,l)=>s+shipEkTotal(l),0);
   const budgetProgress=PROJECT.budget?Math.round(allInvestSum/PROJECT.budget*100):0;
   const overdueMilestones=PROJECT.milestones.filter(m=>!m.done&&daysUntil(m.targetDate)<0);
   const doneMilestones=PROJECT.milestones.filter(m=>m.done).length;
@@ -4786,7 +4865,7 @@ function renderDashboard(){
   // Finanzielle Auswirkung: Forecast gewonnen vs. verloren, Investition gesamt vs. in verlorene Leads, Netto-Effekt
   const forecastWon=dl.filter(l=>isWon(l)).reduce((s,l)=>s+(parseFloat(l.forecast)||0),0);
   const forecastLost=lostLeads.reduce((s,l)=>s+(parseFloat(l.forecast)||0),0);
-  const investLost=lostLeads.reduce((s,l)=>s+l.shipPrinter.skus.reduce((ss,x)=>ss+(parseFloat(x.priceEk)||0),0),0);
+  const investLost=lostLeads.reduce((s,l)=>s+shipEkTotal(l),0);
   const netEffect=forecastWon-investLost;
 
   // B2B vs. B2C (Kategorien ohne Leads werden nicht angezeigt)
@@ -7194,21 +7273,10 @@ function renderLeadModal(){
     <button class="check-item-del" onclick="deleteCheckItem(${c.id})"><i class="ti ti-x"></i></button>
   </div>`).join('');
 
-  const shipSkuTotal=draftLead.shipPrinter.skus.reduce((s,x)=>s+(parseFloat(x.priceEk)||0),0);
+  const shipSkuTotal=shipEkTotal(draftLead);
   const shipCostApplies=draftLead.tonerSent==='Ja';
   const shipInvestTotal=shipSkuTotal+(shipCostApplies?SHIPPING_COST_PER_SEND:0);
-  const shipPrinterHtml=`
-    <div class="field" style="margin-bottom:8px;position:relative">
-      <input type="text" id="shipPrinterModelInput" placeholder="Modell, z. B. HP LaserJet Pro M404" value="${draftLead.shipPrinter.model}" oninput="handlePrinterModelInput(this,'ship',null)" onblur="setTimeout(closePrinterModelPopover,150)" style="width:100%">
-    </div>
-    <div class="sku-grid">
-      ${['I','II','III','IV'].map((rn,i)=>`<div><label>SKU ${rn}</label><input type="text" placeholder="SKU ${rn}" value="${draftLead.shipPrinter.skus[i].sku||''}" oninput="updateShipPrinterSku(${i},'sku',this.value)" style="width:100%"></div>`).join('')}
-    </div>
-    <div class="sku-grid" style="margin-top:6px">
-      ${['I','II','III','IV'].map((rn,i)=>`<div><label>Preis EK ${rn} (EUR)</label><input type="number" min="0" step="0.5" placeholder="0" value="${draftLead.shipPrinter.skus[i].priceEk||''}" oninput="updateShipPrinterSku(${i},'priceEk',this.value)" style="width:100%"></div>`).join('')}
-    </div>
-    ${shipCostApplies?`<p style="font-size:11px;color:var(--text2);margin-top:8px">Versandkosten (pauschal): <strong>${fmtEur(SHIPPING_COST_PER_SEND)}</strong></p>`:''}
-    ${shipInvestTotal?`<p style="font-size:11px;color:var(--text2);margin-top:4px">Investition gesamt (Patronen${shipCostApplies?' + Versand':''}): <strong>${fmtEur(shipInvestTotal)}</strong></p>`:''}`;
+  const shipPrinterHtml=shipArticlesHtml(shipSkuTotal,shipCostApplies,shipInvestTotal);
 
   const topArticlesHtml=draftLead.topArticles.map((a,i)=>`
     <div class="field-row-3" style="${i===draftLead.topArticles.length-1?'margin-bottom:0':''}">
@@ -7544,15 +7612,17 @@ function renderLeadModal(){
 
         <div class="info-section">
           <div class="section-hdr">
-            <span>Drucker &amp; Patronen (Versand)</span>
+            <span style="display:flex;align-items:center;gap:6px"><i class="ti ti-package" style="font-size:15px;color:var(--purple)"></i>Toner zusenden</span>
+            <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:none;letter-spacing:0">${draftLead.shipPrinter.skus.filter(x=>x.sku).length} von 4 Artikeln</span>
           </div>
-          <p style="font-size:11px;color:var(--text3);margin:-4px 0 8px">Welcher Drucker erhält den kostenlosen Toner – inkl. deinem Einkaufspreis je SKU (Investitionskosten).</p>
           ${shipPrinterHtml}
         </div>
 
         <div class="info-section" style="${(memberPopoverOpen||labelPopoverOpen)?'position:relative;z-index:50':''}">
           <div class="section-hdr">Lead-Status</div>
           <div style="margin-bottom:12px">
+            <span class="small-label">Listen</span>
+            ${renderLeadStageBar(draftLead)}
             <span class="small-label">Zeitstrahl</span>
             ${renderFollowupTimeline(draftLead)}
           </div>
@@ -7824,6 +7894,70 @@ function closePrinterModelPopover(){
 }
 function updateShipPrinterModel(val){draftLead.shipPrinter.model=val;}
 function updateShipPrinterSku(idx,field,val){draftLead.shipPrinter.skus[idx][field]=val;}
+// ── Toner zusenden (Okt. 2026): Artikel aus dem Artikelstamm suchen, max. 4 je Lead ──
+// Gespeichert wird wie bisher in shipPrinter.skus (sku, priceEk) - zusaetzlich priceVk, title, articleId.
+let shipArtQ='';let shipQtyOpen=-1;
+function shipQty(x){const q=parseInt(x&&x.qty,10);return q>0?q:1;}
+function shipEkTotal(l){return ((l&&l.shipPrinter&&l.shipPrinter.skus)||[]).reduce((s,x)=>s+(x.sku?(parseFloat(x.priceEk)||0)*shipQty(x):(parseFloat(x.priceEk)||0)),0);}
+function shipSetQty(i,q){if(modalReadOnly)return;const x=draftLead.shipPrinter.skus[i];if(!x)return;x.qty=Math.max(1,Math.min(10,q|0));shipQtyOpen=-1;autoPersistIfEditing();renderLeadModal();}
+function shipToggleQty(i,e){if(e)e.stopPropagation();if(modalReadOnly)return;shipQtyOpen=shipQtyOpen===i?-1:i;renderLeadModal();}
+const SHIP_ART_MAX=4;
+function shipNum(v){const n=parseFloat(String(v===undefined||v===null?'':v).replace(',','.'));return isNaN(n)?null:n;}
+function shipArticleFor(slot){if(!slot||!slot.sku)return null;return (slot.articleId&&ARTICLES.find(a=>a.id===slot.articleId))||ARTICLES.find(a=>String(a.sku).trim().toLowerCase()===String(slot.sku).trim().toLowerCase())||null;}
+function shipArticlesHtml(skuTotal,costApplies,investTotal){
+  const slots=draftLead.shipPrinter.skus.filter(x=>x.sku);
+  const vkTotal=slots.reduce((s,x)=>{const a=shipArticleFor(x);const v=shipNum(a?a.vk:x.priceVk);return s+(v||0)*shipQty(x);},0);
+  const tiles=`<div class="ts-tiles">
+    <div class="ts-tile">Patronen EK<b>${fmtEurCent(skuTotal)}</b></div>
+    <div class="ts-tile">Versand<b>${fmtEurCent(costApplies?SHIPPING_COST_PER_SEND:0)}</b>${costApplies?'':`<small>zählt ab Versand</small>`}</div>
+    <div class="ts-tile main">Investition<b>${fmtEurCent(investTotal)}</b></div>
+    <div class="ts-tile">VK gesamt<b>${fmtEurCent(vkTotal)}</b></div></div>`;
+  const search=slots.length<SHIP_ART_MAX&&!modalReadOnly?`<div class="ts-search"><input type="text" id="shipArtSearch" placeholder="Artikel suchen (Titel oder SKU) …" value="${esc(shipArtQ)}" oninput="shipArtSearch(this.value)" onblur="setTimeout(()=>{const r=document.getElementById('shipArtResults');if(r)r.innerHTML='';},180)" autocomplete="off" style="width:100%"><div id="shipArtResults" class="ts-res-inline"></div></div>`
+    :(slots.length>=SHIP_ART_MAX?`<div style="font-size:11px;color:var(--text3);margin-bottom:2px">Maximal ${SHIP_ART_MAX} Artikel – zum Tauschen zuerst einen entfernen.</div>`:'');
+  const cards=draftLead.shipPrinter.skus.map((x,i)=>{
+    if(!x.sku)return '';
+    const a=shipArticleFor(x);
+    const rma=a?shipNum(a.crRma):null;const cls=rma===null?'':crRmaCellClass(rma);
+    const ek=shipNum(x.priceEk),vk=shipNum(a?a.vk:x.priceVk);
+    const title=a&&a.title?a.title:(x.title||'');
+    const q=shipQty(x);
+    return `<div class="ts-card ${cls}"><span class="ts-qty ${cls}" onclick="shipToggleQty(${i},event)" title="Menge ändern">${q}×</span>${shipQtyOpen===i?`<div class="ts-qty-menu" onclick="event.stopPropagation()">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<span class="${n===q?'on':''}" onclick="shipSetQty(${i},${n})">${n}</span>`).join('')}</div>`:''}<span class="t" title="${esc(title||x.sku)}">${title?esc(title):'<span style="color:var(--text3);font-weight:500">Nicht im Artikelstamm</span>'}</span>${modalReadOnly?'<span></span>':`<button class="bin" onclick="shipArtRemove(${i})" title="Artikel entfernen"><i class="ti ti-trash"></i></button>`}
+      <span class="sku">${esc(x.sku)}</span><span class="vals"><span class="ts-pill">EK ${ek!==null?fmtEurCent(ek):'–'}</span><span class="ts-pill">VK ${vk!==null?fmtEurCent(vk):'–'}</span><span class="ts-pill ${cls}">RMA ${rma!==null?String(rma).replace('.',',')+' %':'–'}</span></span></div>`;
+  }).join('');
+  return tiles+search+(cards||`<div style="font-size:12px;color:var(--text3);margin-top:6px">Noch keine Artikel – über die Suche hinzufügen.</div>`);
+}
+function fmtEurCent(v){return Number(v).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
+function shipArtSearch(v){shipArtQ=v;renderShipArtResults();}
+function renderShipArtResults(){
+  const el=document.getElementById('shipArtResults');if(!el)return;
+  const q=(shipArtQ||'').toLowerCase().trim();
+  if(q.length<2){el.innerHTML='';return;}
+  const chosen=new Set(draftLead.shipPrinter.skus.filter(x=>x.sku).map(x=>String(x.sku).toLowerCase()));
+  const all=ARTICLES.filter(a=>a.sku&&(String(a.sku).toLowerCase().includes(q)||String(a.title||'').toLowerCase().includes(q)));
+  const hits=all.slice(0,12);
+  if(!hits.length){el.innerHTML=`<div style="font-size:12px;color:var(--text3);padding:8px 2px">Kein Artikel gefunden.</div>`;return;}
+  el.innerHTML=`<div class="ts-hits">${hits.map(a=>{const dis=chosen.has(String(a.sku).toLowerCase());const rma=shipNum(a.crRma);const cls=rma===null?'':crRmaCellClass(rma);const ek=shipNum(a.ek),vk=shipNum(a.vk);
+    return `<div class="ts-card ts-hit ${cls} ${dis?'dis':''}" ${dis?'title="Bereits gewählt"':`onmousedown="event.preventDefault();shipArtPick('${esc(String(a.id))}')" title="Artikel übernehmen"`}><span class="ts-qty ${cls}">${dis?'<i class="ti ti-check"></i>':'<i class="ti ti-plus"></i>'}</span><span class="t">${esc(a.title||a.sku)}</span><span class="bin add">${dis?'<i class="ti ti-check"></i>':'<i class="ti ti-circle-plus"></i>'}</span><span class="sku">${esc(a.sku)}${dis?' · bereits gewählt':''}</span><span class="vals"><span class="ts-pill">EK ${ek!==null?fmtEurCent(ek):'–'}</span><span class="ts-pill">VK ${vk!==null?fmtEurCent(vk):'–'}</span><span class="ts-pill ${cls}">RMA ${rma!==null?String(rma).replace('.',',')+' %':'–'}</span></span></div>`;}).join('')}${all.length>12?`<div style="font-size:11px;color:var(--text3);padding:6px 2px 0">+ ${all.length-12} weitere Treffer – Suche genauer eingeben</div>`:''}</div>`;
+}
+function shipArtPick(articleId){
+  if(modalReadOnly)return;
+  const a=ARTICLES.find(x=>String(x.id)===String(articleId));if(!a)return;
+  const sk=draftLead.shipPrinter.skus;
+  if(sk.some(x=>x.sku&&String(x.sku).toLowerCase()===String(a.sku).toLowerCase()))return;
+  const i=sk.findIndex(x=>!x.sku);if(i<0)return;
+  const ek=shipNum(a.ek),vk=shipNum(a.vk);
+  sk[i]={sku:a.sku,priceEk:ek!==null?String(ek):'',priceVk:vk!==null?String(vk):'',title:a.title||'',articleId:a.id};
+  shipArtQ='';
+  autoPersistIfEditing();renderLeadModal();
+  setTimeout(()=>{const inp=document.getElementById('shipArtSearch');if(inp)inp.focus();},0);
+}
+function shipArtRemove(i){
+  if(modalReadOnly)return;
+  const sk=draftLead.shipPrinter.skus.filter((x,k)=>k!==i&&x.sku);
+  while(sk.length<SHIP_ART_MAX)sk.push({sku:'',priceEk:'',priceVk:''});
+  draftLead.shipPrinter.skus=sk;
+  autoPersistIfEditing();renderLeadModal();
+}
 function updateTopArticle(idx,field,val){draftLead.topArticles[idx][field]=val;}
 
 // Kundenbedarf-Drucker (Forecast-Tab, mehrere Drucker, mit benötigter Anzahl je SKU)
@@ -9040,8 +9174,8 @@ const FIELD_REGISTRY={
   competitor:{label:'Wettbewerber',group:'Kundeninformationen',importable:true,aliases:['wettbewerber','competitor'],example:'Wettbewerber GmbH',get:l=>l.competitor||'',set:(l,v)=>l.competitor=v},
   notes:{label:'Notizen',group:'Kundeninformationen',importable:true,aliases:['notizen','notiz','notes','bemerkung','kommentar'],example:'Interessiert, ruft nächste Woche zurück',get:l=>l.notes,set:(l,v)=>l.notes=v},
   shipPrinterModel:{label:'Versand-Drucker',group:'Drucker & Patronen (Versand)',importable:false,get:l=>l.shipPrinter.model},
-  shipSkus:{label:'Versand-SKUs (EK)',group:'Drucker & Patronen (Versand)',importable:false,get:l=>l.shipPrinter.skus.filter(s=>s.sku).map(s=>`${s.sku}${s.priceEk?` (EK ${fmtEur(s.priceEk)||'0 €'})`:''}`).join(', ')},
-  investTotal:{label:'Investition gesamt EK + Versand (EUR)',group:'Drucker & Patronen (Versand)',importable:false,get:l=>{const skuTotal=l.shipPrinter.skus.reduce((s,x)=>s+(parseFloat(x.priceEk)||0),0);const total=skuTotal+(l.tonerSent==='Ja'?SHIPPING_COST_PER_SEND:0);return total?csvEur(total):'';}},
+  shipSkus:{label:'Versand-SKUs (EK)',group:'Drucker & Patronen (Versand)',importable:false,get:l=>l.shipPrinter.skus.filter(s=>s.sku).map(s=>`${shipQty(s)>1?shipQty(s)+'× ':''}${s.sku}${s.priceEk?` (EK ${fmtEur(s.priceEk)||'0 €'})`:''}`).join(', ')},
+  investTotal:{label:'Investition gesamt EK + Versand (EUR)',group:'Drucker & Patronen (Versand)',importable:false,get:l=>{const skuTotal=shipEkTotal(l);const total=skuTotal+(l.tonerSent==='Ja'?SHIPPING_COST_PER_SEND:0);return total?csvEur(total):'';}},
   shippingCost:{label:'Versandkosten (EUR)',group:'Drucker & Patronen (Versand)',importable:false,get:l=>l.tonerSent==='Ja'?csvEur(SHIPPING_COST_PER_SEND):''},
   tonerSent:{label:'Free Toner verschickt',group:'Drucker & Patronen (Versand)',importable:true,aliases:['free toner verschickt'],example:'Ja',get:l=>l.tonerSent,set:(l,v)=>{if(v)l.tonerSent=v;}},
   statusName:{label:'Status',group:'Lead-Status',importable:false,get:l=>colById(l.status).name},
@@ -9566,6 +9700,7 @@ document.addEventListener('click',e=>{
   if(!e.target.closest('.omni-addfilter-wrap')&&filterMenuOpen){filterMenuOpen=false;document.getElementById('filterMenu').classList.remove('show');}
   if(!e.target.closest('.infobtn-wrap')&&overflowMenuOpen){overflowMenuOpen=false;document.getElementById('overflowMenu').classList.remove('show');}
   if(!e.target.closest('.crrma-menu-wrap')&&crrmaMenuOpen){crrmaMenuOpen=false;document.getElementById('crrmaOverflowMenu').classList.remove('show');}
+  if(shipQtyOpen>=0&&!e.target.closest('.ts-qty-menu')&&!e.target.closest('.ts-qty')){shipQtyOpen=-1;if(draftLead)renderLeadModal();}
   if(!e.target.closest('.omni-addfilter-wrap')&&calFilterMenuOpen){calFilterMenuOpen=false;const mc=document.getElementById('calFilterMenu');if(mc)mc.classList.remove('show');}
   if(!e.target.closest('.omni-addfilter-wrap')&&tasksFilterMenuOpen){tasksFilterMenuOpen=false;const m=document.getElementById('tasksFilterMenu');if(m)m.classList.remove('show');}
   if(!e.target.closest('.omni-addfilter-wrap')&&activityFilterMenuOpen){activityFilterMenuOpen=false;const m2=document.getElementById('activityFilterMenu');if(m2)m2.classList.remove('show');}
@@ -9934,7 +10069,7 @@ function wizardTeamOverdueCount(){
 }
 function wizardTeamInvestTotal(){
   const open=leads.filter(l=>!isClosedLead(l));
-  const investSum=open.reduce((s,l)=>s+l.shipPrinter.skus.reduce((ss,x)=>ss+(parseFloat(x.priceEk)||0),0),0);
+  const investSum=open.reduce((s,l)=>s+shipEkTotal(l),0);
   const shippedCount=open.filter(l=>l.tonerSent==='Ja').length;
   return Math.round(investSum+shippedCount*SHIPPING_COST_PER_SEND);
 }
