@@ -568,6 +568,136 @@ button.ts-pill.fc-vk.mod::after{content:"";position:absolute;top:-3px;right:-3px
 .ord-del{border:0;background:transparent;color:var(--text3);font-size:12px;display:inline-flex;gap:5px;align-items:center;cursor:pointer;font-family:inherit}
 .ord-del:hover{color:var(--red)}
 .ts-tile small{display:block;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;opacity:.8}
+.ds1-grid{display:grid;gap:12px;margin:0 0 14px}
+.ds1-g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ds1-g12{grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);margin-bottom:22px}
+.ds1-box{background:#fbfbfa;border:1px solid #e1e8e8;border-radius:14px;padding:14px 16px;box-shadow:0 12px 30px rgba(15,61,66,.07);min-width:0}
+.ds1-bh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ds1-bh h2{margin:0;font-size:11px;font-weight:700;color:#4b5b60;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;gap:6px}
+.ds1-bh .r{margin-left:auto;font-size:11.5px;color:var(--text3)}
+.ds1-pill{display:inline-flex;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700}
+.ds1-pill.akquise{background:#E9F0F1;color:#206A72}.ds1-pill.vertrieb{background:#faeeda;color:#7a4e07}
+.ds1-fun{display:flex;flex-direction:column;gap:4px}
+.ds1-fr{display:grid;grid-template-columns:170px minmax(0,1fr) 58px;gap:10px;align-items:center;font-size:12.5px;border:0;background:transparent;padding:2px 4px;border-radius:7px;text-align:left;width:100%;cursor:pointer;font-family:inherit;color:inherit}
+.ds1-fr:hover{background:#E9F0F1}
+.ds1-fr .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text2)}
+.ds1-bar{height:22px;border-radius:6px;background:#E9F0F1;position:relative;overflow:hidden}
+.ds1-bar i{position:absolute;inset:0 auto 0 0;border-radius:6px}
+.ds1-bar span{position:relative;font-size:11px;font-weight:700;padding-left:7px;line-height:22px;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.15)}
+.ds1-fr .c2{text-align:right;font-weight:700}.ds1-fr .c2 small{display:block;font-weight:500;color:var(--text3);font-size:10.5px}
+.ds1-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.ds1-fbox{display:flex;flex-direction:column}
+.ds1-ho-ch{font-size:12px;color:#534ab7;transition:transform .15s;margin-right:3px;vertical-align:-1px}.ds1-fr-ho.open .ds1-ho-ch{transform:rotate(90deg)}
+.ds1-fr-ho .n{color:#534ab7;font-weight:600}
+.ds1-ho-list{margin:2px 0 6px 18px;border-left:2px solid #e2e0f7;padding:2px 0 2px 10px;display:flex;flex-direction:column;gap:2px;max-height:240px;overflow-y:auto}
+.ds1-ho-it{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) 78px minmax(0,1fr);gap:8px;align-items:center;border:0;background:transparent;padding:4px 6px;border-radius:6px;text-align:left;font-family:inherit;font-size:12px;cursor:pointer}
+.ds1-ho-it:hover{background:#eeedfe}
+.ds1-ho-it .co{font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds1-ho-it .me{color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds1-ho-empty{font-size:12px;color:var(--text3);padding:4px 6px}
+.ds1-agelg{font-size:11.5px;color:var(--text3);margin:-6px 2px 14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ds1-agelg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-left:8px}
+.ds1-fbox .ds1-mini{margin-top:auto;padding-top:12px}
+.ds1-g2{align-items:stretch}
+.ds1-mini div{background:#E9F0F1;border-radius:10px;padding:8px 10px;font-size:10.5px;color:#206A72;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.ds1-mini b{display:block;font-size:17px;text-transform:none;letter-spacing:0;margin-top:1px}
+.ds1-mini .warn{background:#faeeda;color:#7a4e07}.ds1-mini .bad{background:#fcebeb;color:#a32d2d}.ds1-mini .good{background:#e3f5ee;color:#1d7a5a}
+.ds1-risk{display:flex;flex-direction:column;gap:8px}
+.ds1-rr{display:flex;align-items:center;gap:10px;border-radius:10px;padding:9px 12px;border:0;text-align:left;width:100%;font-family:inherit}
+button.ds1-rr{cursor:pointer}button.ds1-rr:hover{filter:brightness(.97)}
+.ds1-rr b{font-size:20px;min-width:36px}.ds1-rr span{flex:1;font-size:12.5px}.ds1-rr em{font-style:normal;font-size:11px;opacity:.75}
+.ds1-rr.red{background:#fcebeb;color:#a32d2d}.ds1-rr.amb{background:#faeeda;color:#7a4e07}.ds1-rr.pet{background:#E9F0F1;color:#206A72}
+.ds1-tab{width:100%;border-collapse:collapse;font-size:12.5px}
+.ds1-tab th{text-align:left;font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;padding:6px 8px;border-bottom:1px solid #e1e8e8;white-space:nowrap;cursor:pointer}
+.ds1-tab th.on{color:#206A72}.ds1-tab .r{text-align:right}
+.ds1-tab td{padding:8px;border-bottom:1px solid #e1e8e8;white-space:nowrap}
+.ds1-tab tbody tr:last-child td{border-bottom:0}
+.ds1-tab tfoot td{font-weight:700;border-top:1px solid #e1e8e8}
+.ds1-av{display:inline-flex;width:22px;height:22px;border-radius:50%;font-size:9.5px;font-weight:700;align-items:center;justify-content:center;margin-right:7px;vertical-align:middle}
+.ds1-chip{display:inline-flex;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700}.ds1-chip.red{background:#fcebeb;color:#a32d2d}.ds1-chip.amb{background:#faeeda;color:#7a4e07}
+@media (max-width:1100px){.ds1-g12{grid-template-columns:1fr}}
+@media (max-width:760px){.ds1-g2{grid-template-columns:1fr}.ds1-fr{grid-template-columns:110px minmax(0,1fr) 50px}}
+.ds2-head{font-size:12px;font-weight:700;color:#174C52;text-transform:uppercase;letter-spacing:.05em;margin:6px 2px 8px;display:flex;align-items:center;gap:8px}
+.ds2-head::after{content:"";flex:1;height:1px;background:#d5dfdf}
+.ds2-g21{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.ds2-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ds2-why{font-size:11.5px;color:var(--text3);margin-top:8px;border-top:1px solid #e1e8e8;padding-top:7px}.ds2-why b{color:var(--text2)}
+.ds2-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--text2);margin-top:6px}.ds2-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.ds2-big{font-size:26px;font-weight:700;line-height:1.15}
+.ds2-sub{font-size:11.5px;color:var(--text3)}
+.ds2-kp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.ds2-kp div{background:#E9F0F1;border-radius:10px;padding:9px 11px;font-size:10.5px;font-weight:700;color:#206A72;text-transform:uppercase;letter-spacing:.03em}
+.ds2-kp b{display:block;font-size:18px;text-transform:none;letter-spacing:0;margin-top:2px}
+.ds2-kp small{display:block;font-size:10.5px;font-weight:500;text-transform:none;letter-spacing:0;opacity:.85}
+.ds2-kp .g{background:#e3f5ee;color:#1d7a5a}.ds2-kp .w{background:#faeeda;color:#7a4e07}
+.ds2-hb{display:grid;grid-template-columns:170px minmax(0,1fr) 70px;gap:8px;align-items:center;font-size:12.5px;margin:6px 0}
+.ds2-hb .bar{height:16px;border-radius:5px;background:#E9F0F1;overflow:hidden}.ds2-hb .bar i{display:block;height:100%;border-radius:5px}
+.ds2-hb .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text2)}.ds2-hb .r{text-align:right}
+.ds2-mbar{height:8px;border-radius:4px;background:#E9F0F1;overflow:hidden;min-width:60px;display:block}.ds2-mbar i{display:block;height:100%;border-radius:4px;background:#206A72}
+.ds2-tag{display:inline-flex;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700}.ds2-tag.g{background:#e3f5ee;color:#1d7a5a}.ds2-tag.w{background:#faeeda;color:#7a4e07}.ds2-tag.b{background:#fcebeb;color:#a32d2d}
+.ds2-prog{height:16px;border-radius:8px;background:#E9F0F1;position:relative;overflow:visible;margin:10px 0 6px}
+.ds2-prog i{position:absolute;inset:0 auto 0 0;background:#206A72;border-radius:8px}
+.ds2-prog s{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(45deg,rgba(32,106,114,.35) 0 6px,rgba(32,106,114,.15) 6px 12px);border-radius:8px}
+.ds2-prog .mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:#1c2a2f}
+.ds2-heat{display:grid;grid-template-columns:44px repeat(5,minmax(0,1fr));gap:4px;font-size:11px}
+.ds2-heat .h{color:var(--text3);text-align:center}.ds2-heat .d{color:var(--text3);display:flex;align-items:center}
+.ds2-heat .c{height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700}
+@media (max-width:1100px){.ds2-g21,.ds2-g3{grid-template-columns:1fr}}
+.pf-section{margin-bottom:14px}
+.pf2{display:grid;column-gap:0;row-gap:8px;align-items:center}
+.pf2-dr{display:flex;flex-direction:column;align-items:center;margin-top:-8px;min-height:30px;border:0;background:transparent;padding:0;font-family:inherit;cursor:pointer}
+div.pf2-dr{cursor:default}
+.pf2-dr i{display:block;width:2px;height:9px;background:linear-gradient(rgba(192,57,43,.25),#c0392b)}
+.pf2-dr b{display:flex;align-items:center;justify-content:center;border-radius:50%;background:#c0392b;color:#fff;font-size:10.5px;font-weight:700;box-shadow:0 2px 5px rgba(192,57,43,.3)}
+.pf2-lostbox{height:84px;margin-left:16px;border-radius:12px;background:#fcebeb;border:1px solid #f3c9c9;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a32d2d}
+.pf2-lostbox b{font-size:22px;line-height:1.1}
+.pf2-lostbox span{font-size:10.5px;font-weight:600}
+.pf2-lab{display:flex;flex-direction:column;align-items:center;gap:1px;border:0;background:transparent;padding:0 4px;min-width:0;font-family:inherit;cursor:pointer;align-self:start}
+.pf2-lab .nm{font-size:11px;font-weight:600;color:var(--text2);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf2-lab .v{font-size:12px;font-weight:700;color:var(--text)}
+.pf2-lab .ls{font-size:10.5px;font-weight:600;color:#a32d2d;min-height:14px;white-space:nowrap}
+.pf2-lostlab{cursor:default;margin-left:16px}.pf2-lostlab .nm,.pf2-lostlab .v{color:#a32d2d}.pf2-lostlab .ls{color:var(--text3);font-weight:500;white-space:normal;text-align:center}
+.pf-section .movements-strip{gap:8px}
+.pf-section .movements-item{background:#E9F0F1;border-radius:999px;padding:5px 12px}
+.dg{margin:0 0 6px}
+.ds1-g3{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+.ds3-offer{display:flex;flex-direction:column}
+.ds3-sw{display:flex;gap:2px;background:#E9F0F1;border-radius:8px;padding:2px;margin-left:auto}
+.ds3-sw button{border:0;background:transparent;border-radius:6px;padding:2px 8px;font-size:11px;color:var(--text2);font-family:inherit;cursor:pointer}
+.ds3-sw button[aria-pressed="true"]{background:#fff;color:#206A72;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.ds3-qr{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ds3-qr .sum{flex:1;min-width:0}.ds3-qr .sum b{display:block;font-size:22px;color:#206A72;line-height:1.15}.ds3-qr .sum span{font-size:11.5px;color:var(--text3)}
+.ds3-qr .q{display:flex;flex-direction:column;align-items:center;font-size:10px;color:var(--text3);text-align:center;line-height:1.3}
+.ds3-ring-empty{width:58px;height:58px;border-radius:50%;border:7px solid #E9F0F1;display:flex;align-items:center;justify-content:center;color:var(--text3);font-weight:700;box-sizing:border-box}
+.ds3-lb{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:3px 8px;align-items:center;padding:6px 4px;border-radius:7px;cursor:pointer;border:0;background:transparent;text-align:left;font-family:inherit;width:100%}
+.ds3-lb:hover{background:#E9F0F1}
+.ds3-lb .dot{width:9px;height:9px;border-radius:50%}
+.ds3-lb .co{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;font-size:13px;color:var(--text)}
+.ds3-lb .mg{font-weight:700;color:#206A72;font-size:12.5px;text-align:right}
+.ds3-lb .bar{grid-column:2 / 4;height:6px;border-radius:3px;background:#E9F0F1;overflow:hidden}.ds3-lb .bar i{display:block;height:100%;border-radius:3px;background:#206A72}
+.ds3-lb .sub{grid-column:2 / 4;font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ds3-more{border:0;background:transparent;color:#206A72;font-weight:600;font-size:12px;padding:6px 4px;text-align:left;cursor:pointer;font-family:inherit}
+.ds3-leg{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--text3);margin-top:auto;padding-top:8px}.ds3-leg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.ds3-days{display:flex;align-items:flex-end;gap:3px;height:140px;padding-bottom:16px;border-bottom:1px solid #e1e8e8;position:relative}
+.ds3-day{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-width:0}
+.ds3-day .stack{display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden;min-height:0}
+.ds3-day .stack i{display:block;min-height:2px}
+.ds3-day.we{background:repeating-linear-gradient(0deg,transparent 0 6px,rgba(0,0,0,.025) 6px 7px)}
+.ds3-day .lb{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:9.5px;color:var(--text3);white-space:nowrap}
+.ds3-goalbar{display:flex;align-items:center;gap:10px;justify-content:space-between;background:#fbfbfa;border:1px solid #e1e8e8;border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:12.5px}
+.ds1-chip.grn{background:#e3f5ee;color:#1d7a5a}
+@media (max-width:1300px){.ds1-g3{grid-template-columns:repeat(2,minmax(0,1fr))}.ds1-g3 .ds3-offer{grid-column:1 / -1}}
+@media (max-width:760px){.ds1-g3{grid-template-columns:1fr}}
+.dg-h{display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;padding:10px 2px 8px;cursor:pointer;font-family:inherit;text-align:left}
+.dg-h:hover .dg-t{color:#206A72}
+.dg-ch{font-size:15px;color:#174C52;transition:transform .15s}.dg.open .dg-ch{transform:rotate(90deg)}
+.dg-ic{font-size:15px;color:#206A72}
+.dg-t{font-size:12px;font-weight:700;color:#174C52;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.dg-line{flex:1;height:1px;background:#d5dfdf;min-width:20px}
+.dg-sum{font-size:11.5px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}
+.dg-b{padding-top:4px}
+.dg-b .info-section{margin-bottom:14px}
+.dg-b .ds1-grid .info-section{margin:0}
 .board-part-hint{flex:0 0 260px;align-self:flex-start;border:1.5px dashed var(--purple-dark);border-radius:var(--r-md);padding:16px;background:var(--purple-bg);font-size:13px;color:var(--purple-dark);display:flex;flex-direction:column;gap:10px;}
 .board-part-hint button{align-self:flex-start;}
 .nav-icon-badge{width:36px;height:36px;border-radius:9px;background:linear-gradient(180deg,#27808a 0%,#206A72 100%);box-shadow:0 6px 16px rgba(32,106,114,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -1533,7 +1663,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-26T18:15:00.000Z';
+const BUILD_VERSION='2026-10-26T23:30:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -5019,6 +5149,40 @@ function stageGradientColor(i,n){
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 // Horizontaler Trapez-Trichter: Hoehe pro Stufe verjuengt sich proportional zur Leadanzahl
+// Pipeline-Trichter (Okt. 2026, Variante 1 + E): durchgehend fliessende Welle (150 px, Farbverlauf
+// wie der alte Trichter, Hoehen linear mind. 20 px), Verlorene als kompakte Tropfen unter der Welle.
+function pipelineFlowHtml(dl){
+  const stages=[...COLUMNS.filter(c=>colBoard(c)==='akquise'&&!c.outcome),...COLUMNS.filter(c=>colBoard(c)==='vertrieb'&&!c.outcome),...COLUMNS.filter(c=>c.outcome==='won')];
+  const S=stages.map(c=>({c,part:colBoard(c)==='akquise'?'akquise':'vertrieb',n:dl.filter(l=>l.status===c.id).length}));
+  const lost=dl.filter(l=>isLost(l));
+  S.forEach(x=>x.lost=lost.filter(l=>l.closedFromStage===x.c.id).length);
+  const lostSum=lost.length,lostUnknown=lostSum-S.reduce((a,x)=>a+x.lost,0);
+  const lostSql=lost.filter(l=>leadBoardPart(l)==='akquise').length,lostPql=lostSum-lostSql;
+  const total=S.reduce((a,x)=>a+x.n,0)+lostSum;
+  if(!S.length||!total)return '<p style="font-size:12px;color:var(--text3)">Keine Leads im gewählten Zeitraum/Filter.</p>';
+  const pct=v=>total?Math.round(v/total*100)+'%':'0%';
+  const n=S.length,H=150,cy=H/2,mx=Math.max(1,...S.map(x=>x.n));
+  const half=c=>(20+(c/mx)*(H-20))/2;
+  const ys=S.map(x=>half(x.n));
+  // Catmull-Rom-Spline durch die Abschnittsmitten (oben und gespiegelt unten)
+  const P=[[0,ys[0]],...ys.map((y,i)=>[i*100+50,y]),[n*100,ys[n-1]]];
+  const spline=(pts,sign)=>{let d='';for(let i=0;i<pts.length-1;i++){const p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];
+    const c1=[p1[0]+(p2[0]-p0[0])/6,Math.min(H/2,p1[1]+(p2[1]-p0[1])/6)],c2=[p2[0]-(p3[0]-p1[0])/6,Math.min(H/2,p2[1]-(p3[1]-p1[1])/6)];
+    const Y=v=>(cy+sign*v).toFixed(1);d+=` C${c1[0].toFixed(1)},${Y(c1[1])} ${c2[0].toFixed(1)},${Y(c2[1])} ${p2[0]},${Y(p2[1])}`;}return d;};
+  const R=P.slice().reverse();
+  const shape=`M0,${(cy-P[0][1]).toFixed(1)}${spline(P,-1)} L${n*100},${(cy+R[0][1]).toFixed(1)}${spline(R,1)} Z`;
+  const grad=`<defs><linearGradient id="pfwg" x1="0" x2="1">${S.map((x,i)=>`<stop offset="${(n>1?i/(n-1):0).toFixed(3)}" stop-color="${stageGradientColor(i,n)}"/>`).join('')}</linearGradient><clipPath id="pfwc"><path d="${shape}"/></clipPath></defs>`;
+  const divs=S.map((x,i)=>i?`<line x1="${i*100}" x2="${i*100}" y1="0" y2="${H}" stroke="#fff" stroke-opacity=".45" stroke-width="1" vector-effect="non-scaling-stroke"/>`:'').join('');
+  const hit=S.map((x,i)=>`<rect x="${i*100}" y="0" width="100" height="${H}" fill="transparent" style="cursor:pointer" onclick="switchBoardPart('${x.part}')"><title>${esc(x.c.name)}: ${x.n} (${pct(x.n)}) – im Board öffnen</title></rect>`).join('');
+  const svg=`<svg viewBox="0 0 ${n*100} ${H}" preserveAspectRatio="none" style="grid-column:1 / span ${n};width:100%;height:${H}px;display:block" role="img" aria-label="Pipeline-Trichter">${grad}<path d="${shape}" fill="url(#pfwg)"/><g clip-path="url(#pfwc)">${divs}</g>${hit}</svg>`;
+  const lmx=Math.max(1,...S.map(x=>x.lost));
+  const drops=S.map(x=>{if(!x.lost)return '<div class="pf2-dr"></div>';const d=Math.round(18+Math.sqrt(x.lost/lmx)*10);
+    return `<button type="button" class="pf2-dr" onclick="switchBoardPart('${x.part}')" title="${esc(x.c.name)}: ${x.lost} verloren"><i></i><b style="width:${d}px;height:${d}px">${x.lost}</b></button>`;}).join('')+'<div></div>';
+  const lostBox=`<div class="pf2-lostbox" title="Verloren gesamt: ${lostSum} (SQL ${lostSql} · PQL ${lostPql}${lostUnknown?' · '+lostUnknown+' ohne Liste':''})"><b>${lostSum.toLocaleString('de-DE')}</b><span>Verloren gesamt</span></div>`;
+  const labels=S.map(x=>`<button type="button" class="pf2-lab" onclick="switchBoardPart('${x.part}')" title="${esc(x.c.name)}"><span class="nm">${esc(x.c.name)}</span><span class="v">${x.n.toLocaleString('de-DE')} / ${pct(x.n)}</span>${x.lost?`<span class="ls">✕ ${x.lost} verloren</span>`:'<span class="ls"></span>'}</button>`).join('');
+  const lostLab=`<div class="pf2-lab pf2-lostlab"><span class="nm">Verloren</span><span class="v">${lostSum.toLocaleString('de-DE')} / ${pct(lostSum)}</span><span class="ls">SQL ${lostSql} · PQL ${lostPql}${lostUnknown?` · ${lostUnknown} ohne Liste`:''}</span></div>`;
+  return `<div class="pf2" style="grid-template-columns:repeat(${n},minmax(0,1fr)) 128px">${svg}${lostBox}${drops}${labels}${lostLab}</div>`;
+}
 function horizontalFunnelHtml(funnelCounts,total){
   const active=funnelCounts.filter(x=>x.c.outcome!=='lost');
   if(!active.length||!active.some(x=>x.count>0))return '<p style="font-size:12px;color:var(--text3)">Keine Leads im gewählten Zeitraum/Filter.</p>';
@@ -5597,31 +5761,11 @@ function renderDashboard(){
 
   document.getElementById('dashboardContent').innerHTML=`
     ${dashboardHeroHtml()}
-    <div class="info-section ${projStatus.glass?'project-status-glass':''}" style="border-color:${projStatus.boxBorder};background:${projStatus.boxBg}">
-      <div class="project-status-row">
-        <div class="project-status-badge" style="background:${projStatus.badgeBg};color:${projStatus.badgeColor}"><i class="ti ti-flag-3"></i> ${projStatus.label}</div>
-        <div class="project-status-item"><span>Zeitrahmen</span><strong>${fmtDate(PROJECT.startDate)} – ${fmtDate(PROJECT.endDate)}</strong><div class="funnel-track" style="height:8px;margin-top:4px"><div class="funnel-bar" style="width:${timeProgress}%;background:var(--purple);font-size:0"></div></div><span class="project-status-sub">${daysRemaining>=0?daysRemaining+' Tage verbleibend':Math.abs(daysRemaining)+' Tage überzogen'} (${timeProgress}%)</span></div>
-        <div class="project-status-item"><span>Budget</span><strong>${fmtEur(allInvestSum)} / ${fmtEur(PROJECT.budget)}</strong><div class="funnel-track" style="height:8px;margin-top:4px"><div class="funnel-bar" style="width:${Math.min(100,budgetProgress)}%;background:${budgetProgress>=100?'var(--red)':'var(--amber)'};font-size:0"></div></div><span class="project-status-sub">${budgetProgress}% verbraucht</span></div>
-        <div class="project-status-item"><span>Meilensteine</span><strong>${doneMilestones} / ${PROJECT.milestones.length}</strong><div class="funnel-track" style="height:8px;margin-top:4px"><div class="funnel-bar" style="width:${milestoneProgress||0}%;background:var(--green-dark);font-size:0"></div></div><span class="project-status-sub">${overdueMilestones.length?overdueMilestones.length+' überfällig':'im Plan'}</span></div>
-        <div class="project-status-item"><span>Offene Risiken</span><strong style="color:${openRisks.length?'var(--red)':(projStatus.glass?'#7ED2DB':'var(--green-dark)')}">${openRisks.length}</strong><span class="project-status-sub">${openRisks.length?openRisks[0].text.slice(0,40)+(openRisks[0].text.length>40?'…':''):'keine offenen Risiken'}</span></div>
-      </div>
-    </div>
     ${excludedNoDate>0?`<div class="no-date-warning"><i class="ti ti-alert-triangle"></i> ${excludedNoDate} Lead${excludedNoDate===1?'':'s'} ohne Erstkontakt-Datum ${excludedNoDate===1?'wird':'werden'} bei "${activeDashboardPeriod==='week'?'Diese Woche':activeDashboardPeriod==='month'?'Dieser Monat':'Dieses Quartal'}" nicht mitgezählt, da der Zeitraum-Filter sich auf dieses Datum bezieht. <a onclick="switchView('board')">→ Im Board nachtragen</a></div>`:''}
-    ${kpiHtml}
-    <div class="info-section">
-      ${dashboardActivityChartHtml(dl)}
-    </div>
-    <div class="dash-row-1-1" style="align-items:stretch">
-      <div class="info-section" style="display:flex;flex-direction:column">
-        ${followupDayChartHtml(dl)}
-      </div>
-      <div class="info-section" style="display:flex;flex-direction:column">
-        ${followupGanttHtml(dl)}
-      </div>
-    </div>
-    <div class="info-section">
+    ${dashGroup('pipeline','Pipeline','filter',`${dl.filter(l=>!isClosedLead(l)).length} offene Leads · ${dl.filter(l=>isWon(l)).length} gewonnen · ${lostLeads.length} verloren`,()=>`
+    <div class="info-section pf-section">
       <div class="section-hdr" style="margin-top:0">Pipeline-Trichter <span style="font-weight:400;color:var(--text3);font-size:11px">(Anzahl · Anteil an allen Leads)</span></div>
-      <div class="funnel-wrap">${funnelHtml}</div>
+      <div>${pipelineFlowHtml(dl)}</div>
       <div class="movements-strip">
         <div class="movements-item"><i class="ti ti-arrows-shuffle" style="color:var(--purple)"></i><strong>${movements.total}</strong> Bewegungen (${movementDays} Tage)</div>
         <div class="movements-item"><i class="ti ti-arrow-forward-up" style="color:var(--text2)"></i><strong>${movements.forward}</strong> vorwärts</div>
@@ -5633,39 +5777,47 @@ function renderDashboard(){
         <div style="margin-top:8px">${movementsRowsHtml}</div>
       </details>
     </div>
-    <div class="dash-row-1-1">
-      <div class="info-section" style="border-color:${lostLeads.length?'var(--red)':'var(--border)'}">
-        <div class="section-hdr" style="margin-top:0"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-trending-down" style="color:var(--red)"></i> Wo wir Kunden verlieren</span> <span style="font-weight:400;color:var(--text3);font-size:11px">(Phase vor "Verloren")</span></div>
-        <div class="funnel-wrap">${lossHtml}</div>
-      </div>
-      <div class="info-section" style="border-color:${lostLeads.length?'var(--amber)':'var(--border)'}">
-        <div class="section-hdr" style="margin-top:0"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-message-circle-question" style="color:var(--amber-dark)"></i> Warum wir Kunden verlieren</span></div>
-        <div class="funnel-wrap">${reasonHtml}</div>
+    <div class="ds1-grid ds1-g3">${dashStep1Html('fSql')}${dashStep1Html('fPql')}${dashOfferHtml(dl)}</div>
+    <div class="ds1-agelg">Balkenfarbe in SQL/PQL = Ø Tage in der Liste: <i style="background:rgb(79,163,171)"></i>frisch <i style="background:rgb(48,112,118)"></i>ca. 20 Tage <i style="background:rgb(18,61,66)"></i>40 Tage und länger</div>
+    `)}
+    ${dashGroup('today','Heute zu tun','checklist',`${overdueLeads.length} FollowUps überfällig${riskLeads.length?' · '+riskLeads.length+' RMA-Risiko':''}`,()=>`
+    <div class="ds1-grid ds1-g2">${dashStep1Html('risks')}
+      <div class="info-section" style="display:flex;flex-direction:column;margin:0">
+        ${followupDayChartHtml(dl)}
       </div>
     </div>
-    <div class="dash-row-1-1">
-      <div class="info-section">
-        <div class="section-hdr" style="margin-top:0"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-map-pin" style="color:var(--purple)"></i> Kundenherkunft</span> <span style="font-weight:400;color:var(--text3);font-size:11px">(stilisiert, aus Adressfeld)</span></div>
-        ${customerOriginMapHtml(dl)}
-      </div>
-      <div class="info-section">
+      <div class="info-section" style="margin-bottom:14px">
         <div class="section-hdr" style="margin-top:0"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-shield-exclamation" style="color:${riskLeads.length?'var(--red)':'var(--text2)'}"></i> RMA-Risiko-Check</span> <span style="font-weight:400;color:var(--text3);font-size:11px">(aktive Leads mit SKU ≥5% Reklamationsquote)</span></div>
         ${riskSkuChartHtml}
         ${riskHtml}
+      `)}
+    ${dashGroup('team','Team','users','Wer bewegt was – und wann erreichen wir Kunden?',()=>`
+    ${dashStep1Html('team')}
+    <div class="ds1-grid ds1-g2" style="margin-top:14px"><div class="ds1-box"><div class="ds1-bh"><h2>Erfolgreiche Gespräche</h2><span class="r">Leads je Tag nach „AM: Auftrag“ · letzte 30 Tage</span></div>${dashAmPerDayHtml(dl)}<div class="ds2-why"><b>Warum:</b> jeder Lead, der nach „AM: Auftrag“ wandert, ist ein erfolgreiches Gespräch im SQL.</div></div>${dashStep2Html('heat')}</div>
+    `)}
+    ${dashGroup('dev','Entwicklung','chart-line','Werden wir besser? Verlauf · Marge je Woche · Durchlaufzeiten',()=>dashStep2Html('dev'))}
+    ${dashGroup('cust','Kunden &amp; Produkte','building-store','Wo liegt Potenzial – und wo verlieren wir?',()=>`
+    ${dashStep2Html('cust')}
+    <div class="ds1-grid ds1-g2"><div class="ds1-box"><div class="ds1-bh"><h2>Folgeaufträge</h2><span class="r">gewonnene Kunden</span></div>${dashRepeatHtml(dl)}<div class="ds2-why"><b>Warum:</b> zeigt, ob Kunden nach dem ersten Auftrag wiederkommen.</div></div>
+<div class="info-section" style="margin:0">
+        <div class="section-hdr" style="margin-top:0"><span style="display:flex;align-items:center;gap:6px"><i class="ti ti-map-pin" style="color:var(--purple)"></i> Kundenherkunft</span> <span style="font-weight:400;color:var(--text3);font-size:11px">(stilisiert, aus Adressfeld)</span></div>
+        ${customerOriginMapHtml(dl)}
       </div>
     </div>
-    <div class="dash-row-eq">
-      <div class="info-section">
-        <div class="section-hdr" style="margin-top:0">Follow-up überfällig</div>
-        ${overdueTrendChartHtml(dl)}
-        ${overdueHtml}
+    `)}
+    ${dashGroup('project','Projekt &amp; Wirtschaftlichkeit','briefcase',`Lohnt sich die Free-Toner-Aktion? · ${projStatus.label}`,()=>`
+    ${isAdmin()?`<div class="ds3-goalbar"><span><i class="ti ti-target"></i> Monatsziel Marge: <b>${(PROJECT.dashGoals&&PROJECT.dashGoals.team)?fmtEur(PROJECT.dashGoals.team):'nicht festgelegt'}</b> <span style="color:var(--text3)">(erscheint im Banner bei „Marge gewonnen“)</span></span><button type="button" class="btn btn-sm" onclick="dashSetGoal('team')">${(PROJECT.dashGoals&&PROJECT.dashGoals.team)?'Ändern':'Festlegen'}</button></div>`:''}
+    <div class="info-section ${projStatus.glass?'project-status-glass':''}" style="border-color:${projStatus.boxBorder};background:${projStatus.boxBg}">
+      <div class="project-status-row">
+        <div class="project-status-badge" style="background:${projStatus.badgeBg};color:${projStatus.badgeColor}"><i class="ti ti-flag-3"></i> ${projStatus.label}</div>
+        <div class="project-status-item"><span>Zeitrahmen</span><strong>${fmtDate(PROJECT.startDate)} – ${fmtDate(PROJECT.endDate)}</strong><div class="funnel-track" style="height:8px;margin-top:4px"><div class="funnel-bar" style="width:${timeProgress}%;background:var(--purple);font-size:0"></div></div><span class="project-status-sub">${daysRemaining>=0?daysRemaining+' Tage verbleibend':Math.abs(daysRemaining)+' Tage überzogen'} (${timeProgress}%)</span></div>
+        <div class="project-status-item"><span>Budget</span><strong>${fmtEur(allInvestSum)} / ${fmtEur(PROJECT.budget)}</strong><div class="funnel-track" style="height:8px;margin-top:4px"><div class="funnel-bar" style="width:${Math.min(100,budgetProgress)}%;background:${budgetProgress>=100?'var(--red)':'var(--amber)'};font-size:0"></div></div><span class="project-status-sub">${budgetProgress}% verbraucht</span></div>
+        <div class="project-status-item"><span>Meilensteine</span><strong>${doneMilestones} / ${PROJECT.milestones.length}</strong><div class="funnel-track" style="height:8px;margin-top:4px"><div class="funnel-bar" style="width:${milestoneProgress||0}%;background:var(--green-dark);font-size:0"></div></div><span class="project-status-sub">${overdueMilestones.length?overdueMilestones.length+' überfällig':'im Plan'}</span></div>
+        <div class="project-status-item"><span>Offene Risiken</span><strong style="color:${openRisks.length?'var(--red)':(projStatus.glass?'#7ED2DB':'var(--green-dark)')}">${openRisks.length}</strong><span class="project-status-sub">${openRisks.length?openRisks[0].text.slice(0,40)+(openRisks[0].text.length>40?'…':''):'keine offenen Risiken'}</span></div>
       </div>
-      <div class="info-section">
-        <div class="section-hdr" style="margin-top:0">Top Forecast (offen)</div>
-        ${topForecastChartHtml(dl)}
-        ${topForecastHtml}
-      </div>
-    </div>`;
+    </div>
+    <div class="ds1-grid ds1-g2">${dashStep2Html('toner')}<div class="ds1-box"><div class="ds1-bh"><h2>Wirtschaftlichkeit</h2><span class="r">gesamt · im gewählten Filter</span></div>${dashEconomicsHtml(dl,allInvestSum,dashMetrics.winRate,dashMetrics.avgCycle)}<div class="ds2-why"><b>Warum:</b> gewonnene Marge gegenüber Toner- und Versandkosten.</div></div></div>
+    `)}`;
   equalizeRowHeights();
 }
 // Gleicht Boxenhoehen pixelgenau per JS aus (CSS-Flex kann bei Bruch-Pixeln
@@ -5811,14 +5963,348 @@ async function loadTasksHeroActs(){
   if(tasksHeroActs&&(tasksHeroActs.loading||(tasksHeroActs.loadedAt&&Date.now()-tasksHeroActs.loadedAt<60000)))return;
   tasksHeroActs={loading:true};
   try{
-    const from=new Date(TODAY+'T00:00:00');from.setDate(from.getDate()-63);
-    const rows=await fetchAllRows(`lead_activities?select=author,type,text,date&date=gte.${calYmd(from)}&order=id.asc`,{timeoutMs:20000});
+    const from=new Date(TODAY+'T00:00:00');from.setDate(from.getDate()-91);
+    const rows=await fetchAllRows(`lead_activities?select=lead_id,author,type,text,date&date=gte.${calYmd(from)}&order=id.asc`,{timeoutMs:30000});
     tasksHeroActs={loadedAt:Date.now(),rows:rows.filter(r=>r.type==='comment'||/^Status geändert:/.test(r.text||''))};
   }catch(e){tasksHeroActs={error:true};}
   if(currentView==='tasks')renderTasksView();
   if(currentView==='dashboard')renderDashboard();
 }
 // ── Dashboard-Banner (Okt. 2026): Stil wie "Meine Aufgaben", 3 Kennzahlen oben, 6 unten ──
+// ── Dashboard Schritt 1 (Okt. 2026): Trichter SQL/PQL, Risiken, Mitarbeiter ──
+let dashTeamSort='marge',dashTeamDir=-1,dashHandoverOpen=false;
+function dashToggleHandover(){dashHandoverOpen=!dashHandoverOpen;renderDashboard();}
+function dashGoBoard(part){switchView('board');setBoardPart(part);renderBoard();}
+function dashGoFuToday(){switchView('board');setFuFilter('today');}
+function dashGoLabel(id){switchView('board');if(!activeLabelFilters.includes(id))toggleLabelFilter(id);else renderBoard();}
+function dashTeamSortBy(k){if(dashTeamSort===k)dashTeamDir=-dashTeamDir;else{dashTeamSort=k;dashTeamDir=k==='name'?1:-1;}renderDashboard();}
+function dashStep1Html(want){
+  const acts=tasksHeroActs&&tasksHeroActs.rows;const loading=!acts;
+  let sc=activeDashboardAgentFilters.length?leads.filter(l=>(l.members||[]).some(m=>activeDashboardAgentFilters.includes(m))):leads;
+  if(dashboardArtFilter!=='all')sc=sc.filter(l=>artMatches(l,dashboardArtFilter));
+  const byAgent=r=>!activeDashboardAgentFilters.length||activeDashboardAgentFilters.includes(r.author);
+  const ym=TODAY.slice(0,7);const mNames=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];const mName=mNames[+ym.slice(5,7)-1];
+  const dOf=v=>v?String(v).slice(0,10):'';const inMonth=v=>dOf(v).slice(0,7)===ym;
+  const dd=r=>calYmd(new Date(r.date));
+  // Listenwechsel SQL -> PQL
+  const partOfName=n=>{const cs=COLUMNS.filter(c=>c.name===n.trim());const ps=[...new Set(cs.map(c=>colBoard(c)))];return ps.length===1?ps[0]:null;};
+  const parseSC=t=>{const m=/^Status geändert:\s*"?(.+?)"?\s*→\s*"?(.+?)"?\s*$/.exec(String(t||''));return m?[m[1],m[2]]:null;};
+  const scIds1=new Set(sc.map(l=>String(l.id)));
+  const handovers=loading?[]:acts.filter(r=>r.type!=='comment'&&scIds1.has(String(r.lead_id))&&dd(r).slice(0,7)===ym&&byAgent(r)&&(x=>x&&partOfName(x[0])==='akquise'&&partOfName(x[1])==='vertrieb')(parseSC(r.text)));
+  const com=loading?[]:acts.filter(r=>r.type==='comment'&&dd(r).slice(0,7)===ym);
+  const ne=r=>/^nicht erreicht/i.test(String(r.text||'').trim());
+  const q=list=>list.length?Math.round(list.filter(r=>!ne(r)).length/list.length*100):null;
+  // Trichter
+  // Verweildauer je Liste: Farbe = Petrol, heller = frisch, dunkler = laenger in der Liste (voll dunkel ab 40 Tagen)
+  const ageShade=d=>{if(d===null)return '#206A72';const t=Math.min(1,d/40);const a=[79,163,171],b=[18,61,66];return `rgb(${a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')})`;};
+  const colRows=part=>COLUMNS.filter(c=>colBoard(c)===part&&!c.outcome).map(c=>{const ls=sc.filter(l=>l.status===c.id);const dd2=ls.filter(l=>l.statusSince).map(l=>Math.max(0,-daysUntil(String(l.statusSince).slice(0,10))));
+    const avg=dd2.length?Math.round(dd2.reduce((a,b)=>a+b,0)/dd2.length):null;return [c.name,ls.length,ageShade(avg),avg,dd2.filter(x=>x>30).length];});
+  const sqlRows=colRows('akquise');const pqlRows=colRows('vertrieb');
+  const handoverList=()=>{const byLead=new Map();handovers.forEach(r=>{const k=String(r.lead_id);const prev=byLead.get(k);if(!prev||String(r.date)>String(prev.date))byLead.set(k,r);});
+    const items=[...byLead.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(r=>{const l=leads.find(x=>String(x.id)===String(r.lead_id));const a=agentById(r.author);
+      return l?`<button type="button" class="ds1-ho-it" onclick="event.stopPropagation();openLeadModal(${JSON.stringify(l.id)})"><span class="co">${esc(l.company||'–')}</span><span class="me">${esc(colById(l.status)?colById(l.status).name:'')}</span><span class="me">${fmtDate(dd(r))}</span><span class="me">${esc(a?a.name:'')}</span></button>`:'';}).join('');
+    return `<div class="ds1-ho-list">${items||'<div class="ds1-ho-empty">Keine Übergaben in diesem Monat.</div>'}</div>`;};
+  const sqlAgeAll=sc.filter(l=>!isClosedLead(l)&&leadBoardPart(l)==='akquise'&&l.statusSince).map(l=>Math.max(0,-daysUntil(String(l.statusSince).slice(0,10))));
+  const sqlAvgAge=sqlAgeAll.length?Math.round(sqlAgeAll.reduce((a,b)=>a+b,0)/sqlAgeAll.length):null;
+  sqlRows.push([`An PQL übergeben (${mName})`,loading?null:new Set(handovers.map(r=>String(r.lead_id))).size,'#534ab7',undefined,undefined,'handover']);
+  sqlRows.push([`Leads: Verloren (${mName})`,sc.filter(l=>isLost(l)&&leadBoardPart(l)==='akquise'&&inMonth(l.statusSince||l.closedAt)).length,'#c0392b']);
+  pqlRows.push([`Leads: Gewonnen (${mName})`,sc.filter(l=>isWon(l)&&inMonth(l.statusSince||l.closedAt)).length,'#1d7a5a']);
+  pqlRows.push([`Leads: Verloren (${mName})`,sc.filter(l=>isLost(l)&&leadBoardPart(l)==='vertrieb'&&inMonth(l.statusSince||l.closedAt)).length,'#c0392b']);
+  const sqlTotal=sc.filter(l=>!isClosedLead(l)&&leadBoardPart(l)==='akquise').length;
+  const lostSql=sc.filter(l=>isLost(l)&&leadBoardPart(l)==='akquise'&&inMonth(l.statusSince||l.closedAt)).length;
+  const qM=loading?null:q(com.filter(byAgent));
+  const tonerOpen=sc.filter(l=>!isClosedLead(l)&&l.tonerSent==='Ja');
+  const tDays=tonerOpen.filter(l=>l.tonerSentAt).map(l=>Math.abs(daysUntil(l.tonerSentAt)));
+  const avgT=tDays.length?Math.round(tDays.reduce((a,b)=>a+b,0)/tDays.length):null;const late=tDays.filter(d=>d>=60).length;
+  const funnel=(part,title,rows,minis)=>{const vals=rows.map(r=>r[1]||0);const mx=Math.max(...vals,1);const first=vals[0]||0;
+    return `<div class="ds1-box ds1-fbox"><div class="ds1-bh"><h2><span class="ds1-pill ${part}">${part==='akquise'?'SQL':'PQL'}</span>${title}</h2><span class="r">Leads je Liste · Anteil · Ø Tage in der Liste</span></div><div class="ds1-fun">${rows.map(([n,c,col,age,old,kind])=>{const w=c===null?0:Math.max(c?6:0,Math.round(c/mx*100));
+      const lbl=c===null||!c?'':(age!==undefined&&age!==null&&w>22?`${c} · Ø ${age} T`:(w>14?String(c):''));
+      const tip=age!==undefined&&age!==null?` · Ø ${age} Tage in der Liste${old?`, ${old} länger als 30 Tage`:''}`:'';
+      if(kind==='handover'){const open=dashHandoverOpen&&c;const hl=open?handoverList():'';
+        return `<button type="button" class="ds1-fr ds1-fr-ho ${open?'open':''}" onclick="dashToggleHandover()" aria-expanded="${!!open}" title="Übergebene Leads anzeigen"><span class="n"><i class="ti ti-chevron-right ds1-ho-ch"></i>${esc(n)}</span><span class="ds1-bar"><i style="width:${w}%;background:${col}"></i><span>${lbl}</span></span><span class="c2">${c===null?'…':c}<small>${c===null||!first?'':Math.round(c/first*100)+' %'}</small></span></button>${hl}`;}
+      return `<button type="button" class="ds1-fr" onclick="dashGoBoard('${part}')" title="${esc(n)}${tip} – im Board öffnen"><span class="n">${esc(n)}</span><span class="ds1-bar"><i style="width:${w}%;background:${col}"></i><span>${lbl}</span></span><span class="c2">${c===null?'…':c}<small>${c===null||!first?'':Math.round(c/first*100)+' %'}</small></span></button>`;}).join('')}</div>
+      <div class="ds1-mini">${minis.map(([l,v,cls])=>`<div class="${cls}">${l}<b>${v}</b></div>`).join('')}</div></div>`;};
+  const fSql=funnel('akquise','Akquise',sqlRows,[['Erreichbar',qM===null?'…':qM+' %','good'],['Leads in SQL',sqlTotal.toLocaleString('de-DE'),''],['Ø Verweildauer',sqlAvgAge===null?'–':sqlAvgAge+' T','']]);
+  const fPql=funnel('vertrieb','Vertrieb',pqlRows,[['Toner draußen',tonerOpen.length,''],['Ø Testlaufzeit',avgT===null?'–':avgT+' T',avgT!==null&&avgT>=40?'warn':''],['> 60 Tage',late,late?'bad':'']]);
+  // Risiken
+  const od=sc.filter(l=>!isClosedLead(l)&&l.followup&&daysUntil(l.followup)<0);const od7=od.filter(l=>daysUntil(l.followup)<-7).length;
+  const artBySku=new Map();ARTICLES.forEach(a=>{const k=String(a.sku||'').trim().toLowerCase();if(k&&!artBySku.has(k))artBySku.set(k,a);});
+  const rmaRisk=sc.filter(l=>!isClosedLead(l)&&(l.demandPrinters||[]).some(p=>(p.skus||[]).some(x=>{const a=(x.articleId&&ARTICLES.find(y=>y.id===x.articleId))||artBySku.get(String(x.sku||'').trim().toLowerCase());return a&&parseFloat(a.crRma)>=5;}))).length;
+  const chkLabel=LABELS.find(x=>String(x.name).trim().toLowerCase()==='lead: überprüfen');
+  const chkN=chkLabel?sc.filter(l=>(l.labelIds||[]).includes(chkLabel.id)).length:0;
+  const rr=(cls,n,t,sub,click)=>`<${click?'button type="button"':'div'} class="ds1-rr ${cls}" ${click?`onclick="${click}" title="Im Board anzeigen"`:''}><b>${n}</b><span>${t}<br><em>${sub}</em></span>${click?'<i class="ti ti-chevron-right"></i>':''}</${click?'button':'div'}>`;
+  const risks=rr('red',od.length,'FollowUps überfällig',`davon ${od7} älter als 7 Tage`,'dashGoFuToday()')
+    +rr('amb',late,'Toner länger als 60 Tage draußen','ohne Rückmeldung','')
+    +rr('pet',rmaRisk,'Forecast mit RMA über 5 %','Patronen-Risiko prüfen','')
+    +(chkLabel?rr('amb',chkN,'Leads mit „Lead: Überprüfen“','Label',`dashGoLabel('${chkLabel.id}')`):'');
+  // Mitarbeiter
+  const owner=l=>(l.members||[])[0];
+  const wonOrdersOf=l=>{const ps=(l.actualPrinters||[]).filter(p=>(p.skus||[]).some(ordFilled));if(!ps.length)return [{d:dOf(l.statusSince||l.closedAt),m:leadMarginOf(l,'demand')}];
+    return ps.map(p=>({d:dOf(p.date)||dOf(l.statusSince),m:(p.skus||[]).reduce((a,x)=>a+((parseFloat(x.priceVk)||0)-(parseFloat(x.priceEk)||0))*(parseFloat(x.qty)||0),0)}));};
+  const agents=AGENTS.filter(a=>!activeDashboardAgentFilters.length||activeDashboardAgentFilters.includes(a.id));
+  let rows=agents.map(a=>{const mine=sc.filter(l=>owner(l)===a.id);const myCom=com.filter(r=>r.author===a.id);
+    const won=mine.filter(l=>isWon(l));
+    return {id:a.id,name:a.name,ini:(a.name||'').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase(),color:a.color,
+      open:mine.filter(l=>!isClosedLead(l)).length,talks:loading?null:myCom.length,reach:loading?null:q(myCom),
+      pql:loading?null:handovers.filter(r=>r.author===a.id).length,
+      won:won.filter(l=>inMonth(l.statusSince||l.closedAt)).length,
+      marge:won.flatMap(wonOrdersOf).filter(o=>o.d.slice(0,7)===ym).reduce((x,o)=>x+o.m,0),
+      od:mine.filter(l=>!isClosedLead(l)&&l.followup&&daysUntil(l.followup)<0).length,
+      ...(()=>{let on=0,lt=0;const d30=(()=>{const d=new Date(TODAY+'T12:00:00');d.setDate(d.getDate()-30);return calYmd(d);})();
+        mine.forEach(l=>{const h=(l.followupHistory||[]).filter(e=>e&&e.date).map(e=>({d:dOf(e.date),s:dOf(e.setAt)})).sort((x,y)=>x.s.localeCompare(y.s));
+          h.forEach((e,i)=>{if(e.d<d30||e.d>=TODAY)return;const nx=h.slice(i+1).find(x=>x.s>=e.s);const done=nx?nx.s:(isClosedLead(l)?dOf(l.statusSince||l.closedAt):'');if(done&&done<=e.d)on++;else lt++;});});
+        return {fuOn:on,fuAll:on+lt,fup:(on+lt)?Math.round(on/(on+lt)*100):null};})()};});
+  rows=rows.filter(r=>r.open||r.talks||r.won||r.marge||r.od||r.pql||r.fuAll);
+  const key=dashTeamSort;rows.sort((a,b)=>{const x=a[key],y=b[key];if(typeof x==='string')return dashTeamDir*x.localeCompare(y,'de');return dashTeamDir*((x||0)-(y||0));});
+  const sum=k=>rows.reduce((s2,r)=>s2+(r[k]||0),0);
+  const cols=[['name','Mitarbeiter',false],['open','Leads offen',true],['talks','Gespräche',true],['reach','Erreicht',true],['pql','An PQL',true],['won','Gewonnen',true],['marge','Marge',true],['fup','FU pünktlich',true],['od','FU überfällig',true]];
+  const th=cols.map(([k,l,r])=>`<th class="${r?'r':''} ${dashTeamSort===k?'on':''}" onclick="dashTeamSortBy('${k}')">${l}${dashTeamSort===k?(dashTeamDir<0?' ↓':' ↑'):''}</th>`).join('');
+  const nf=v=>v===null?'…':v.toLocaleString('de-DE');
+  const tb=rows.map(r=>`<tr><td><span class="ds1-av" style="background:${COLOR_BG[r.color]||'#E9F0F1'};color:${COLOR_TEXT[r.color]||'#206A72'}">${esc(r.ini)}</span>${esc(r.name)}</td><td class="r">${nf(r.open)}</td><td class="r">${nf(r.talks)}</td><td class="r">${r.reach===null?(loading?'…':'–'):r.reach+' %'}</td><td class="r">${nf(r.pql)}</td><td class="r">${nf(r.won)}</td><td class="r"><b>${fmtEur(r.marge)||'0 €'}</b></td><td class="r" title="${r.fuAll?r.fuOn+' von '+r.fuAll+' FollowUps (fällig in den letzten 30 Tagen) spätestens am Fälligkeitstag erledigt':'keine fälligen FollowUps in den letzten 30 Tagen'}">${r.fup===null?'–':`<span class="ds1-chip ${r.fup>=80?'grn':r.fup>=60?'amb':'red'}">${r.fup} %</span>`}</td><td class="r">${r.od?`<span class="ds1-chip ${r.od>6?'red':'amb'}">${r.od}</span>`:'–'}</td></tr>`).join('');
+  const totReach=loading?null:q(com.filter(r=>rows.some(x=>x.id===r.author)));
+  const tf=`<tr><td>Gesamt</td><td class="r">${sum('open')}</td><td class="r">${loading?'…':sum('talks')}</td><td class="r">${totReach===null?(loading?'…':'–'):totReach+' %'}</td><td class="r">${loading?'…':sum('pql')}</td><td class="r">${sum('won')}</td><td class="r">${fmtEur(sum('marge'))||'0 €'}</td><td class="r">${(()=>{const a=rows.reduce((x,r)=>x+(r.fuAll||0),0),o=rows.reduce((x,r)=>x+(r.fuOn||0),0);return a?Math.round(o/a*100)+' %':'–';})()}</td><td class="r">${sum('od')}</td></tr>`;
+  const parts={
+    funnels:`<div class="ds1-grid ds1-g2">${fSql}${fPql}</div>`,fSql,fPql,
+    risks:`<div class="ds1-box"><div class="ds1-bh"><h2>Risiken</h2><span class="r">jetzt</span></div><div class="ds1-risk">${risks}</div></div>`,
+    team:`<div class="ds1-box"><div class="ds1-bh"><h2>Mitarbeiter</h2><span class="r">${mName} · Marge nach Auftragsdatum</span></div><div style="overflow-x:auto"><table class="ds1-tab"><thead><tr>${th}</tr></thead><tbody>${tb||`<tr><td colspan="9" style="color:var(--text3)">Keine Daten im Zeitraum.</td></tr>`}</tbody><tfoot>${tf}</tfoot></table></div></div>`};
+  if(want)return parts[want]||'';
+  return parts.funnels+`<div class="ds1-grid ds1-g12">${parts.risks}${parts.team}</div>`;
+}
+// ── Dashboard Schritt 2 (Okt. 2026): Entwicklung & Wirkung · Kunden & Produkte · Ziele & Prognose ──
+const DASH_STAGE_P=[0.2,0.4,0.6,0.7,0.8];
+function dashSetGoal(kind,agentId){
+  if(!isAdmin()){alert('Ziele können nur Admins festlegen.');return;}
+  PROJECT.dashGoals=PROJECT.dashGoals||{team:0,agents:{}};
+  if(kind==='team'){const v=prompt('Monatsziel Marge für das Team (in €):',PROJECT.dashGoals.team||'');if(v===null)return;PROJECT.dashGoals.team=Math.max(0,parseLocaleNumber(v)||0);}
+  else{const a=agentById(agentId);const cur=PROJECT.dashGoals.agents[agentId]||{};const t=prompt(`Ziel Gespräche pro Monat für ${a?a.name:''}:`,cur.talks||'');if(t===null)return;const m=prompt(`Ziel Marge pro Monat für ${a?a.name:''} (in €):`,cur.marge||'');if(m===null)return;
+    PROJECT.dashGoals.agents[agentId]={talks:Math.max(0,parseInt(t)||0),marge:Math.max(0,parseLocaleNumber(m)||0)};}
+  saveState();renderDashboard();
+}
+function dashStep2Html(want){
+  const acts=tasksHeroActs&&tasksHeroActs.rows;const loading=!acts;
+  let sc=activeDashboardAgentFilters.length?leads.filter(l=>(l.members||[]).some(m=>activeDashboardAgentFilters.includes(m))):leads;
+  if(dashboardArtFilter!=='all')sc=sc.filter(l=>artMatches(l,dashboardArtFilter));
+  const scIds=new Set(sc.map(l=>String(l.id)));
+  const byAgent=r=>!activeDashboardAgentFilters.length||activeDashboardAgentFilters.includes(r.author);
+  const dOf=v=>v?String(v).slice(0,10):'';const dd=r=>calYmd(new Date(r.date));
+  const daysBetween=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000);
+  const ago=n=>{const d=new Date(TODAY+'T12:00:00');d.setDate(d.getDate()-n);return calYmd(d);};
+  const d90=ago(90),d30=ago(30),d180=ago(180);
+  const median=a=>{if(!a.length)return null;const b=a.slice().sort((x,y)=>x-y);const m=Math.floor(b.length/2);return b.length%2?b[m]:Math.round((b[m-1]+b[m])/2);};
+  const nf=v=>v===null||v===undefined?'–':v.toLocaleString('de-DE');
+  const eur=v=>fmtEur(Math.round(v))||'0 €';
+  // Wochen (12, Montag-basiert)
+  const mon=d=>{const x=new Date(d+'T12:00:00');const k=(x.getDay()+6)%7;x.setDate(x.getDate()-k);return calYmd(x);};
+  const wk0=mon(TODAY);const weeks=[];for(let i=11;i>=0;i--){const x=new Date(wk0+'T12:00:00');x.setDate(x.getDate()-7*i);weeks.push(calYmd(x));}
+  const kwOf=d=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+3-((x.getDay()+6)%7));const y1=new Date(x.getFullYear(),0,4);return 1+Math.round(((x-y1)/86400000-3+((y1.getDay()+6)%7))/7);};
+  const wIdx=d=>{if(!d)return -1;const m=mon(d);return weeks.indexOf(m);};
+  const perWeek=list=>{const a=weeks.map(()=>0);list.forEach(d=>{const i=wIdx(d);if(i>=0)a[i]++;});return a;};
+  // Hilfen
+  const partOfName=n=>{const cs=COLUMNS.filter(c=>c.name===n.trim());const ps=[...new Set(cs.map(c=>colBoard(c)))];return ps.length===1?ps[0]:null;};
+  const parseSC=t=>{const m=/^Status geändert:\s*"?(.+?)"?\s*→\s*"?(.+?)"?\s*$/.exec(String(t||''));return m?[m[1],m[2]]:null;};
+  const ne=r=>/^nicht erreicht/i.test(String(r.text||'').trim());
+  const A=loading?[]:acts.filter(r=>scIds.has(String(r.lead_id)));
+  const comments=A.filter(r=>r.type==='comment'&&byAgent(r));
+  const handovers=A.filter(r=>r.type!=='comment'&&byAgent(r)&&(x=>x&&partOfName(x[0])==='akquise'&&partOfName(x[1])==='vertrieb')(parseSC(r.text)));
+  const ordersOf=l=>{const ps=(l.actualPrinters||[]).filter(p=>(p.skus||[]).some(ordFilled));if(!ps.length)return [{d:dOf(l.statusSince||l.closedAt),m:leadMarginOf(l,'demand'),skus:[]}];
+    return ps.map(p=>({d:dOf(p.date)||dOf(l.statusSince),m:(p.skus||[]).reduce((a,x)=>a+((parseFloat(x.priceVk)||0)-(parseFloat(x.priceEk)||0))*(parseFloat(x.qty)||0),0),skus:(p.skus||[]).filter(ordFilled)}));};
+  const won=sc.filter(l=>isWon(l));
+  const wonOrders=won.flatMap(l=>ordersOf(l).map(o=>Object.assign({l},o)));
+  const box=(title,right,body,why,extra)=>`<div class="ds1-box"${extra||''}><div class="ds1-bh"><h2>${title}</h2><span class="r">${right}</span></div>${body}${why?`<div class="ds2-why"><b>Warum:</b> ${why}</div>`:''}</div>`;
+  const hb=(rows,max,fmt)=>rows.map(([n,v,col])=>`<div class="ds2-hb"><span class="n" title="${esc(n)}">${esc(n)}</span><span class="bar"><i style="width:${max?Math.max(v?3:0,v/max*100):0}%;background:${col}"></i></span><b class="r">${fmt?fmt(v):nf(v)}</b></div>`).join('');
+  const ld='<div style="font-size:12px;color:var(--text3);padding:8px 0">Lade Verlauf …</div>';
+  // ── 1 · Entwicklung & Wirkung ──
+  const sNew=perWeek(sc.map(l=>dOf(l.createdAt)).filter(Boolean));
+  const sTalk=perWeek(comments.map(dd));
+  const sPql=perWeek(handovers.map(dd));
+  const sWon=perWeek(won.map(l=>dOf(l.statusSince||l.closedAt)));
+  const kwl=weeks.map(w=>'KW '+kwOf(w));
+  const lineSvg=(series,right)=>{const w=640,h=180,pl=34,pr=right?34:10,pb=22,pt=8,W=w-pl-pr,H=h-pb-pt,n=weeks.length;
+    const mxL=Math.max(1,...series.filter(s=>!s.r).flatMap(s=>s.v))*1.1,mxR=Math.max(1,...series.filter(s=>s.r).flatMap(s=>s.v))*1.1;
+    const x=i=>pl+i*W/(n-1),y=(v,r)=>pt+H-(v/(r?mxR:mxL))*H;let g='';
+    for(let k=0;k<=4;k++){const yy=pt+H-H*k/4;g+=`<line x1="${pl}" x2="${w-pr}" y1="${yy}" y2="${yy}" stroke="currentColor" opacity=".08"/><text x="${pl-6}" y="${yy+3}" font-size="9" text-anchor="end" fill="currentColor" opacity=".55">${Math.round(mxL*k/4)}</text>${right?`<text x="${w-pr+6}" y="${yy+3}" font-size="9" fill="#7ED2DB">${Math.round(mxR*k/4)}</text>`:''}`;}
+    g+=kwl.map((l,i)=>i%2?'':`<text x="${x(i)}" y="${h-6}" font-size="9" text-anchor="middle" fill="currentColor" opacity=".55">${l}</text>`).join('');
+    g+=series.map(s=>`<polyline points="${s.v.map((v,i)=>x(i)+','+y(v,s.r)).join(' ')}" fill="none" stroke="${s.c}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" ${s.r?'stroke-dasharray="5 4"':''}/>${s.v.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v,s.r)}" r="${i===n-1?3.5:2}" fill="${s.c}"><title>${s.n} ${kwl[i]}: ${v}</title></circle>`).join('')}`).join('');
+    return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="Entwicklung über 12 Wochen">${g}</svg><div class="ds2-legend">${series.map(s=>`<span><i style="background:${s.c}"></i>${s.n}${s.r?' (rechte Achse)':''}</span>`).join('')}</div>`;};
+  const barSvg=(v,col,fmt)=>{const w=640,h=150,pl=44,pb=22,pt=8,W=w-pl-8,H=h-pb-pt,n=v.length,mx=Math.max(1,...v)*1.1,bw=W/n*.62;let g='';
+    for(let k=0;k<=4;k++){const yy=pt+H-H*k/4;g+=`<line x1="${pl}" x2="${w-8}" y1="${yy}" y2="${yy}" stroke="currentColor" opacity=".08"/><text x="${pl-6}" y="${yy+3}" font-size="9" text-anchor="end" fill="currentColor" opacity=".55">${fmt(mx*k/4)}</text>`;}
+    return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="Marge je Woche">${g}${v.map((x,i)=>{const bh=x/mx*H,xx=pl+i*W/n+(W/n-bw)/2;return `<rect x="${xx}" y="${pt+H-bh}" width="${bw}" height="${Math.max(0,bh)}" rx="3" fill="${col}" opacity="${i===n-1?1:.75}"><title>${kwl[i]}: ${fmtEur(Math.round(x))||'0 €'}</title></rect>${i%2?'':`<text x="${xx+bw/2}" y="${h-6}" font-size="9" text-anchor="middle" fill="currentColor" opacity=".55">${kwl[i]}</text>`}`;}).join('')}</svg>`;};
+  const mWeek=weeks.map(()=>0);wonOrders.forEach(o=>{const i=wIdx(o.d);if(i>=0)mWeek[i]+=o.m;});
+  // Free-Toner-Wirkung (Versand in den letzten 90 Tagen)
+  const sent=sc.filter(l=>l.tonerSentAt&&dOf(l.tonerSentAt)>=d90);
+  const sentWon=sent.filter(l=>isWon(l));
+  const toWin=sentWon.map(l=>daysBetween(dOf(l.tonerSentAt),dOf(l.statusSince||l.closedAt))).filter(x=>x>=0);
+  const ship=typeof SHIPPING_COST_PER_SEND==='number'?SHIPPING_COST_PER_SEND:4.95;
+  const sentMarge=sentWon.reduce((a,l)=>a+ordersOf(l).reduce((b,o)=>b+o.m,0),0);
+  const perToner=sent.length?(sentMarge-ship*sent.length)/sent.length:null;
+  const noAnswer=sc.filter(l=>!isClosedLead(l)&&l.tonerSent==='Ja'&&l.tonerSentAt&&daysBetween(dOf(l.tonerSentAt),TODAY)>45).length;
+  const conv=sent.length?Math.round(sentWon.length/sent.length*100):null;
+  // Durchlaufzeiten (Median, 90 Tage)
+  const byLead=new Map();A.forEach(r=>{const k=String(r.lead_id);if(!byLead.has(k))byLead.set(k,[]);byLead.get(k).push(r);});
+  const tNewFirst=[],tFirstPql=[],tPqlWon=[],tTonerWon=toWin.slice();
+  sc.forEach(l=>{const rs=byLead.get(String(l.id))||[];const firstC=rs.find(r=>r.type==='comment');const firstReach=rs.find(r=>r.type==='comment'&&!ne(r));
+    const ho=rs.find(r=>r.type!=='comment'&&(x=>x&&partOfName(x[0])==='akquise'&&partOfName(x[1])==='vertrieb')(parseSC(r.text)));
+    const c=dOf(l.createdAt);if(c&&firstC&&c>=d90)tNewFirst.push(daysBetween(c,dd(firstC)));
+    if(firstReach&&ho&&dd(ho)>=dd(firstReach))tFirstPql.push(daysBetween(dd(firstReach),dd(ho)));
+    if(ho&&isWon(l)){const w=dOf(l.statusSince||l.closedAt);if(w>=dd(ho))tPqlWon.push(daysBetween(dd(ho),w));}});
+  const durRows=[['Neu → erstes Gespräch',median(tNewFirst),'#206A72'],['Erreicht → an PQL',median(tFirstPql),'#534ab7'],['An PQL → Gewonnen',median(tPqlWon),'#ba7517'],['Toner → Gewonnen',median(tTonerWon),'#1d7a5a']];
+  const durMax=Math.max(1,...durRows.map(r=>r[1]||0));
+  const bTrend=box('Entwicklung · 12 Wochen','je Kalenderwoche',loading?ld:lineSvg([{n:'Neue Leads',c:'#206A72',v:sNew},{n:'An PQL übergeben',c:'#534ab7',v:sPql},{n:'Gewonnen',c:'#1d7a5a',v:sWon},{n:'Gespräche',c:'#7ED2DB',v:sTalk,r:true}],true),'zeigt, ob mehr Gespräche wirklich zu mehr Übergaben und Gewinnen führen.');
+  const bToner=box('Free-Toner-Wirkung','Versand letzte 90 Tage',`<div class="ds2-big">${conv===null?'–':conv+' %'}</div><div class="ds2-sub">der verschickten Toner wurden zum Auftrag (${sentWon.length} von ${sent.length})</div>
+     <div class="ds2-kp"><div class="g">Ø Tage bis Auftrag<b>${nf(median(toWin))}</b><small>Versand → Gewonnen (Median)</small></div><div>Marge je Toner<b>${perToner===null?'–':eur(perToner)}</b><small>abzgl. ${String(ship).replace('.',',')} € Versand</small></div><div class="w">Ohne Antwort<b>${noAnswer}</b><small>&gt; 45 Tage, offen</small></div></div>`,'beantwortet, ob ein kostenloser Toner zum Auftrag führt.');
+  const bMarge=box('Marge gewonnen · 12 Wochen','nach Auftragsdatum',barSvg(mWeek,'#206A72',v=>v>=1000?(v/1000).toFixed(1).replace('.',',')+' T€':Math.round(v)+' €'),'zeigt, ob Folgeaufträge die Marge über die Zeit tragen.');
+  const bDur=box('Durchlaufzeiten','Median in Tagen · letzte 90 Tage',loading?ld:hb(durRows,durMax,v=>v===null?'–':v+' T'),'zeigt, wo Leads am längsten hängen bleiben.');
+  const g1=`<div class="ds1-grid">${bTrend}</div><div class="ds1-grid ds1-g2">${bMarge}${bDur}</div>`;
+  // ── 2 · Kunden & Produkte ──
+  const artRows=ART_VALUES.map(a=>{const ls=sc.filter(l=>(l.art||'B2B')===a);const w90=ls.filter(l=>isWon(l)&&dOf(l.statusSince||l.closedAt)>=d90);const l90=ls.filter(l=>isLost(l)&&leadBoardPart(l)==='vertrieb'&&dOf(l.statusSince||l.closedAt)>=d90);
+    const m=w90.reduce((s2,l)=>s2+ordersOf(l).reduce((b,o)=>b+o.m,0),0);return [a,ls.length,(w90.length+l90.length)?Math.round(w90.length/(w90.length+l90.length)*100):null,w90.length?m/w90.length:null,m];});
+  const artMax=Math.max(1,...artRows.map(r=>r[4]));
+  const artTab=`<table class="ds1-tab"><thead><tr><th>Art</th><th class="r">Leads</th><th class="r">Gewinnrate</th><th class="r">Ø Marge</th><th>Marge gesamt</th></tr></thead><tbody>${artRows.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td class="r">${nf(r[1])}</td><td class="r">${r[2]===null?'–':r[2]+' %'}</td><td class="r">${r[3]===null?'–':eur(r[3])}</td><td><div style="display:flex;gap:8px;align-items:center"><span class="ds2-mbar" style="flex:1"><i style="width:${r[4]/artMax*100}%"></i></span><b>${eur(r[4])}</b></div></td></tr>`).join('')}</tbody></table>`;
+  const agg=new Map();wonOrders.filter(o=>o.d>=d90).forEach(o=>o.skus.forEach(x=>{const k=String(x.sku||'').trim().toLowerCase();if(!k)return;const q=parseFloat(x.qty)||0;const e=agg.get(k)||{sku:x.sku,title:x.title||'',q:0,m:0};e.q+=q;e.m+=((parseFloat(x.priceVk)||0)-(parseFloat(x.priceEk)||0))*q;if(!e.title&&x.title)e.title=x.title;agg.set(k,e);}));
+  const artBySku=new Map();ARTICLES.forEach(a=>{const k=String(a.sku||'').trim().toLowerCase();if(k&&!artBySku.has(k))artBySku.set(k,a);});
+  const topA=[...agg.values()].sort((a,b)=>b.m-a.m).slice(0,5);
+  const topTab=topA.length?`<table class="ds1-tab"><thead><tr><th>Artikel</th><th class="r">Stück</th><th class="r">Marge</th><th class="r">RMA</th></tr></thead><tbody>${topA.map(e=>{const a=artBySku.get(String(e.sku).trim().toLowerCase());const r=a?parseFloat(a.crRma):NaN;const cls=isNaN(r)?'':r>=5?'b':r>=2.5?'w':'g';
+      return `<tr><td title="${esc(e.sku)}">${esc((a&&a.title)||e.title||e.sku)}</td><td class="r">${nf(e.q)}</td><td class="r"><b>${eur(e.m)}</b></td><td class="r">${isNaN(r)?'–':`<span class="ds2-tag ${cls}">${String(r).replace('.',',')} %</span>`}</td></tr>`;}).join('')}</tbody></table>`:'<div style="font-size:12px;color:var(--text3)">Noch keine Aufträge in den letzten 90 Tagen.</div>';
+  const lossBy=part=>{const m=new Map();sc.filter(l=>isLost(l)&&leadBoardPart(l)===part&&dOf(l.statusSince||l.closedAt)>=d90).forEach(l=>{const k=l.lossReason||'Ohne Angabe';m.set(k,(m.get(k)||0)+1);});return [...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,6);};
+  const lS=lossBy('akquise'),lP=lossBy('vertrieb');
+  const g2=`   <div class="ds1-grid ds1-g2">${box('Kundenart','letzte 90 Tage',artTab,'zeigt, welche Kundenart wie oft gewinnt und wie viel Marge bringt.')}${box('Top-Artikel in Aufträgen','letzte 90 Tage · nach Marge',topTab,'zeigt, welche Artikel das Geld bringen – und ob darunter Artikel mit erhöhter RMA-Quote sind.')}</div>
+   <div class="ds1-grid ds1-g2">${box('Verlustgründe · SQL','letzte 90 Tage',lS.length?hb(lS.map(([n,c])=>[n,c,'#206A72']),lS[0][1]):'<div style="font-size:12px;color:var(--text3)">Keine Verluste.</div>','zeigt, woran die Akquise scheitert.')}${box('Verlustgründe · PQL','letzte 90 Tage',lP.length?hb(lP.map(([n,c])=>[n,c,'#ba7517']),lP[0][1]):'<div style="font-size:12px;color:var(--text3)">Keine Verluste.</div>','zeigt, warum ein Test nicht zum Auftrag wird.')}</div>`;
+  // ── 3 · Ziele & Prognose ──
+  const goals=PROJECT.dashGoals||{team:0,agents:{}};
+  const ym=TODAY.slice(0,7);const dim=new Date(+ym.slice(0,4),+ym.slice(5,7),0).getDate();const dayN=+TODAY.slice(8,10);
+  const mMonth=wonOrders.filter(o=>o.d.slice(0,7)===ym).reduce((a,o)=>a+o.m,0);
+  const proj=mMonth/dayN*dim;const goal=goals.team||0;
+  const goalBody=goal?`<div class="ds2-big">${eur(mMonth)} <span class="ds2-sub">von ${eur(goal)}</span></div><div class="ds2-prog"><s style="width:${Math.min(100,proj/goal*100)}%"></s><i style="width:${Math.min(100,mMonth/goal*100)}%"></i><span class="mark" style="left:${Math.min(100,dayN/dim*100)}%" title="Soll heute"></span></div>
+     <div class="ds2-sub">${Math.round(mMonth/goal*100)} % erreicht · Soll heute ${Math.round(dayN/dim*100)} % · <b style="color:#206A72">Hochrechnung ${eur(proj)}</b> (${Math.round(proj/goal*100)} %)</div>`
+    :`<div class="ds2-big">${eur(mMonth)}</div><div class="ds2-sub">bisher in diesem Monat · Hochrechnung ${eur(proj)}</div><div style="font-size:12px;color:var(--text3);margin-top:8px">Noch kein Monatsziel festgelegt.</div>`;
+  const goalBtn=isAdmin()?`<button type="button" class="btn btn-sm" style="margin-top:10px" onclick="dashSetGoal('team')"><i class="ti ti-target"></i> ${goal?'Ziel ändern':'Ziel festlegen'}</button>`:'';
+  // Gewichtete Prognose
+  const pqlCols=COLUMNS.filter(c=>colBoard(c)==='vertrieb'&&!c.outcome);
+  const progRows=pqlCols.map((c,i)=>{const p=DASH_STAGE_P[Math.min(i,DASH_STAGE_P.length-1)];const f=sc.filter(l=>l.status===c.id).reduce((a,l)=>a+leadMarginOf(l,'demand'),0);return [`${c.name} · ${Math.round(p*100)} %`,f*p,'#ba7517',f];});
+  const progSum=progRows.reduce((a,r)=>a+r[1],0);const progMax=Math.max(1,...progRows.map(r=>r[1]));
+  // FollowUp-Disziplin (fällig in den letzten 30 Tagen)
+  let onTime=0,late=0;const lateDays=[];
+  sc.forEach(l=>{const h=(l.followupHistory||[]).filter(e=>e&&e.date).map(e=>({d:dOf(e.date),s:dOf(e.setAt)})).sort((a,b)=>a.s.localeCompare(b.s));
+    h.forEach((e,i)=>{if(e.d<d30||e.d>=TODAY)return;const next=h.slice(i+1).find(x=>x.s>=e.s);const doneAt=next?next.s:(isClosedLead(l)?dOf(l.statusSince||l.closedAt):'');
+      if(doneAt&&doneAt<=e.d)onTime++;else{late++;lateDays.push(daysBetween(e.d,doneAt||TODAY));}});});
+  const disc=(onTime+late)?Math.round(onTime/(onTime+late)*100):null;
+  const avgLate=lateDays.length?(lateDays.reduce((a,b)=>a+b,0)/lateDays.length):null;
+  // Erreichbarkeit (Wochentag x Uhrzeit)
+  const slots=[[8,10],[10,12],[12,14],[14,16],[16,18]];const days=['Mo','Di','Mi','Do','Fr'];
+  const cell=days.map(()=>slots.map(()=>({n:0,r:0})));
+  comments.filter(r=>dd(r)>=d90).forEach(r=>{const t=new Date(r.date);const wd=(t.getDay()+6)%7;if(wd>4)return;const h=t.getHours();const si=slots.findIndex(([a,b])=>h>=a&&h<b);if(si<0)return;const c=cell[wd][si];c.n++;if(!ne(r))c.r++;});
+  let best=null;cell.forEach((row,di)=>row.forEach((c,si)=>{if(c.n>=5){const q=c.r/c.n;if(!best||q>best.q)best={q,di,si};}}));
+  const heat=`<div class="ds2-heat"><span></span>${days.map(d=>`<span class="h">${d}</span>`).join('')}${slots.map(([a,b],si)=>`<span class="d">${a}–${b}</span>${days.map((d,di)=>{const c=cell[di][si];if(!c.n)return `<span class="c" style="background:#f3f5f5;color:var(--text3)">–</span>`;const q=Math.round(c.r/c.n*100);return `<span class="c" style="background:rgba(32,106,114,${(0.1+q/100*0.85).toFixed(2)});color:${q>45?'#fff':'var(--text)'}" title="${d} ${a}–${b} Uhr: ${q} % erreicht (${c.n} Gespräche)">${q}</span>`;}).join('')}`).join('')}</div>`;
+  // Ziele je Mitarbeiter
+  const agents=AGENTS.filter(a=>!activeDashboardAgentFilters.length||activeDashboardAgentFilters.includes(a.id));
+  const owner=l=>(l.members||[])[0];
+  const goalRows=agents.map(a=>{const g=goals.agents&&goals.agents[a.id]||{};const talks=loading?null:comments.filter(r=>r.author===a.id&&dd(r).slice(0,7)===ym).length;const m=wonOrders.filter(o=>owner(o.l)===a.id&&o.d.slice(0,7)===ym).reduce((x,o)=>x+o.m,0);return {a,g,talks,m};}).filter(r=>r.g.talks||r.g.marge||r.talks||r.m);
+  const gbar=(v,goal,col)=>goal?`<div style="display:flex;gap:8px;align-items:center"><span class="ds2-mbar" style="flex:1"><i style="width:${Math.min(100,(v||0)/goal*100)}%;background:${col}"></i></span><span class="ds2-sub">${col==='#206A72'?nf(v)+' / '+nf(goal):(Math.round((v||0)/100)/10).toLocaleString('de-DE')+' / '+(Math.round(goal/100)/10).toLocaleString('de-DE')+' T€'}</span></div>`:`<span class="ds2-sub">${col==='#206A72'?nf(v):eur(v||0)} · kein Ziel</span>`;
+  const goalTab=`<table class="ds1-tab"><thead><tr><th>Mitarbeiter</th><th>Gespräche / Ziel</th><th>Marge / Ziel</th>${isAdmin()?'<th></th>':''}</tr></thead><tbody>${goalRows.map(r=>`<tr><td>${esc(r.a.name)}</td><td>${r.talks===null?'…':gbar(r.talks,r.g.talks,'#206A72')}</td><td>${gbar(r.m,r.g.marge,'#1d7a5a')}</td>${isAdmin()?`<td class="r"><button type="button" class="btn btn-sm" onclick="dashSetGoal('agent','${r.a.id}')" title="Ziele festlegen"><i class="ti ti-target"></i></button></td>`:''}</tr>`).join('')||`<tr><td colspan="4" style="color:var(--text3)">Keine Daten.</td></tr>`}</tbody></table>`;
+  const g3=`   <div class="ds1-grid ds2-g3">${box('Monatsziel Marge',goal?`Ziel ${eur(goal)}`:'kein Ziel',goalBody+goalBtn,'zeigt im laufenden Monat, ob wir auf Kurs sind.')}
+    ${box('Gewichtete Prognose','offene PQL-Leads',`<div class="ds2-big">${eur(progSum)}</div><div class="ds2-sub">erwartete Marge aus ${sc.filter(l=>pqlCols.some(c=>c.id===l.status)).length} offenen Leads</div>${hb(progRows.map(r=>[r[0],r[1],r[2]]),progMax,v=>eur(v))}`,'Forecast-Marge × angenommene Wahrscheinlichkeit je Liste (20 / 40 / 60 %).')}
+    ${box('FollowUp-Disziplin','fällig in den letzten 30 Tagen',`<div class="ds2-big" style="color:${disc===null?'inherit':disc>=80?'#1d7a5a':disc>=60?'#7a4e07':'#a32d2d'}">${disc===null?'–':disc+' %'}</div><div class="ds2-sub">der FollowUps spätestens am Fälligkeitstag erledigt</div><div class="ds2-kp" style="grid-template-columns:1fr 1fr"><div class="g">Pünktlich<b>${onTime}</b></div><div class="w">Verspätet<b>${late}</b><small>${avgLate===null?'':'Ø '+avgLate.toFixed(1).replace('.',',')+' Tage'}</small></div></div>`,'erledigt = nächstes FollowUp gesetzt oder Lead abgeschlossen.')}</div>`;
+  const gHeat=`${box('Erreichbarkeit nach Tag und Uhrzeit','Anteil erreicht · letzte 90 Tage',loading?ld:heat+(best?`<div class="ds2-sub" style="margin-top:8px">Am besten: <b>${days[best.di]} ${slots[best.si][0]}–${slots[best.si][1]} Uhr</b> (${Math.round(best.q*100)} % erreicht)</div>`:''),'Grundlage sind die Uhrzeiten der Kommentare.')}`;
+  const gGoalTeam=`${box('Ziele je Mitarbeiter','laufender Monat',goalTab,'Ziele legt ein Admin über das Ziel-Symbol fest.')}`;
+  const parts={dev:g1,cust:g2,goals:g3,heat:gHeat,goalsTeam:gGoalTeam,toner:bToner,trend:bTrend};
+  if(want)return parts[want]||'';
+  return g1+g2+g3+`<div class="ds1-grid ds1-g2">${gHeat}${gGoalTeam}</div>`;
+}
+// ── Dashboard-Gruppen (Okt. 2026): aufklappbar, Zustand gemerkt, zugeklappt = nicht berechnet ──
+let dashGroupsOpen=null;
+function dashGroupState(){
+  if(!dashGroupsOpen){try{dashGroupsOpen=JSON.parse(localStorage.getItem('projectos_dash_groups')||'null');}catch(e){dashGroupsOpen=null;}
+    if(!dashGroupsOpen||typeof dashGroupsOpen!=='object')dashGroupsOpen={pipeline:true,today:true,team:true,dev:false,cust:false,project:false};}
+  return dashGroupsOpen;
+}
+function dashToggleGroup(k){const st=dashGroupState();st[k]=!st[k];try{localStorage.setItem('projectos_dash_groups',JSON.stringify(st));}catch(e){}renderDashboard();}
+function dashGroup(k,title,icon,summary,fn){
+  const open=!!dashGroupState()[k];let body='';
+  if(open){try{body=fn();}catch(e){console.warn('Dashboard-Gruppe',k,e);body=`<div class="ds1-box" style="color:var(--red)">Dieser Bereich konnte nicht berechnet werden: ${esc(e.message)}</div>`;}}
+  return `<section class="dg ${open?'open':''}" aria-label="${esc(title)}"><button type="button" class="dg-h" onclick="dashToggleGroup('${k}')" aria-expanded="${open}"><i class="ti ti-chevron-right dg-ch"></i><i class="ti ti-${icon} dg-ic"></i><span class="dg-t">${title}</span><span class="dg-line"></span><span class="dg-sum">${summary||''}</span></button>${open?`<div class="dg-b">${body}</div>`:''}</section>`;
+}
+// FollowUp: Angebot (Okt. 2026) – mit Umschalter "Alle offenen" (ersetzt Top Forecast)
+let dashOfferMode='offer',dashOfferExpand=false;
+function dashOfferSet(m){dashOfferMode=m;dashOfferExpand=false;renderDashboard();}
+function dashOfferMore(){dashOfferExpand=!dashOfferExpand;renderDashboard();}
+function dashOfferHtml(dl){
+  const col=COLUMNS.find(c=>!c.outcome&&colBoard(c)==='vertrieb'&&c.name.trim()==='FollowUp: Angebot')||COLUMNS.find(c=>!c.outcome&&colBoard(c)==='vertrieb'&&/^followup:.*angebot/i.test(c.name));
+  const offer=dashOfferMode==='offer';
+  const base=offer?(col?dl.filter(l=>l.status===col.id):[]):dl.filter(l=>!isClosedLead(l)&&leadMarginOf(l,'demand')>0);
+  const days=l=>l.statusSince?Math.max(0,-daysUntil(String(l.statusSince).slice(0,10))):null;
+  const list=base.map(l=>({l,m:leadMarginOf(l,'demand'),d:days(l),fu:l.followup?daysUntil(l.followup):null})).sort((a,b)=>b.m-a.m);
+  const tot=list.reduce((a,x)=>a+x.m,0);const ds=list.map(x=>x.d).filter(x=>x!==null);const avg=ds.length?Math.round(ds.reduce((a,b)=>a+b,0)/ds.length):null;
+  // Abschlussquote aus Angebot: gewonnen vs. verloren aus dieser Liste, letzte 6 Monate
+  const d180=(()=>{const d=new Date(TODAY+'T12:00:00');d.setDate(d.getDate()-182);return calYmd(d);})();
+  const closed=col?dl.filter(l=>isClosedLead(l)&&l.closedFromStage===col.id&&String(l.statusSince||l.closedAt||'').slice(0,10)>=d180):[];
+  const wonN=closed.filter(l=>isWon(l)).length;const quote=closed.length?Math.round(wonN/closed.length*100):null;
+  const r=22,cf=2*Math.PI*r;const ring=quote===null?`<div class="ds3-ring-empty">–</div>`:`<svg width="58" height="58" viewBox="0 0 58 58" role="img" aria-label="Abschlussquote ${quote} %"><circle cx="29" cy="29" r="${r}" fill="none" stroke="#E9F0F1" stroke-width="7"/><circle cx="29" cy="29" r="${r}" fill="none" stroke="#206A72" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(cf*quote/100).toFixed(1)} ${cf.toFixed(1)}" transform="rotate(-90 29 29)"/><text x="29" y="33" text-anchor="middle" font-size="12" font-weight="700" fill="#206A72">${quote}%</text></svg>`;
+  const dotc=f=>f===null?'#b9c4c6':f<0?'#c0392b':f===0?'#d38e2c':'#206A72';
+  const fuTxt=f=>f===null?'kein FollowUp':f<0?`${-f} T überfällig`:f===0?'FollowUp heute':`FollowUp in ${f} T`;
+  const mx=list.length?list[0].m||1:1;const shown=dashOfferExpand?list:list.slice(0,6);
+  const owner=l=>{const a=agentById((l.members||[])[0]);return a?ini(a.name):'';};
+  const rows=shown.map(x=>`<button type="button" class="ds3-lb" onclick="openLeadModal(${JSON.stringify(x.l.id)})" title="${esc(x.l.company||'')} öffnen"><span class="dot" style="background:${dotc(x.fu)}"></span><span class="co">${esc(x.l.company||'–')}</span><span class="mg">${fmtEurCent(x.m)}</span><span class="bar"><i style="width:${Math.max(2,x.m/mx*100)}%"></i></span><span class="sub">${fuTxt(x.fu)} · ${offer?(x.d===null?'–':x.d+' T im Angebot'):esc(colById(x.l.status)?colById(x.l.status).name:'')} · ${esc(owner(x.l))}</span></button>`).join('');
+  const sw=`<div class="ds3-sw" role="group" aria-label="Ansicht"><button type="button" aria-pressed="${offer}" onclick="dashOfferSet('offer')">Angebote</button><button type="button" aria-pressed="${!offer}" onclick="dashOfferSet('all')">Alle offenen</button></div>`;
+  return `<div class="ds1-box ds3-offer"><div class="ds1-bh"><h2><span class="ds1-pill vertrieb">PQL</span>${offer?'FollowUp: Angebot':'Top Forecast'}</h2>${sw}</div>
+    <div class="ds3-qr"><div class="sum"><b>${fmtEur(Math.round(tot))||'0 €'}</b><span>Forecast-Marge · ${list.length} ${offer?(list.length===1?'Angebot':'Angebote'):'offene Leads'}${offer&&avg!==null?' · Ø '+avg+' T im Angebot':''}</span></div>${offer?`<div class="q">${ring}<span>Abschlussquote${closed.length?`<br><small>${wonN} von ${closed.length} · 6 Mon.</small>`:''}</span></div>`:''}</div>
+    ${rows||`<div style="font-size:12px;color:var(--text3);padding:8px 0">${offer?(col?'Keine Leads in „FollowUp: Angebot“.':'Keine Liste „FollowUp: Angebot“ gefunden.'):'Keine offenen Leads mit Forecast.'}</div>`}
+    ${list.length>6?`<button type="button" class="ds3-more" onclick="dashOfferMore()">${dashOfferExpand?'Weniger anzeigen':`Alle ${list.length} anzeigen`}</button>`:''}
+    <div class="ds3-leg"><span><i style="background:#c0392b"></i>überfällig</span><span><i style="background:#d38e2c"></i>heute</span><span><i style="background:#206A72"></i>geplant</span><span><i style="background:#b9c4c6"></i>kein FollowUp</span></div></div>`;
+}
+// Erfolgreiche Gespraeche: Leads, die je Tag nach "AM: Auftrag" verschoben wurden (letzte 30 Tage)
+function dashAmPerDayHtml(dl){
+  const acts=tasksHeroActs&&tasksHeroActs.rows;if(!acts)return '<div style="font-size:12px;color:var(--text3);padding:8px 0">Lade Verlauf …</div>';
+  const tgt=COLUMNS.find(c=>!c.outcome&&colBoard(c)==='akquise'&&/^am:\s*auftrag$/i.test(c.name.trim()));
+  if(!tgt)return '<div style="font-size:12px;color:var(--text3)">Keine Liste „AM: Auftrag“ gefunden.</div>';
+  const ids=new Set(dl.map(l=>String(l.id)));
+  const byA=r=>!activeDashboardAgentFilters.length||activeDashboardAgentFilters.includes(r.author);
+  const days=[];for(let i=29;i>=0;i--){const d=new Date(TODAY+'T12:00:00');d.setDate(d.getDate()-i);days.push(calYmd(d));}
+  const ev=acts.filter(r=>r.type!=='comment'&&ids.has(String(r.lead_id))&&byA(r)).filter(r=>{const m=/^Status geändert:\s*"?(.+?)"?\s*→\s*"?(.+?)"?\s*$/.exec(String(r.text||''));return m&&m[2].trim()===tgt.name.trim()&&m[1].trim()!==tgt.name.trim();});
+  const seen=new Set();const uniq=ev.filter(r=>{const d=calYmd(new Date(r.date));if(d<days[0]||d>days[days.length-1])return false;const k=String(r.lead_id)+'|'+d;if(seen.has(k))return false;seen.add(k);return true;});
+  const per=days.map(d=>uniq.filter(r=>calYmd(new Date(r.date))===d));
+  const authors=[...new Set(uniq.map(r=>r.author))];
+  const mx=Math.max(1,...per.map(x=>x.length));const total=uniq.length;
+  const work=days.filter(d=>{const g=new Date(d+'T12:00:00').getDay();return g>0&&g<6;}).length;
+  let best=0,bestD='';per.forEach((x,i)=>{if(x.length>best){best=x.length;bestD=days[i];}});
+  const colOf=id=>{const a=agentById(id);return a?(COLOR_HEX[a.color]||'#206A72'):'#9fb3b6';};
+  const bars=per.map((x,i)=>{const d=days[i];const wd=new Date(d+'T12:00:00').getDay();const segs=authors.map(a=>({a,n:x.filter(r=>r.author===a).length})).filter(y=>y.n);
+    return `<div class="ds3-day ${wd===0||wd===6?'we':''}" title="${fmtDate(d)}: ${x.length} ${x.length===1?'Lead':'Leads'} nach AM: Auftrag${segs.length?' – '+segs.map(y=>{const a=agentById(y.a);return (a?a.name:'?')+' '+y.n;}).join(', '):''}"><div class="stack" style="height:${x.length/mx*100}%">${segs.map(y=>`<i style="flex:${y.n};background:${colOf(y.a)}"></i>`).join('')}</div><span class="lb">${i%5===4||i===29?d.slice(8,10)+'.'+d.slice(5,7)+'.':''}</span></div>`;}).join('');
+  const lg=authors.map(a=>{const ag=agentById(a);return `<span><i style="background:${colOf(a)}"></i>${esc(ag?ag.name:'?')} ${uniq.filter(r=>r.author===a).length}</span>`;}).join('');
+  return `<div class="ds2-kp" style="margin:0 0 12px"><div>Leads nach AM: Auftrag<b>${total}</b><small>letzte 30 Tage</small></div><div>Ø je Arbeitstag<b>${work?(total/work).toFixed(1).replace('.',','):'–'}</b><small>Mo–Fr</small></div><div class="g">Bester Tag<b>${best||'–'}</b><small>${bestD?fmtDate(bestD):''}</small></div></div>
+    <div class="ds3-days">${bars}</div><div class="ds2-legend">${lg||'<span>Noch keine Verschiebungen nach „AM: Auftrag“ in den letzten 30 Tagen.</span>'}</div>`;
+}
+// Verweildauer je Liste: wie lange liegen offene Leads schon in ihrer Liste?
+function dashDwellHtml(dl){
+  const cols=[...COLUMNS.filter(c=>colBoard(c)==='akquise'&&!c.outcome),...COLUMNS.filter(c=>colBoard(c)==='vertrieb'&&!c.outcome)];
+  const rows=cols.map(c=>{const ls=dl.filter(l=>l.status===c.id&&l.statusSince);const d=ls.map(l=>Math.max(0,-daysUntil(String(l.statusSince).slice(0,10))));
+    return {c,n:ls.length,avg:d.length?Math.round(d.reduce((a,b)=>a+b,0)/d.length):null,old:d.filter(x=>x>30).length};}).filter(r=>r.n);
+  if(!rows.length)return '<div style="font-size:12px;color:var(--text3)">Keine offenen Leads.</div>';
+  const mx=Math.max(1,...rows.map(r=>r.avg||0));
+  return rows.map(r=>{const col=r.avg>30?'#a32d2d':r.avg>14?'#ba7517':colBoard(r.c)==='akquise'?'#206A72':'#ba7517';
+    return `<div class="ds2-hb" style="grid-template-columns:170px minmax(0,1fr) 120px"><span class="n" title="${esc(r.c.name)}">${esc(r.c.name)}</span><span class="bar"><i style="width:${(r.avg||0)/mx*100}%;background:${col}"></i></span><b class="r">Ø ${r.avg} T${r.old?` <span class="ds1-chip ${r.old>5?'red':'amb'}" title="${r.old} Leads länger als 30 Tage in dieser Liste">${r.old} &gt;30 T</span>`:''}</b></div>`;}).join('');
+}
+// Folgeauftraege: wie viele Kunden bestellen ein zweites Mal?
+function dashRepeatHtml(dl){
+  const won=dl.filter(l=>isWon(l));
+  const ords=won.map(l=>(l.actualPrinters||[]).filter(p=>(p.skus||[]).some(ordFilled)).map(p=>({d:String(p.date||l.statusSince||'').slice(0,10),m:(p.skus||[]).reduce((a,x)=>a+((parseFloat(x.priceVk)||0)-(parseFloat(x.priceEk)||0))*(parseFloat(x.qty)||0),0)})).sort((a,b)=>a.d.localeCompare(b.d)));
+  const withOrd=ords.filter(o=>o.length);const rep=withOrd.filter(o=>o.length>=2);
+  const mAll=withOrd.reduce((a,o)=>a+o.reduce((b,x)=>b+x.m,0),0);const mRep=rep.reduce((a,o)=>a+o.slice(1).reduce((b,x)=>b+x.m,0),0);
+  const gaps=rep.map(o=>Math.round((new Date(o[1].d+'T12:00:00')-new Date(o[0].d+'T12:00:00'))/86400000)).filter(x=>x>=0);
+  const avgGap=gaps.length?Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length):null;
+  const share=withOrd.length?Math.round(rep.length/withOrd.length*100):null;
+  return `<div class="ds2-big">${share===null?'–':share+' %'}</div><div class="ds2-sub">der Kunden mit Auftrag haben nachbestellt (${rep.length} von ${withOrd.length})</div>
+   <div class="ds2-kp"><div class="g">Marge aus Folgeaufträgen<b>${fmtEur(Math.round(mRep))||'0 €'}</b><small>${mAll?Math.round(mRep/mAll*100):0} % der Auftragsmarge</small></div><div>Ø Abstand<b>${avgGap===null?'–':avgGap+' T'}</b><small>1. → 2. Auftrag</small></div><div>Ø Aufträge je Kunde<b>${withOrd.length?(withOrd.reduce((a,o)=>a+o.length,0)/withOrd.length).toFixed(1).replace('.',','):'–'}</b><small>gewonnene Kunden</small></div></div>`;
+}
+// Wirtschaftlichkeit: Investition gegen gewonnene Marge
+function dashEconomicsHtml(dl,invest,winRate,avgCycle){
+  const won=dl.filter(l=>isWon(l));
+  const marge=won.reduce((a,l)=>{const ps=(l.actualPrinters||[]).filter(p=>(p.skus||[]).some(ordFilled));return a+(ps.length?ps.reduce((b,p)=>b+(p.skus||[]).reduce((c,x)=>c+((parseFloat(x.priceVk)||0)-(parseFloat(x.priceEk)||0))*(parseFloat(x.qty)||0),0),0):leadMarginOf(l,'demand'));},0);
+  const net=marge-invest;const roi=invest?marge/invest:null;const perWin=won.length?invest/won.length:null;
+  const ok=net>=0;
+  return `<div class="ds2-big" style="color:${ok?'#1d7a5a':'#a32d2d'}">${roi===null?'–':roi.toFixed(1).replace('.',',')+' ×'}</div><div class="ds2-sub">gewonnene Marge je investiertem Euro · ${ok?'die Aktion trägt sich':'die Aktion trägt sich noch nicht'}</div>
+   <div class="ds2-kp"><div>Investition<b>${fmtEur(Math.round(invest))||'0 €'}</b><small>Toner &amp; Versand</small></div><div class="g">Marge gewonnen<b>${fmtEur(Math.round(marge))||'0 €'}</b><small>alle Aufträge</small></div><div class="${ok?'g':'w'}">Ergebnis<b>${(net>=0?'+':'−')+(fmtEur(Math.round(Math.abs(net)))||'0 €')}</b><small>${perWin===null?'':'Kosten je Gewinn '+(fmtEur(Math.round(perWin))||'0 €')}</small></div></div>
+   <div class="ds2-kp" style="grid-template-columns:1fr 1fr"><div>Gewinnrate<b>${winRate===undefined||winRate===null?'–':winRate+' %'}</b><small>gewonnen von allen abgeschlossenen</small></div><div>Ø Vertriebszyklus<b>${avgCycle?avgCycle+' Tage':'–'}</b><small>Erstkontakt → Gewonnen</small></div></div>`;
+}
 function dashboardHeroHtml(){
   loadTasksHeroActs();
   const C={label:'#9fc9cd',sub:'#8fb5b9',unit:'#bcdadd',bar:'#7ED2DB',red:'#e57373',white:'#fff'};
@@ -5864,7 +6350,11 @@ function dashboardHeroHtml(){
     </div><div style="grid-column:span 1;display:flex;align-items:center;height:100%;padding:4px 14px;min-width:0">${graph}</div>`;
   let h=`<div class="dash-hero" style="background:linear-gradient(180deg,#0c3b40 0%,#164e54 55%,#1d6169 100%);box-shadow:0 12px 28px rgba(15,61,66,0.22);border-radius:16px;padding:22px 26px;color:#fff;margin-bottom:22px;width:100%;box-sizing:border-box">
     <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.14);min-height:118px;align-items:center">`;
-  h+=top('Marge gewonnen',mName,nf(mMonth),'€',`Ø ${nf(mMonth/wkInMonth)} € pro Woche`,`Vormonat ${nf(mPrev)} €`,heroBars(mBars,C.bar,300,34,undefined,wLbl));
+  const goalT=(PROJECT.dashGoals&&PROJECT.dashGoals.team)||0;
+  const dimT=new Date(+TODAY.slice(0,4),+TODAY.slice(5,7),0).getDate(),dayT=+TODAY.slice(8,10);
+  const projT=dayT?mMonth/dayT*dimT:0;
+  const goalLine=goalT?`Ziel ${nf(goalT)} € · ${Math.round(mMonth/goalT*100)} % · Hochr. ${nf(projT)} €`:`Ø ${nf(mMonth/wkInMonth)} € pro Woche`;
+  h+=top('Marge gewonnen',mName,nf(mMonth),'€',goalLine,`Vormonat ${nf(mPrev)} €`,heroBars(mBars,C.bar,300,34,undefined,wLbl));
   h+=top('Toner verschickt',mName,tMonth,tMonth===1?'Zusage':'Zusagen',`Ø ${nf(tMonth/wkInMonth,1)} pro Woche`,`Vormonat ${tPrev}`,heroBars(tBars,C.bar,300,34,undefined,wLbl));
   h+=top('Forecast-Marge','offen',nf(fm),'€',`in ${fmN} ${fmN===1?'Lead':'Leads'} im PQL-Board`,fmN?`Ø ${nf(fm/fmN)} € je Lead`:'noch kein Forecast',heroBars(fBars,C.bar,300,34,fBars.indexOf(Math.max(...fBars,0)),pqlCols.map(c=>c.name)));
   h+=`</div><div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px">`;
