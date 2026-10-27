@@ -346,11 +346,73 @@ body{font-family:'Inter',sans-serif;background:linear-gradient(155deg,#f2f3f0 0%
 .rc-seg button{padding:0 12px}
 .rc-pick{width:100%;height:36px;display:flex;align-items:center;gap:8px;border:1px dashed var(--text3);border-radius:8px;background:transparent;color:var(--text2);font-size:12.5px;cursor:pointer;padding:0 10px;font-family:inherit;text-align:left}
 .rc-pick:hover{border-color:#206A72;color:#206A72}
+/* Kundenauftrag aus PDF: Bestaetigungsfenster (Entwurf A) */
+.ap-ov{position:fixed;inset:0;background:rgba(26,42,45,.55);z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px}
+.ap-dlg{background:#fbfbfa;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.28);overflow:hidden;display:flex;flex-direction:column;width:640px;max-width:100%;max-height:92vh}
+.ap-hdr{background:#206A72;color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px}
+.ap-hdr .ti{font-size:22px}
+.ap-hdr b{font-size:15px;display:block}.ap-hdr small{font-size:12px;color:#D6E6E8}
+.ap-x{width:32px;height:32px;border:0;border-radius:8px;background:rgba(255,255,255,.14);color:#fff;display:inline-flex;align-items:center;justify-content:center;margin-left:auto;cursor:pointer;font-size:16px}
+.ap-body{padding:16px 18px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
+.ap-g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ap-tile{background:#E9F0F1;border-radius:10px;padding:8px 12px}
+.ap-tile small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#4f5d60}
+.ap-tile b{font-size:15px;color:#174C52}
+.ap-tile.bad{background:#F8EAEA}.ap-tile.bad small,.ap-tile.bad b{color:#88201E}
+.ap-warn{background:#F8EAEA;border:1px solid #E7B9B7;border-radius:10px;padding:9px 12px;display:flex;gap:10px;align-items:flex-start;color:#88201E;font-size:12.5px}
+.ap-warn.soft{background:#FBF3E4;border-color:#EBD3A8;color:#6b4206}
+.ap-warn .ti{font-size:17px;flex-shrink:0;margin-top:1px}
+.ap-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.ap-tbl th{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#4f5d60;text-align:left;padding:6px 8px;border-bottom:1px solid #C9DCDE}
+.ap-tbl td{padding:8px;border-bottom:1px solid #E9F0F1;vertical-align:top}
+.ap-tbl .n{text-align:right;white-space:nowrap}
+.ap-tbl .d{font-size:11.5px;color:#4f5d60}
+.ap-tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;background:#B9D6DA;color:#123E43;margin-left:6px;white-space:nowrap}
+.ap-tag.miss{background:#F8EAEA;color:#88201E}
+.ap-k{border-radius:10px;padding:9px 12px;background:#E9F0F1}
+.ap-k small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#4f5d60}
+.ap-k b{font-size:18px;color:#174C52}
+.ap-k.dark{background:#206A72}.ap-k.dark small{color:#D6E6E8}.ap-k.dark b{color:#fff}
+.ap-ft{display:flex;gap:8px;align-items:center;padding:12px 18px;border-top:1px solid rgba(0,0,0,.08);background:#fff}
+
+.ap-q{border:2px solid #206A72;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:12px;background:#fff}
+.ap-q b{font-size:14px;color:#174C52}.ap-q small{display:block;font-size:12px;color:#4f5d60}
+.ap-seg{display:flex;gap:6px;margin-left:auto}
+.ap-seg button{height:34px;min-width:64px;border:1px solid #206A72;border-radius:8px;background:#fff;color:#206A72;font:600 13px Inter,sans-serif;cursor:pointer}
+.ap-seg button.on{background:#206A72;color:#fff}
+.ap-ft-list{background:#E9F0F1;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#123E43}
+.ap-ft-list .ti{color:#206A72;font-size:15px;vertical-align:-2px;margin-right:4px}
+.ap-ft-list label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.ap-ft-list input{accent-color:#206A72;width:16px;height:16px;margin:0}
+.ap-tag.ft{background:#206A72;color:#fff}
+.ap-note{font-size:12.5px;color:#4f5d60;background:#f4f6f5;border-radius:10px;padding:10px 12px}
+.ap-busy{display:flex;align-items:center;gap:10px;padding:24px 18px;font-size:13px;color:#4f5d60}
+
+/* Dateien per Drag & Drop aufs Lead-Fenster */
+#leadModal.lm-dropping::before{content:'';position:fixed;inset:10px;border:3px dashed #206A72;border-radius:16px;background:rgba(32,106,114,.14);pointer-events:none;z-index:9998}
+#leadModal.lm-dropping::after{content:'Dateien hier ablegen – sie werden als Anhang vorgemerkt';position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#206A72;color:#fff;font:600 15px Inter,sans-serif;padding:14px 22px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);pointer-events:none;z-index:9999;white-space:nowrap}
 .rc-att{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .rc-att span{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border2);background:var(--bg);border-radius:7px;padding:2px 4px 2px 8px;font-size:12px}
 .rc-att button{border:0;background:transparent;color:var(--text3);cursor:pointer;font-weight:700;padding:0 3px}
 .feed-tag{font-size:10px;font-weight:700;border-radius:5px;padding:1px 6px;margin-left:6px;text-transform:uppercase;letter-spacing:.03em;vertical-align:1px}
 .feed-tag.t{background:#EEEDFE;color:#3C3489}.feed-tag.f{background:#FAEEDA;color:#633806}
+/* Verlauf: Eintraege mit farbigem Kopfband (Petrol-Toene je Art) */
+.fc{border-radius:var(--r-md);overflow:hidden;border:1px solid #C9DCDE;background:var(--bg);margin-bottom:8px}
+.fc-band{display:flex;align-items:center;gap:6px;padding:4px 6px 4px 11px;font-size:11.5px;font-weight:700;min-height:30px;box-sizing:border-box}
+.fc-band>.ti{font-size:14px}
+.fc-band .r{margin-left:auto;display:flex;align-items:center;gap:6px;font-weight:500;font-size:10.5px}
+.fc-band .icon-btn{width:22px;height:22px;color:inherit;opacity:.85}
+.fc-c{border-color:#C9DCDE}.fc-c .fc-band{background:#E9F0F1;color:#174C52}
+.fc-t{border-color:#206A72}.fc-t .fc-band{background:#206A72;color:#fff}
+.fc-f{border-color:#9CC4C9}.fc-f .fc-band{background:#B9D6DA;color:#123E43}
+.fc-done{border-color:rgba(0,0,0,.12)}.fc-done .fc-band{background:#f0efec;color:#5f5f5b}
+.fc-loss{border-color:#F1948A}.fc-loss .fc-band{background:#FADBD8;color:#88201E}
+.fc-body{padding:8px 11px 10px}
+.fc-who{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text2);flex-wrap:wrap}
+.fc-who b{color:var(--text);font-weight:600}
+.fc-av{width:18px;height:18px;border-radius:50%;font-size:8.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.fc .feed-file{background:#F4F9F9;border-color:#B9D6DA}
+.fc .backdated-tag{margin-left:0}
 .feed-file{display:flex;align-items:center;gap:8px;border:1px solid var(--border2);border-radius:7px;padding:5px 9px;background:var(--bg);margin-top:5px}
 .feed-filter{position:relative;text-transform:none;letter-spacing:0}
 .feed-filter>button.feed-filter-btn{height:36px;display:inline-flex;align-items:center;gap:6px;padding:0 14px;font-size:13px;font-weight:500;border-radius:var(--r-md);text-transform:none;letter-spacing:0;color:var(--text)}
@@ -1788,7 +1850,7 @@ let localSettingsTrusted=false;
 // dass ein laenger offener Tab automatisch erkennt, wenn eine neuere Version online ist
 // (siehe checkForNewVersion) - damit alte Tabs nicht unbemerkt mit veraltetem Code
 // weiterlaufen und neuere Aenderungen ueberschreiben koennen.
-const BUILD_VERSION='2026-10-27T04:00:00.000Z';
+const BUILD_VERSION='2026-10-27T15:00:00.000Z';
 const SUPABASE_URL='https://emsxbpcufhqjcuzdobcu.supabase.co';
 const SUPABASE_KEY='sb_publishable_P_QdWfpxyk8pvJDPd1-h6w_-CWSOg7e';
 const SB_SESSION_KEY='sb_session_v1';
@@ -3298,10 +3360,11 @@ function setActivityFeedFilter(f){
 }
 // Verlaufsfilter mit Mehrfachauswahl: 'all' oder z. B. 'comments,tasks'
 const FEED_KINDS=['comments','activity','tasks','files'];
+const FEED_DEFAULT='comments,tasks,files'; // Standard: alles ausser Aktivitaeten
 function feedKinds(){if(activityFeedFilter==='all')return FEED_KINDS.slice();const k=String(activityFeedFilter||'').split(',').filter(x=>FEED_KINDS.includes(x));return k.length?k:FEED_KINDS.slice();}
 function toggleFeedKind(k){
   let cur=feedKinds();
-  if(k==='all'){activityFeedFilter=cur.length===FEED_KINDS.length?'comments':'all';renderLeadModal();return;}
+  if(k==='all'){activityFeedFilter=cur.length===FEED_KINDS.length?FEED_DEFAULT:'all';renderLeadModal();return;}
   cur=cur.includes(k)?cur.filter(x=>x!==k):[...cur,k];
   if(!cur.length)return; // mindestens eine Art bleibt gewaehlt
   activityFeedFilter=cur.length===FEED_KINDS.length?'all':FEED_KINDS.filter(x=>cur.includes(x)).join(',');
@@ -8797,7 +8860,7 @@ function releaseLeadLock(leadId){
 function openLeadModal(id){
   editingLeadId=id;
   draftLead=id?JSON.parse(JSON.stringify(leads.find(x=>x.id===id))):blankLead();
-  labelPopoverOpen=false;memberPopoverOpen=false;activityFeedFilter='comments';feedFilterOpen=false;composePending=[];draftFileNote='';fcQ={demand:'',actual:''};fcQtyOpen=null;fcVkEdit=null;histEdit=null;lwAddOpen=false;ordOpen=null;ordQ={};taskMentionPopoverOpen=false;pendingTaskAssigneeId=null;draftTaskText='';draftCommentText='';editingCommentId=null;rightTab='comments';openTimePickerField=null;
+  labelPopoverOpen=false;memberPopoverOpen=false;activityFeedFilter=FEED_DEFAULT;feedFilterOpen=false;composePending=[];draftFileNote='';fcQ={demand:'',actual:''};fcQtyOpen=null;fcVkEdit=null;histEdit=null;lwAddOpen=false;ordOpen=null;ordQ={};taskMentionPopoverOpen=false;pendingTaskAssigneeId=null;draftTaskText='';draftCommentText='';editingCommentId=null;rightTab='comments';openTimePickerField=null;
   clearTimeout(lockHeartbeatTimer);
   const existingLock=id?getLeadLock(id):null;
   if(existingLock&&existingLock.agentId!==currentUser){
@@ -8922,12 +8985,13 @@ function renderLeadModal(){
         </div>`;
       }
       const isLossComment=/^Verlust-Grund \(/.test(item.text||'');
-      return `<div class="comment-item">
-        <div class="comment-av" style="background:${COLOR_BG[a?a.color:'gray']};color:${COLOR_TEXT[a?a.color:'gray']}">${a?ini(a.name):'?'}</div>
-        <div class="comment-bubble" ${isLossComment?'style="background:#FADBD8;border:1px solid #F1948A"':''}>
-          <span class="comment-author">${a?a.name:'Unbekannt'}</span><span class="comment-date">${fmtDateTime(item.date)}</span>${item.backdated?'<span class="backdated-tag" title="Nachträglich mit vergangenem Datum erfasst"><i class="ti ti-history" style="font-size:10px"></i> nacherfasst</span>':''}${item.edited?'<span class="backdated-tag" title="Von einem Admin bearbeitet"><i class="ti ti-pencil" style="font-size:10px"></i> bearbeitet</span>':''}
-          ${isAdmin()?`<span style="float:right;display:flex;gap:4px"><button class="icon-btn" style="width:22px;height:22px" onclick="startEditComment(${item.id})" title="Kommentar bearbeiten"><i class="ti ti-pencil" style="font-size:13px"></i></button><button class="icon-btn icon-btn-danger" style="width:22px;height:22px" onclick="deleteComment(${item.id})" title="Kommentar löschen"><i class="ti ti-trash" style="font-size:13px"></i></button></span>`:''}
-          <div class="comment-text">${esc(item.text)}</div>
+      const cTags=`${item.backdated?'<span class="backdated-tag" title="Nachträglich mit vergangenem Datum erfasst"><i class="ti ti-history" style="font-size:10px"></i> nacherfasst</span>':''}${item.edited?'<span class="backdated-tag" title="Von einem Admin bearbeitet"><i class="ti ti-pencil" style="font-size:10px"></i> bearbeitet</span>':''}`;
+      const cBtns=isAdmin()?`<button class="icon-btn" onclick="startEditComment(${item.id})" title="Kommentar bearbeiten"><i class="ti ti-pencil" style="font-size:13px"></i></button><button class="icon-btn icon-btn-danger" onclick="deleteComment(${item.id})" title="Kommentar löschen"><i class="ti ti-trash" style="font-size:13px"></i></button>`:'';
+      return `<div class="fc ${isLossComment?'fc-loss':'fc-c'}">
+        <div class="fc-band"><i class="ti ti-message"></i>${isLossComment?'Kommentar · Verlust-Grund':'Kommentar'}<span class="r">${cTags}${fmtDateTime(item.date)}${cBtns}</span></div>
+        <div class="fc-body">
+          <div class="fc-who"><span class="fc-av" style="background:${COLOR_BG[a?a.color:'gray']};color:${COLOR_TEXT[a?a.color:'gray']}">${a?ini(a.name):'?'}</span><b>${a?esc(a.name):'Unbekannt'}</b></div>
+          <div class="comment-text" style="margin-top:4px">${esc(item.text)}</div>
         </div>
       </div>`;
     }
@@ -8950,13 +9014,12 @@ function renderLeadModal(){
     const linkHtml=f.dataUrl
       ?`<a href="${f.dataUrl}" download="${esc(f.name)}" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:600;color:var(--text)"><i class="ti ti-file" style="margin-right:4px"></i>${esc(f.name)}</a>`
       :`<a href="#" onclick="downloadAttachment('${f.storagePath}','${esc(f.name).replace(/'/g,"\\'")}');return false;" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:600;color:var(--text)"><i class="ti ti-file" style="margin-right:4px"></i>${esc(f.name)}</a>`;
-    return `<div class="comment-item">
-      <div class="comment-av" style="background:${COLOR_BG[uploader?uploader.color:'gray']};color:${COLOR_TEXT[uploader?uploader.color:'gray']}">${uploader?ini(uploader.name):'?'}</div>
-      <div class="comment-bubble">
-        <span class="comment-author">${uploader?esc(uploader.name):'Unbekannt'}</span><span class="comment-date">${f.uploadedAt?fmtDateTime(f.uploadedAt):''}</span><span class="feed-tag f">Anhang</span>
-        ${modalReadOnly?'':`<span style="float:right;display:flex;gap:4px"><button class="icon-btn icon-btn-danger" style="width:22px;height:22px" onclick="removeFile(${f.id})" title="Anhang entfernen"><i class="ti ti-trash" style="font-size:13px"></i></button></span>`}
-        ${f.note?`<div class="comment-text" style="margin-top:3px">${esc(f.note)}</div>`:''}
-        <div class="feed-file">${linkHtml}<span style="font-size:11px;color:var(--text3);flex-shrink:0">${formatBytes(f.size)}</span></div>
+    return `<div class="fc fc-f">
+      <div class="fc-band"><i class="ti ti-paperclip"></i>Anhang<span class="r">${f.uploadedAt?fmtDateTime(f.uploadedAt):''}${modalReadOnly?'':`<button class="icon-btn icon-btn-danger" onclick="removeFile(${f.id})" title="Anhang entfernen"><i class="ti ti-trash" style="font-size:13px"></i></button>`}</span></div>
+      <div class="fc-body">
+        <div class="fc-who"><span class="fc-av" style="background:${COLOR_BG[uploader?uploader.color:'gray']};color:${COLOR_TEXT[uploader?uploader.color:'gray']}">${uploader?ini(uploader.name):'?'}</span><b>${uploader?esc(uploader.name):'Unbekannt'}</b></div>
+        ${f.note?`<div class="comment-text" style="margin-top:4px">${esc(f.note)}</div>`:''}
+        <div class="feed-file">${linkHtml}<span style="font-size:11px;color:var(--text2);flex-shrink:0">${formatBytes(f.size)}</span></div>
       </div>
     </div>`;
   });
@@ -8977,16 +9040,16 @@ function renderLeadModal(){
     const assignee=t.assigneeId?agentById(t.assigneeId):null;
     const assigneeBadge=assignee?`<span class="due-badge due-ok" style="background:${COLOR_BG[assignee.color]};color:${COLOR_TEXT[assignee.color]}"><i class="ti ti-user" style="font-size:11px"></i>${esc(assignee.name)}</span>`:'';
     const cr=agentById(t.createdBy);
-    return `<div class="comment-item">
-      <div class="comment-av" style="background:${COLOR_BG[cr?cr.color:'gray']};color:${COLOR_TEXT[cr?cr.color:'gray']}">${cr?ini(cr.name):'?'}</div>
-      <div class="comment-bubble">
-        <span class="comment-author">${cr?esc(cr.name):'Unbekannt'}</span><span class="comment-date">${t.createdAt?fmtDateTime(t.createdAt):''}</span><span class="feed-tag t">Aufgabe</span>
-        ${modalReadOnly?'':`<span style="float:right;display:flex;gap:4px"><button class="icon-btn icon-btn-danger" style="width:22px;height:22px" onclick="deleteTask(${t.id})" title="Aufgabe löschen"><i class="ti ti-trash" style="font-size:13px"></i></button></span>`}
-        <div style="display:flex;align-items:flex-start;gap:8px;margin-top:4px">
-          <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})" style="margin-top:3px;flex-shrink:0" title="${t.done?'Wieder öffnen':'Als erledigt markieren'}">
+    const assigneeTag=assignee?`<span>an</span><span class="due-badge due-ok" style="background:${COLOR_BG[assignee.color]};color:${COLOR_TEXT[assignee.color]}"><i class="ti ti-user" style="font-size:11px"></i>${esc(assignee.name)}</span>`:'';
+    return `<div class="fc ${t.done?'fc-done':'fc-t'}">
+      <div class="fc-band"><i class="ti ti-square-check"></i>Aufgabe · ${t.done?'erledigt':'offen'}<span class="r">${(!t.calDate&&dueBadge)?dueBadge:''}${t.createdAt?fmtDateTime(t.createdAt):''}${modalReadOnly?'':`<button class="icon-btn icon-btn-danger" onclick="deleteTask(${t.id})" title="Aufgabe löschen"><i class="ti ti-trash" style="font-size:13px"></i></button>`}</span></div>
+      <div class="fc-body">
+        <div class="fc-who"><span class="fc-av" style="background:${COLOR_BG[cr?cr.color:'gray']};color:${COLOR_TEXT[cr?cr.color:'gray']}">${cr?ini(cr.name):'?'}</span><b>${cr?esc(cr.name):'Unbekannt'}</b>${assigneeTag}</div>
+        <div style="display:flex;align-items:flex-start;gap:8px;margin-top:5px">
+          <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})" style="margin-top:3px;flex-shrink:0;accent-color:#206A72" title="${t.done?'Wieder öffnen':'Als erledigt markieren'}">
           <div style="flex:1;min-width:0">
             <span class="check-item-text ${t.done?'done':''}" style="font-size:13px">${esc(t.text)}</span>
-            ${(dueBadge||assigneeBadge||t.calDate)?`<div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">${assigneeBadge}${t.calDate?taskCalChipHtml(t):dueBadge}</div>`:''}
+            ${t.calDate?`<div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">${taskCalChipHtml(t)}</div>`:''}
           </div>
         </div>
       </div>
@@ -10029,7 +10092,7 @@ const FEED_LABELS={all:'Einträge',comments:'Kommentare',activity:'Aktivitäten'
 function feedFilterBtnHtml(k,cnt){
   const L={comments:'Kommentare',activity:'Aktivitäten',tasks:'Aufgaben',files:'Anhänge'};
   const sel=feedKinds();const all=sel.length===FEED_KINDS.length;
-  const label=all?'Alles':(sel.length===1?L[sel[0]]:(sel.length===2?`${L[sel[0]]} + ${L[sel[1]]}`:`${sel.length} Arten`));
+  const label=all?'Alles':(sel.join(',')===FEED_DEFAULT?'Ohne Aktivitäten':(sel.length===1?L[sel[0]]:(sel.length===2?`${L[sel[0]]} + ${L[sel[1]]}`:`${sel.length} Arten`)));
   const ck=on=>`<span class="ff-ck ${on?'on':''}" aria-hidden="true">${on?'<i class="ti ti-check"></i>':''}</span>`;
   return `<span class="feed-filter"><button type="button" class="btn feed-filter-btn ${!all?'act':''}" onclick="event.stopPropagation();feedFilterOpen=!feedFilterOpen;renderLeadModal()" aria-haspopup="menu" aria-expanded="${feedFilterOpen}" title="Verlauf filtern"><i class="ti ti-filter"></i> ${label} <i class="ti ti-chevron-down"></i></button>${feedFilterOpen?`<div class="feed-filter-menu" role="menu" onclick="event.stopPropagation()">
     <button type="button" role="menuitemcheckbox" aria-checked="${all}" class="${all?'on':''}" onclick="toggleFeedKind('all')">${ck(all)}Alles<b>${cnt.all||0}</b></button>
@@ -10037,12 +10100,240 @@ function feedFilterBtnHtml(k,cnt){
     ${FEED_KINDS.map(x=>`<button type="button" role="menuitemcheckbox" aria-checked="${sel.includes(x)}" class="${sel.includes(x)?'on':''}" onclick="toggleFeedKind('${x}')">${ck(sel.includes(x))}${L[x]}<b>${cnt[x]||0}</b></button>`).join('')}
   </div>`:''}</span>`;
 }
-function composeAddFiles(e){
-  const fs=Array.from(e.target.files||[]);
+function composeQueueFiles(list){
+  const fs=Array.from(list||[]);
   fs.forEach(f=>{if(f.size>MAX_ATTACHMENT_SIZE){alert(`Datei "${f.name}" ist zu groß (${formatBytes(f.size)}). Maximal erlaubt sind ${formatBytes(MAX_ATTACHMENT_SIZE)} pro Datei.`);return;}composePending.push(f);});
   const t=document.getElementById('fileNoteInput');if(t)draftFileNote=t.value;
-  e.target.value='';renderLeadModal();
+  renderLeadModal();
+  apCheckFiles(fs.filter(f=>composePending.includes(f)));
 }
+function composeAddFiles(e){
+  const list=Array.from(e.target.files||[]);
+  e.target.value='';composeQueueFiles(list);
+}
+
+// ── Kundenauftrag aus PDF (Okt. 2026) ──
+// Erkennt "Auftragsbestaetigung"-PDFs aus der Warenwirtschaft (Text-PDF, kein Scan), liest Beleg,
+// Datum, Kundennummer und Positionen aus und legt nach Bestaetigung einen Auftrag im Lead an.
+// Das Auslesen passiert komplett im Browser (pdf.js von cdnjs), die Daten verlassen das Board nicht.
+// Pauschalen: VP... (Versand) = Position, zaehlt zum Umsatz, Marge 0 (EK=VK);
+//             UWP... (Umwelt) = Position, zaehlt voll zur Marge (EK=0).
+// Gemeinsamer Kern: identisch im Board (aus Textzeilen eines PDFs einen Auftrag lesen)
+function apNum(s){const n=parseFloat(String(s||'').replace(/\./g,'').replace(',','.'));return isNaN(n)?null:n;}
+function apLinesFromItems(pages){ // pages: [[{str,x,y}]] -> Zeilen (nach y gruppiert, nach x sortiert)
+  const out=[];
+  pages.forEach(items=>{
+    const rows=[];
+    items.filter(i=>String(i.str).trim()!=='').forEach(i=>{let r=rows.find(r=>Math.abs(r.y-i.y)<2.5);if(!r){r={y:i.y,it:[]};rows.push(r);}r.it.push(i);});
+    rows.sort((a,b)=>b.y-a.y).forEach(r=>out.push(r.it.sort((a,b)=>a.x-b.x).map(i=>String(i.str).trim()).join(' ').replace(/\s+/g,' ').trim()));
+  });
+  return out;
+}
+function apParseOrder(lines){
+  const txt=lines.join('\n');
+  if(!/Auftragsbest(ä|ae)tigung/i.test(txt))return null;
+  const r={beleg:'',date:'',custNo:'',items:[],net:null};
+  for(let i=0;i<lines.length;i++){
+    const L=lines[i];
+    if(!r.beleg&&/^Belegnummer\b/i.test(L)){for(let j=i+1;j<Math.min(i+4,lines.length);j++){const m=lines[j].match(/(\d{5,})\s+(\d{2})\.(\d{2})\.(\d{4})/);if(m){r.beleg=m[1];r.date=`${m[4]}-${m[3]}-${m[2]}`;break;}}}
+    if(!r.custNo&&/^Kundennummer$/i.test(L)&&lines[i+1]){const m=lines[i+1].match(/^(\d{3,})\b/);if(m)r.custNo=m[1];}
+    const nm=L.match(/(Nettobetrag|Zwischensumme)\s+([\d.]+,\d{2})$/i);if(nm&&r.net===null)r.net=apNum(nm[2]);
+    const pm=L.match(/^(\d{1,3})\s+(.+?)\s+([\d.]+,\d{2,3})(?:\s+[\d.]+,\d{2,3})?\s+(-?[\d.]+,\d{2,4})\s+(-?[\d.]+,\d{2})$/);
+    if(pm&&!/^(Zwischensumme|Nettobetrag|Gesamtbetrag|Mehrwertsteuer)/i.test(pm[2])){r.items.push({pos:+pm[1],title:pm[2],qty:apNum(pm[3]),price:apNum(pm[4]),total:apNum(pm[5]),sku:''});continue;}
+    const am=L.match(/^Artikelnr\.?:?\s*(\S+)/i);if(am&&r.items.length&&!r.items[r.items.length-1].sku)r.items[r.items.length-1].sku=am[1];
+  }
+  return r;
+}
+
+const AP_PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+let apLib=null,apQueue=[],apCur=null;
+function apLoadLib(){
+  if(apLib)return apLib;
+  apLib=new Promise((res,rej)=>{const s=document.createElement('script');s.src=AP_PDFJS+'pdf.min.js';
+    s.onload=()=>{try{window.pdfjsLib.GlobalWorkerOptions.workerSrc=AP_PDFJS+'pdf.worker.min.js';res(window.pdfjsLib);}catch(e){rej(e);}};
+    s.onerror=()=>{apLib=null;rej(new Error('PDF-Leser konnte nicht geladen werden'));};document.head.appendChild(s);});
+  return apLib;
+}
+function apIsPdf(f){return f&&(/pdf/i.test(f.type||'')||/\.pdf$/i.test(f.name||''));}
+async function apReadOrder(file){
+  const lib=await apLoadLib();
+  const doc=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+  const pages=[];
+  for(let p=1;p<=Math.min(doc.numPages,10);p++){const c=await (await doc.getPage(p)).getTextContent();pages.push(c.items.map(i=>({str:i.str,x:i.transform[4],y:i.transform[5]})));}
+  const o=apParseOrder(apLinesFromItems(pages));
+  return (o&&o.items.length)?o:null;
+}
+function apKind(sku){const k=String(sku||'').toUpperCase();return k.startsWith('UWP')?'uwp':(k.startsWith('VP')?'vp':'art');}
+function apRows(o){
+  return o.items.map(it=>{
+    const kind=apKind(it.sku);
+    const a=kind==='art'?ARTICLES.find(x=>String(x.sku||'').trim().toLowerCase()===String(it.sku).trim().toLowerCase()):null;
+    const ek=kind==='vp'?it.price:(kind==='uwp'?0:(a&&shipNum(a.ek)!==null?shipNum(a.ek):null));
+    return {sku:it.sku||'',title:(a&&a.title)||it.title||'',qty:it.qty||0,vk:it.price||0,ek,kind,missing:kind==='art'&&!a,noEk:kind==='art'&&ek===null,articleId:a?a.id:null};
+  });
+}
+function apCheckFiles(list){
+  if(!editingLeadId||!draftLead||modalReadOnly)return;
+  Array.from(list||[]).filter(apIsPdf).forEach(f=>{apQueue.push(f);});
+  if(!apCur)apNext();
+}
+async function apNext(){
+  const f=apQueue.shift();if(!f){apCur=null;return;}
+  apCur={file:f,busy:true};apRender();
+  try{
+    const o=await apReadOrder(f);
+    if(!o||!apCur||apCur.file!==f){apClose(false);return;}
+    apCur={file:f,order:o,rows:apRows(o)};apRender();
+  }catch(e){console.warn('PDF-Auftrag:',e);apClose(false);}
+}
+function apClose(next=true){const el=document.getElementById('apOverlay');if(el)el.remove();apCur=null;if(next!==false||apQueue.length)apNext();}
+function apFreeIdx(rows){return rows.map((r,i)=>(r.kind==='art'&&Math.abs(r.vk)<0.005)?i:-1).filter(i=>i>=0);}
+function apSetFree(v){if(!apCur)return;apCur.free=v;if(v&&apCur.move===undefined){const c=colById(draftLead.status);apCur.move=draftLead.status==='am_order';apCur.moveCol=c;}apRender();}
+function apSetMove(v){if(apCur){apCur.move=!!v;}}
+function apPlan(){ // was beim Uebernehmen passiert
+  const o=apCur.order,rows=apCur.rows,fi=apFreeIdx(rows),free=apCur.free===true&&fi.length>0;
+  const orderRows=free?rows.filter((r,i)=>!fi.includes(i)&&!(r.kind==='vp'&&Math.abs(r.vk)<0.005)):rows;
+  const freeRows=free?fi.map(i=>rows[i]):[];
+  return {free,orderRows,freeRows,hasFree:fi.length>0};
+}
+function apRender(){
+  let el=document.getElementById('apOverlay');
+  if(!apCur){if(el)el.remove();return;}
+  if(!el){el=document.createElement('div');el.id='apOverlay';el.className='ap-ov';document.body.appendChild(el);}
+  const f=apCur.file;
+  if(apCur.busy){el.innerHTML=`<div class="ap-dlg"><div class="ap-busy"><i class="ti ti-loader-2"></i> ${esc(f.name)} wird geprüft …</div></div>`;return;}
+  const o=apCur.order,rows=apCur.rows,l=draftLead;
+  const P=apPlan();
+  const leadNo=String(l.customerNumber||'').trim();
+  const noBad=!!(o.custNo&&leadNo&&o.custNo.replace(/^0+/,'')!==leadNo.replace(/^0+/,''));
+  const dup=o.beleg?ordList().find(x=>String(x.beleg||'').trim()===o.beleg):null;
+  const dupFt=o.beleg&&String(l.tonerSentBeleg||'').trim()===o.beleg;
+  // Belegnummer auch in allen anderen Leads pruefen (Auftraege und Free-Toner-Versand)
+  const dupElse=o.beleg?leads.filter(x=>String(x.id)!==String(l.id)).map(x=>({lead:x,ord:(x.actualPrinters||[]).find(p=>String(p.beleg||'').trim()===o.beleg)||(String(x.tonerSentBeleg||'').trim()===o.beleg?{}:null)})).filter(x=>x.ord):[];
+  const belegBad=!!dup||dupFt||dupElse.length>0;
+  const oRows=P.orderRows;
+  const sumVk=oRows.reduce((s,r)=>s+r.vk*r.qty,0),sumEk=oRows.reduce((s,r)=>s+(r.ek||0)*r.qty,0);
+  const allVk=rows.reduce((s,r)=>s+r.vk*r.qty,0);
+  const sumOff=o.net!==null&&Math.abs(o.net-allVk)>0.02;
+  const miss=rows.filter(r=>r.missing||r.noEk);
+  const warn=(t,soft)=>`<div class="ap-warn ${soft?'soft':''}"><i class="ti ti-alert-triangle"></i><div>${t}</div></div>`;
+  const freeSet=new Set(P.freeRows);
+  const tag=r=>freeSet.has(r)?'<span class="ap-tag ft">Free Toner</span>':(r.kind==='vp'?'<span class="ap-tag">Versandpauschale</span>':(r.kind==='uwp'?'<span class="ap-tag">Umweltpauschale</span>':(r.missing?'<span class="ap-tag miss">nicht im Katalog</span>':(r.noEk?'<span class="ap-tag miss">ohne EK</span>':''))));
+  const rowsHtml=rows.map(r=>{
+    const skip=P.free&&!freeSet.has(r)&&!oRows.includes(r);
+    const m=r.ek===null?null:(r.vk-r.ek)*r.qty;
+    const mHtml=freeSet.has(r)?'<span style="color:#4f5d60">Toner zusenden</span>':(skip?'<span style="color:#4f5d60">entfällt</span>':(m===null?'–':(r.kind==='vp'?'<span style="color:#4f5d60">±0,00 €</span>':`<b>${fmtEurCent(m)}</b>`)));
+    return `<tr ${skip?'style="opacity:.5"':''}><td><b style="font-weight:600">${esc(r.sku||'–')}</b>${tag(r)}<div class="d">${esc(r.title)}</div></td><td class="n">${String(r.qty).replace('.',',')}</td><td class="n">${fmtEurCent(r.vk)}</td><td class="n">${r.ek===null?'–':fmtEurCent(r.ek)}</td><td class="n">${mHtml}</td></tr>`;}).join('');
+  // Free-Toner-Frage
+  let freeHtml='';
+  if(P.hasFree){
+    const cur=colById(l.status),pql=colById('fu_feedback');
+    const inPql=cur&&colBoard(cur)==='vertrieb';
+    const fq=`<div class="ap-q"><i class="ti ti-gift" style="font-size:22px;color:#206A72"></i><div><b>Handelt es sich um den Free Toner?</b><small>${apFreeIdx(rows).length===1?'Eine Position steht':apFreeIdx(rows).length+' Positionen stehen'} mit 0,00 € im Auftrag.</small></div><div class="ap-seg"><button type="button" class="${apCur.free===true?'on':''}" onclick="apSetFree(true)">Ja</button><button type="button" class="${apCur.free===false?'on':''}" onclick="apSetFree(false)">Nein</button></div></div>`;
+    let fl='';
+    if(apCur.free===true){
+      const shipFilled=((l.shipPrinter&&l.shipPrinter.skus)||[]).filter(x=>x.sku).length;
+      fl=`<div class="ap-ft-list">
+        <div><i class="ti ti-check"></i><b>Free Toner verschickt: Ja</b>, Versanddatum ${o.date?fmtDate(o.date):'heute'}</div>
+        <div><i class="ti ti-check"></i>${P.freeRows.length===1?'1 Toner':P.freeRows.length+' Toner'} unter „Toner zusenden“ eintragen</div>
+        ${inPql?`<div><i class="ti ti-info-circle"></i>Lead steht schon im PQL-Board (${esc(cur.name)}) und bleibt dort</div>`
+          :(pql?`<label><input type="checkbox" ${apCur.move?'checked':''} onchange="apSetMove(this.checked)"> Lead von „${esc(cur?cur.name:'–')}“ nach „${esc(pql.name)}“ (Board: PQL) verschieben</label>`:'')}
+        ${(!inPql&&l.status!=='am_order')?`<div style="color:#6b4206"><i class="ti ti-alert-triangle" style="color:#6b4206"></i>Der Lead steht nicht in „${esc((colById('am_order')||{}).name||'AM: Auftrag')}“. Bitte bewusst entscheiden, ob er trotzdem nach PQL soll.</div>`:''}
+      </div>`;
+      if(l.tonerSent==='Ja')fl+=warn(`Bei diesem Lead steht schon <b>„Free Toner verschickt: Ja“</b>${l.tonerSentAt?' seit '+fmtDate(l.tonerSentAt):''}. Das Versanddatum wird nicht geändert.`,true);
+      if(shipFilled)fl+=warn(`Unter „Toner zusenden“ ${shipFilled===1?'steht schon 1 Artikel':'stehen schon '+shipFilled+' Artikel'}. Die neuen werden ergänzt, soweit Platz ist (max. ${SHIP_ART_MAX}).`,true);
+    }
+    freeHtml=fq+fl;
+  }
+  const needAnswer=P.hasFree&&apCur.free!==true&&apCur.free!==false;
+  const sumHtml=(P.free&&!oRows.length)
+    ?`<div class="ap-note">Kein Auftrag: Der Beleg enthält nur den Free Toner${rows.some(r=>r.kind==='vp')?' und die Versandpauschale (die Versandkosten rechnet das Board über die feste Pauschale)':''}.</div>`
+    :`${P.free?'<div class="ap-note" style="padding:6px 12px">Die übrigen Positionen werden als Auftrag angelegt:</div>':''}<div class="ap-g3"><div class="ap-k"><small>Umsatz</small><b>${fmtEurCent(sumVk)}</b></div><div class="ap-k"><small>EK gesamt</small><b>${fmtEurCent(sumEk)}</b></div><div class="ap-k dark"><small>Marge</small><b>${fmtEurCent(sumVk-sumEk)}</b></div></div>`;
+  const title=P.free?'Free-Toner-Versand erkannt':'Auftragsbestätigung erkannt';
+  const btnLbl=P.free?(oRows.length?'Free Toner + Auftrag übernehmen':'Free Toner übernehmen'):'Als Auftrag übernehmen';
+  el.innerHTML=`<div class="ap-dlg" role="dialog" aria-modal="true" aria-label="${title}">
+    <div class="ap-hdr"><i class="ti ${P.free?'ti-gift':'ti-file-check'}"></i><div><b>${title}</b><small>${esc(f.name)} · ${P.free?'Free Toner eintragen?':'als Auftrag übernehmen?'}</small></div><button type="button" class="ap-x" onclick="apAttachOnly()" title="Schließen (Datei bleibt als Anhang vorgemerkt)"><i class="ti ti-x"></i></button></div>
+    <div class="ap-body">
+      ${freeHtml}
+      <div class="ap-g3">
+        <div class="ap-tile ${belegBad?'bad':''}"><small>Belegnummer</small><b>${esc(o.beleg||'–')}</b></div>
+        <div class="ap-tile"><small>${P.free?'Belegdatum':'Auftragsdatum'}</small><b>${o.date?fmtDate(o.date):'–'}</b></div>
+        <div class="ap-tile ${noBad?'bad':''}"><small>Kundennummer</small><b>${esc(o.custNo||'–')}</b></div>
+      </div>
+      ${noBad?warn(`<b>Kundennummer passt nicht zum Lead.</b> Im PDF steht ${esc(o.custNo)}, der Lead „${esc(l.company||'')}“ hat ${esc(leadNo)}. Bitte prüfen, ob du den richtigen Lead offen hast.`):''}
+      ${dup?warn(`<b>Belegnummer ist bereits vorhanden.</b> Beleg ${esc(o.beleg)} steht in diesem Lead schon als Auftrag ${ordNo(dup)} vom ${fmtDate(String(dup.date||'').slice(0,10))}. Beim Übernehmen entsteht ein zweiter Auftrag.`):''}
+      ${dupFt?warn(`<b>Belegnummer ist bereits vorhanden.</b> Beleg ${esc(o.beleg)} wurde bei diesem Lead schon als Free-Toner-Versand übernommen.`):''}
+      ${dupElse.length?warn(`<b>Belegnummer ist bereits vorhanden.</b> Beleg ${esc(o.beleg)} steht schon bei ${dupElse.slice(0,3).map(x=>`„${esc(x.lead.company||'Lead')}“${x.lead.customerNumber?' (Kd-Nr. '+esc(x.lead.customerNumber)+')':''}`).join(', ')}${dupElse.length>3?' und '+(dupElse.length-3)+' weiteren':''}. Bitte prüfen, ob der Auftrag doppelt angelegt wird.`):''}
+      ${miss.length?warn(`${miss.length===1?'Ein Artikel ist':miss.length+' Artikel sind'} nicht im Artikelkatalog oder ohne EK. Die Marge dafür wird mit EK 0 € gerechnet, bitte im Auftrag nachtragen.`,true):''}
+      ${sumOff?warn(`Die Positionen ergeben ${fmtEurCent(allVk)}, im PDF steht netto ${fmtEurCent(o.net)}. Bitte die Positionen prüfen.`,true):''}
+      <table class="ap-tbl"><thead><tr><th>Artikel</th><th class="n">Menge</th><th class="n">VK</th><th class="n">EK</th><th class="n">Marge</th></tr></thead><tbody>${rowsHtml}</tbody></table>
+      ${sumHtml}
+    </div>
+    <div class="ap-ft"><button type="button" class="btn" onclick="apAttachOnly()">Nur als Anhang</button><span style="flex:1"></span><button type="button" class="btn" onclick="apCancel()">Abbrechen</button><button type="button" class="btn btn-primary" id="apTakeBtn" onclick="apTake()" ${needAnswer?'disabled title="Bitte zuerst die Free-Toner-Frage beantworten"':''}><i class="ti ti-check"></i> ${btnLbl}</button></div>
+  </div>`;
+}
+function apAttachOnly(){apClose();}
+function apCancel(){if(apCur&&apCur.file){composePending=composePending.filter(x=>x!==apCur.file);renderLeadModal();}apClose();}
+async function apTake(){
+  if(!apCur||!apCur.order||modalReadOnly)return;
+  const P=apPlan();
+  if(P.hasFree&&apCur.free!==true&&apCur.free!==false)return;
+  const btn=document.getElementById('apTakeBtn');if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Wird übernommen …';}
+  const {file,order:o}=apCur;const moveToPql=P.free&&!!apCur.move;
+  const log=t=>{const a={id:Date.now()+Math.random(),type:'activity',author:currentUser,text:t,date:nowISO()};draftLead.activity.unshift(a);pushActivityToDb(editingLeadId||draftLead.id,a);};
+  // 1) Auftrag (bezahlte Positionen bzw. alles, wenn kein Free Toner)
+  if(P.orderRows.length){
+    const skus=P.orderRows.map(r=>({sku:r.sku,qty:r.qty,priceEk:r.ek===null?'':r.ek,priceVk:r.vk,title:r.title,...(r.articleId!=null?{articleId:r.articleId}:{}),...(r.kind!=='art'?{flat:r.kind}:{})}));
+    const ord={id:genId(),model:'',date:o.date||TODAY,beleg:o.beleg||'',skus,source:'pdf'};
+    draftLead.actualPrinters.push(ord);ordOpen=ord.id;recomputeActual();
+    const t=ordTotals(ord);
+    log(`Auftrag aus PDF übernommen: Beleg ${o.beleg||'–'} vom ${o.date?fmtDate(o.date):'–'} (${skus.length} Positionen, ${fmtEurCent(t.u)})`);
+  }
+  // 2) Free Toner: "Toner zusenden" + "Free Toner verschickt: Ja"
+  if(P.free){
+    if(!draftLead.shipPrinter)draftLead.shipPrinter={model:'',skus:[]};
+    const sk=draftLead.shipPrinter.skus=(draftLead.shipPrinter.skus||[]).filter(x=>x.sku);
+    let added=0,skipped=0;
+    P.freeRows.forEach(r=>{
+      if(sk.some(x=>String(x.sku).toLowerCase()===String(r.sku).toLowerCase())){return;}
+      if(sk.length>=SHIP_ART_MAX){skipped++;return;}
+      const a=r.articleId!=null?ARTICLES.find(x=>String(x.id)===String(r.articleId)):null;
+      const vk=a?shipNum(a.vk):null;
+      sk.push({sku:r.sku,priceEk:r.ek!==null?String(r.ek):'',priceVk:vk!==null?String(vk):'',title:r.title||'',...(r.articleId!=null?{articleId:r.articleId}:{}),qty:Math.max(1,Math.min(10,Math.round(r.qty)||1))});added++;
+    });
+    while(sk.length<SHIP_ART_MAX)sk.push({sku:'',priceEk:'',priceVk:''});
+    const wasSent=draftLead.tonerSent==='Ja';
+    setTonerSent(draftLead,'Ja');
+    if(!wasSent&&o.date)draftLead.tonerSentAt=o.date;
+    if(o.beleg)draftLead.tonerSentBeleg=o.beleg;
+    log(`Free Toner aus PDF übernommen: Beleg ${o.beleg||'–'} vom ${o.date?fmtDate(o.date):'–'} (${P.freeRows.map(r=>r.sku).join(', ')})${wasSent?'':' · Free Toner verschickt: Ja'}`);
+    if(skipped)alert(`${skipped} Toner passten nicht mehr unter „Toner zusenden“ (max. ${SHIP_ART_MAX} Artikel) und wurden nicht eingetragen.`);
+  }
+  // 3) PDF als Anhang
+  composePending=composePending.filter(x=>x!==file);
+  try{
+    const fileId=Date.now()+Math.random();
+    const storagePath=await uploadAttachmentToStorage(draftLead.id,fileId,file);
+    draftLead.files.push({id:fileId,name:file.name,size:file.size,storagePath,uploadedBy:currentUser,uploadedAt:nowISO(),note:`Auftragsbestätigung ${o.beleg||''}`.trim()});
+    log(`Datei hochgeladen: ${file.name}`);
+  }catch(err){alert(`Die Daten wurden übernommen, aber das PDF "${file.name}" konnte nicht als Anhang hochgeladen werden: ${err.message}`);}
+  // 4) Nach PQL verschieben (gleicher Weg wie Speichern mit Listenwechsel: Verlauf, Verweildauer, Erstkontakt)
+  apClose(false);
+  if(moveToPql&&colById('fu_feedback')){autoPersistIfEditing();draftLead.status='fu_feedback';saveLead(true);}
+  else{autoPersistIfEditing();renderLeadModal();}
+  if(apQueue.length)apNext();
+}
+
+// Dateien per Drag & Drop aufs offene Lead-Fenster: springt auf "Anhang" und merkt sie vor.
+// Reagiert nur auf echte Dateien (nicht auf das Ziehen von Karten, Labels o. a.).
+let lmDragDepth=0;
+function lmDropAllowed(){const m=document.getElementById('leadModal');return !!(m&&!m.classList.contains('hidden')&&editingLeadId&&draftLead&&!modalReadOnly);}
+function lmHasFiles(e){const t=e.dataTransfer&&e.dataTransfer.types;return !!t&&Array.from(t).includes('Files');}
+function lmDropOff(){lmDragDepth=0;const m=document.getElementById('leadModal');if(m)m.classList.remove('lm-dropping');}
+document.addEventListener('dragenter',e=>{if(!lmHasFiles(e)||!lmDropAllowed())return;e.preventDefault();lmDragDepth++;document.getElementById('leadModal').classList.add('lm-dropping');});
+document.addEventListener('dragover',e=>{if(!lmHasFiles(e)||!lmDropAllowed())return;e.preventDefault();try{e.dataTransfer.dropEffect='copy';}catch(_){}});
+document.addEventListener('dragleave',e=>{if(!lmHasFiles(e)||!lmDropAllowed())return;lmDragDepth--;if(lmDragDepth<=0)lmDropOff();});
+document.addEventListener('drop',e=>{if(!lmHasFiles(e))return;if(!lmDropAllowed()){lmDropOff();return;}e.preventDefault();lmDropOff();composeMode='file';composeQueueFiles(e.dataTransfer.files);});
 function composeRemoveFile(ix){const t=document.getElementById('fileNoteInput');if(t)draftFileNote=t.value;composePending.splice(ix,1);renderLeadModal();}
 async function composeUpload(){
   if(modalReadOnly)return;
